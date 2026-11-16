@@ -1,4 +1,4 @@
-# Windows thumbnail cache files
+# Windows thumbnail cache files (applies to untracked files; does not retroactively untrack already-committed files)
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db

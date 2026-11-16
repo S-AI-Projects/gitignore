@@ -1,0 +1,194 @@
+{
+  "task_id": "R46-T015",
+  "template": "Global/Windows.gitignore",
+  "focus_patterns": [
+    "Thumbs.db",
+    "Thumbs.db:encryptable",
+    "ehthumbs.db"
+  ],
+  "tool_versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "assertions": [
+    {
+      "id": "thumbs-root-match",
+      "focus_pattern": "Thumbs.db",
+      "path": "Thumbs.db",
+      "description": "Root Windows thumbnail cache is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "Thumbs.db"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "Thumbs.db",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:Thumbs.db\tThumbs.db",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "thumbs-nested-match",
+      "focus_pattern": "Thumbs.db",
+      "path": "assets/Thumbs.db",
+      "description": "Nested Windows thumbnail cache is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "Thumbs.db"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "Thumbs.db",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:Thumbs.db\tassets/Thumbs.db",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "thumbs-encryptable-match",
+      "focus_pattern": "Thumbs.db:encryptable",
+      "path": "Thumbs.db:encryptable",
+      "description": "Thumbs.db:encryptable alternate stream file is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "Thumbs.db:encryptable"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "Thumbs.db:encryptable",
+        "rule_line": 3,
+        "raw_output": ".gitignore:3:Thumbs.db:encryptable\tThumbs.db:encryptable",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "ehthumbs-root-match",
+      "focus_pattern": "ehthumbs.db",
+      "path": "ehthumbs.db",
+      "description": "Windows Media Center thumbnail cache is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "ehthumbs.db"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "ehthumbs.db",
+        "rule_line": 4,
+        "raw_output": ".gitignore:4:ehthumbs.db\tehthumbs.db",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "ehthumbs-nested-match",
+      "focus_pattern": "ehthumbs.db",
+      "path": "media/ehthumbs.db",
+      "description": "Nested Windows Media Center thumbnail cache is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "ehthumbs.db"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "ehthumbs.db",
+        "rule_line": 4,
+        "raw_output": ".gitignore:4:ehthumbs.db\tmedia/ehthumbs.db",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "thumbs-ext-nearmiss",
+      "focus_pattern": "Thumbs.db",
+      "path": "Thumbs.db.txt",
+      "description": "Near miss with .txt extension remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "thumbs-prefix-nearmiss",
+      "focus_pattern": "Thumbs.db",
+      "path": "MyThumbs.db",
+      "description": "Near miss with prefix My is not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "ehthumbs-bak-nearmiss",
+      "focus_pattern": "ehthumbs.db",
+      "path": "ehthumbs.db.bak",
+      "description": "Near miss with .bak extension is not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "thumbs-png-nearmiss",
+      "focus_pattern": "Thumbs.db",
+      "path": "Thumbs.png",
+      "description": "User image file is not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    }
+  ],
+  "tracked_file_experiment": {
+    "tracked_file": "Thumbs.db",
+    "untracked_file": "ehthumbs.db",
+    "status_before_untrack": "M Thumbs.db\n?? .gitignore",
+    "status_after_untrack": "D  Thumbs.db\n?? .gitignore",
+    "tracked_modification_detected": true,
+    "untracked_ignored": true,
+    "untrack_via_rm_cached": true,
+    "passed": true
+  },
+  "summary": {
+    "total": 11,
+    "passed": 11,
+    "failed": 0,
+    "all_passed": true
+  }
+}
