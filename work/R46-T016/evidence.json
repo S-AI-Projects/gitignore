@@ -1,0 +1,201 @@
+{
+  "task_id": "R46-T016",
+  "template": "Typo3.gitignore",
+  "focus_patterns": [
+    "/fileadmin/user_upload/",
+    "/fileadmin/_temp_/",
+    "/fileadmin/_processed_/"
+  ],
+  "filesystem_info": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "filesystem_case_sensitive": false
+  },
+  "tool_versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  },
+  "assertions": [
+    {
+      "id": "upload-standard-match",
+      "focus_pattern": "/fileadmin/user_upload/",
+      "path": "fileadmin/user_upload/standard.jpg",
+      "description": "Standard file in user_upload is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/fileadmin/user_upload/"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/fileadmin/user_upload/",
+        "rule_line": 3,
+        "raw_output": ".gitignore:3:/fileadmin/user_upload/\tfileadmin/user_upload/standard.jpg",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "upload-spaces-match",
+      "focus_pattern": "/fileadmin/user_upload/",
+      "path": "fileadmin/user_upload/my company photo 2026.png",
+      "description": "File with spaces inside user_upload is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/fileadmin/user_upload/"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/fileadmin/user_upload/",
+        "rule_line": 3,
+        "raw_output": ".gitignore:3:/fileadmin/user_upload/\tfileadmin/user_upload/my company photo 2026.png",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "temp-match",
+      "focus_pattern": "/fileadmin/_temp_/",
+      "path": "fileadmin/_temp_/session_cache.tmp",
+      "description": "File in _temp_ directory is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/fileadmin/_temp_/"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/fileadmin/_temp_/",
+        "rule_line": 4,
+        "raw_output": ".gitignore:4:/fileadmin/_temp_/\tfileadmin/_temp_/session_cache.tmp",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "processed-spaces-match",
+      "focus_pattern": "/fileadmin/_processed_/",
+      "path": "fileadmin/_processed_/thumbnail 300 x 300.webp",
+      "description": "File with spaces in _processed_ directory is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/fileadmin/_processed_/"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/fileadmin/_processed_/",
+        "rule_line": 5,
+        "raw_output": ".gitignore:5:/fileadmin/_processed_/\tfileadmin/_processed_/thumbnail 300 x 300.webp",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "upload-space-folder-nearmiss",
+      "focus_pattern": "/fileadmin/user_upload/",
+      "path": "fileadmin/user upload/image.jpg",
+      "description": "Directory with space instead of underscore remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "temp-missing-underscores-nearmiss",
+      "focus_pattern": "/fileadmin/_temp_/",
+      "path": "fileadmin/temp/cache.tmp",
+      "description": "Directory without underscores remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "upload-nested-nearmiss",
+      "focus_pattern": "/fileadmin/user_upload/",
+      "path": "nested/fileadmin/user_upload/image.jpg",
+      "description": "Nested directory is not matched due to root leading slash anchoring",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "temp-sibling-file-nearmiss",
+      "focus_pattern": "/fileadmin/_temp_/",
+      "path": "fileadmin/_temp_.txt",
+      "description": "Regular file with matching prefix but not directory is not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    }
+  ],
+  "case_sensitivity_checks": [
+    {
+      "core_ignorecase": false,
+      "variant_path": "Fileadmin/User_Upload/Photo.JPG",
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "expected_ignored": false,
+      "passed": true
+    },
+    {
+      "core_ignorecase": true,
+      "variant_path": "Fileadmin/User_Upload/Photo.JPG",
+      "actual": {
+        "ignored": true,
+        "pattern": "/fileadmin/user_upload/",
+        "rule_line": 3,
+        "raw_output": ".gitignore:3:/fileadmin/user_upload/\tFileadmin/User_Upload/Photo.JPG",
+        "returncode": 0
+      },
+      "expected_ignored": true,
+      "passed": true
+    }
+  ],
+  "tracked_file_check": {
+    "passed": true,
+    "status_output": "M fileadmin/user_upload/placeholder.txt\n?? .gitignore"
+  },
+  "summary": {
+    "total": 11,
+    "passed": 11,
+    "failed": 0,
+    "all_passed": true
+  }
+}

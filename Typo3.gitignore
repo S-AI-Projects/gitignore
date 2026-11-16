@@ -1,5 +1,5 @@
 ## TYPO3 v6.2
-# Ignore several upload and file directories.
+# Ignore several upload and file directories (anchored directories; handles paths with spaces; case sensitivity governed by core.ignorecase)
 /fileadmin/user_upload/
 /fileadmin/_temp_/
 /fileadmin/_processed_/
