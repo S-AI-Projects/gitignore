@@ -1,0 +1,292 @@
+{
+  "task_id": "R46-T018",
+  "template": "Scala.gitignore",
+  "focus_patterns": [
+    "*.class",
+    "*.tasty",
+    "*.log"
+  ],
+  "tool_versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "assertions": [
+    {
+      "id": "class-root-match",
+      "focus_pattern": "*.class",
+      "category": "build_artifact",
+      "path": "App.class",
+      "description": "Compiled root bytecode class is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.class"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.class",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:*.class\tApp.class",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "class-nested-match",
+      "focus_pattern": "*.class",
+      "category": "build_artifact",
+      "path": "target/scala-3.3.0/classes/Main.class",
+      "description": "Nested compilation class is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.class"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.class",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:*.class\ttarget/scala-3.3.0/classes/Main.class",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "tasty-root-match",
+      "focus_pattern": "*.tasty",
+      "category": "build_artifact",
+      "path": "App.tasty",
+      "description": "Scala 3 TASTy artifact at root is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.tasty"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.tasty",
+        "rule_line": 4,
+        "raw_output": ".gitignore:4:*.tasty\tApp.tasty",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "tasty-nested-match",
+      "focus_pattern": "*.tasty",
+      "category": "build_artifact",
+      "path": "target/scala-3.3.0/classes/Main.tasty",
+      "description": "Nested Scala 3 TASTy artifact is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.tasty"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.tasty",
+        "rule_line": 4,
+        "raw_output": ".gitignore:4:*.tasty\ttarget/scala-3.3.0/classes/Main.tasty",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "log-root-match",
+      "focus_pattern": "*.log",
+      "category": "build_artifact",
+      "path": "sbt.log",
+      "description": "Root build log output is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.log"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.log",
+        "rule_line": 6,
+        "raw_output": ".gitignore:6:*.log\tsbt.log",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "log-nested-match",
+      "focus_pattern": "*.log",
+      "category": "build_artifact",
+      "path": "logs/application.log",
+      "description": "Nested application log is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.log"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.log",
+        "rule_line": 6,
+        "raw_output": ".gitignore:6:*.log\tlogs/application.log",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "source-scala-main",
+      "focus_pattern": "*.class",
+      "category": "source_code",
+      "path": "src/main/scala/Main.scala",
+      "description": "Main Scala source file must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "source-scala-test",
+      "focus_pattern": "*.class",
+      "category": "source_code",
+      "path": "src/test/scala/AppSuite.scala",
+      "description": "Test suite Scala file must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "build-sbt-definition",
+      "focus_pattern": "*.class",
+      "category": "build_definition",
+      "path": "build.sbt",
+      "description": "SBT build definition must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "project-build-properties",
+      "focus_pattern": "*.class",
+      "category": "build_definition",
+      "path": "project/build.properties",
+      "description": "SBT build properties must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "resource-logback-xml",
+      "focus_pattern": "*.log",
+      "category": "configuration",
+      "path": "src/main/resources/logback.xml",
+      "description": "Logging configuration XML must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "nearmiss-class-name",
+      "focus_pattern": "*.class",
+      "category": "near_miss",
+      "path": "Class.scala",
+      "description": "Scala source file containing Class in basename remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "nearmiss-tasty-name",
+      "focus_pattern": "*.tasty",
+      "category": "near_miss",
+      "path": "TastyRecipe.scala",
+      "description": "Scala source file containing tasty in basename remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "nearmiss-log-name",
+      "focus_pattern": "*.log",
+      "category": "near_miss",
+      "path": "Logger.scala",
+      "description": "Scala source file containing log in basename remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    }
+  ],
+  "tracked_file_check": {
+    "passed": true,
+    "status_output": "M Prebuilt.class\n?? .gitignore"
+  },
+  "summary": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0,
+    "all_passed": true
+  }
+}
