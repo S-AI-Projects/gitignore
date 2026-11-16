@@ -6,6 +6,7 @@
 #   * We don't recommend to ignore the .workspace directory, because of important
 #     * project specific settings
 #     * local user settings
+# Anchored workspace configuration and user preferences (relative to gitignore root)
 .workspace/ETdrive.xml
 .workspace/favorites.xml
 .workspace/filters.xml
