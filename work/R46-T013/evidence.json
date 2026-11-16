@@ -1,0 +1,206 @@
+{
+  "task_id": "R46-T013",
+  "template": "Ada.gitignore",
+  "focus_patterns": [
+    "*.o",
+    "*.ali"
+  ],
+  "tool_versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "assertions": [
+    {
+      "id": "o-match-root",
+      "focus_pattern": "*.o",
+      "path": "main.o",
+      "description": "Compiled object file at root is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.o"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.o",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:*.o\tmain.o",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "o-match-nested",
+      "focus_pattern": "*.o",
+      "path": "build/sub.o",
+      "description": "Compiled object file in nested directory is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.o"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.o",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:*.o\tbuild/sub.o",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "ali-match-root",
+      "focus_pattern": "*.ali",
+      "path": "main.ali",
+      "description": "GNAT Ada library info file at root is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.ali"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.ali",
+        "rule_line": 5,
+        "raw_output": ".gitignore:5:*.ali\tmain.ali",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "ali-match-nested",
+      "focus_pattern": "*.ali",
+      "path": "build/sub.ali",
+      "description": "GNAT Ada library info file in nested directory is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.ali"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.ali",
+        "rule_line": 5,
+        "raw_output": ".gitignore:5:*.ali\tbuild/sub.ali",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "source-adb-visible",
+      "focus_pattern": "*.o",
+      "path": "main.adb",
+      "description": "Ada body source file must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "source-ads-visible",
+      "focus_pattern": "*.ali",
+      "path": "main.ads",
+      "description": "Ada spec source file must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "nearmiss-o-txt",
+      "focus_pattern": "*.o",
+      "path": "prebuilt.o.txt",
+      "description": "Near miss with additional .txt extension remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "nearmiss-ali-bak",
+      "focus_pattern": "*.ali",
+      "path": "data.ali.bak",
+      "description": "Near miss with additional .bak extension remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    }
+  ],
+  "negation_order_demonstration": {
+    "sequence_A": {
+      "rules": [
+        "*.o",
+        "!prebuilt.o"
+      ],
+      "prebuilt_o": {
+        "ignored": true,
+        "pattern": "!prebuilt.o",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:!prebuilt.o\tprebuilt.o",
+        "returncode": 0
+      },
+      "other_o": {
+        "ignored": true,
+        "pattern": "*.o",
+        "rule_line": 1,
+        "raw_output": ".gitignore:1:*.o\tother.o",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    "sequence_B": {
+      "rules": [
+        "!prebuilt.o",
+        "*.o"
+      ],
+      "prebuilt_o": {
+        "ignored": true,
+        "pattern": "*.o",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:*.o\tprebuilt.o",
+        "returncode": 0
+      },
+      "passed": true
+    }
+  },
+  "tracked_file_check": {
+    "passed": true,
+    "status_output": "M main.o\n?? .gitignore"
+  },
+  "summary": {
+    "total": 11,
+    "passed": 11,
+    "failed": 0,
+    "all_passed": true
+  }
+}
