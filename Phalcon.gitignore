@@ -1,2 +1,4 @@
+# Root cache directory containing compiled Volt templates and ORM metadata caches
 /cache/
+# Environment-specific local development configuration overrides
 /config/development/

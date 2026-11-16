@@ -1,0 +1,245 @@
+{
+  "task_id": "R46-T020",
+  "template": "Phalcon.gitignore",
+  "focus_patterns": [
+    "/cache/",
+    "/config/development/"
+  ],
+  "tool_versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "assertions": [
+    {
+      "id": "cache-volt-output",
+      "focus_pattern": "/cache/",
+      "role": "ignored_output",
+      "path": "cache/volt/compiled_view.php",
+      "description": "Compiled Volt template in root /cache/ is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/cache/",
+        "rule_line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/cache/",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:/cache/\tcache/volt/compiled_view.php",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "cache-data-output",
+      "focus_pattern": "/cache/",
+      "role": "ignored_output",
+      "path": "cache/data/models_metadata.php",
+      "description": "Phalcon ORM metadata cache in root /cache/ is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/cache/",
+        "rule_line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/cache/",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:/cache/\tcache/data/models_metadata.php",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "config-dev-json-output",
+      "focus_pattern": "/config/development/",
+      "role": "ignored_output",
+      "path": "config/development/config.json",
+      "description": "Local dev configuration override in /config/development/ is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/config/development/",
+        "rule_line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/config/development/",
+        "rule_line": 4,
+        "raw_output": ".gitignore:4:/config/development/\tconfig/development/config.json",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "config-dev-db-output",
+      "focus_pattern": "/config/development/",
+      "role": "ignored_output",
+      "path": "config/development/database.php",
+      "description": "Local dev database credentials in /config/development/ is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/config/development/",
+        "rule_line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/config/development/",
+        "rule_line": 4,
+        "raw_output": ".gitignore:4:/config/development/\tconfig/development/database.php",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "app-controller-input",
+      "focus_pattern": "/cache/",
+      "role": "tracked_input",
+      "path": "app/controllers/IndexController.php",
+      "description": "Application controller source code must remain visible and tracked",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "app-view-input",
+      "focus_pattern": "/cache/",
+      "role": "tracked_input",
+      "path": "app/views/index.volt",
+      "description": "Application view template source must remain visible and tracked",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "config-base-input",
+      "focus_pattern": "/config/development/",
+      "role": "tracked_input",
+      "path": "config/config.php",
+      "description": "Base framework configuration must remain visible and tracked",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "config-production-input",
+      "focus_pattern": "/config/development/",
+      "role": "tracked_input",
+      "path": "config/production/config.json",
+      "description": "Production baseline config must remain visible and tracked",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "public-index-input",
+      "focus_pattern": "/cache/",
+      "role": "tracked_input",
+      "path": "public/index.php",
+      "description": "Public front controller must remain visible and tracked",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "public-assets-cache-preserved",
+      "focus_pattern": "/cache/",
+      "role": "tracked_input",
+      "path": "public/assets/cache/logo.min.css",
+      "description": "Public assets cache is NOT ignored due to root anchoring of /cache/",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "config-dev-notes-nearmiss",
+      "focus_pattern": "/config/development/",
+      "role": "near_miss",
+      "path": "config/development_notes.txt",
+      "description": "Regular file matching prefix but not directory is NOT ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    }
+  ],
+  "tracked_file_check": {
+    "passed": true,
+    "status_output": "M cache/bootstrap_cache.php\n?? .gitignore"
+  },
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "all_passed": true
+  }
+}
