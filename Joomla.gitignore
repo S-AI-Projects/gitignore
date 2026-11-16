@@ -1,5 +1,8 @@
+# Root Apache server configuration (anchored to repository root, applies to file or directory of this name)
 /.htaccess
+# Administrator cache entries (wildcard contents ignored; directory itself is kept)
 /administrator/cache/*
+# Action logs component contents
 /administrator/components/com_actionlogs/*
 /administrator/components/com_admin/*
 /administrator/components/com_ajax/*
