@@ -1,5 +1,5 @@
-# Object file
+# Object file (compiled binaries from source units)
 *.o
 
-# Ada Library Information
+# Ada Library Information (compiler generated metadata created by GNAT)
 *.ali
