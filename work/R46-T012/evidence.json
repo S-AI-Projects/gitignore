@@ -1,0 +1,294 @@
+{
+  "task_id": "R46-T012",
+  "template": "ecu.test.gitignore",
+  "focus_patterns": [
+    ".workspace/ETdrive.xml",
+    ".workspace/favorites.xml",
+    ".workspace/filters.xml"
+  ],
+  "tool_versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "tracked_file_check": {
+    "passed": true,
+    "status_output": "M .workspace/ETdrive.xml\n?? .gitignore",
+    "tracked_modified_visible": true,
+    "untracked_ignored": true
+  },
+  "assertions": [
+    {
+      "id": "etdrive-root-match",
+      "focus_pattern": ".workspace/ETdrive.xml",
+      "path": ".workspace/ETdrive.xml",
+      "depth": "root",
+      "description": "Anchored rule matches .workspace/ETdrive.xml at root",
+      "expected": {
+        "ignored": true,
+        "pattern": ".workspace/ETdrive.xml"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": ".workspace/ETdrive.xml",
+        "rule_line": 10,
+        "raw_output": ".gitignore:10:.workspace/ETdrive.xml\t.workspace/ETdrive.xml",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "favorites-root-match",
+      "focus_pattern": ".workspace/favorites.xml",
+      "path": ".workspace/favorites.xml",
+      "depth": "root",
+      "description": "Anchored rule matches .workspace/favorites.xml at root",
+      "expected": {
+        "ignored": true,
+        "pattern": ".workspace/favorites.xml"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": ".workspace/favorites.xml",
+        "rule_line": 11,
+        "raw_output": ".gitignore:11:.workspace/favorites.xml\t.workspace/favorites.xml",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "filters-root-match",
+      "focus_pattern": ".workspace/filters.xml",
+      "path": ".workspace/filters.xml",
+      "depth": "root",
+      "description": "Anchored rule matches .workspace/filters.xml at root",
+      "expected": {
+        "ignored": true,
+        "pattern": ".workspace/filters.xml"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": ".workspace/filters.xml",
+        "rule_line": 12,
+        "raw_output": ".gitignore:12:.workspace/filters.xml\t.workspace/filters.xml",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "etdrive-root-nearmiss",
+      "focus_pattern": ".workspace/ETdrive.xml",
+      "path": "ETdrive.xml",
+      "depth": "root",
+      "description": "Equivalent basename at root without directory prefix is not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "favorites-root-nearmiss",
+      "focus_pattern": ".workspace/favorites.xml",
+      "path": "favorites.xml",
+      "depth": "root",
+      "description": "Equivalent basename at root without directory prefix is not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "etdrive-nested-depth1",
+      "focus_pattern": ".workspace/ETdrive.xml",
+      "path": "subproject/.workspace/ETdrive.xml",
+      "depth": "nested_1",
+      "description": "Anchored rule does NOT match in nested directory depth 1",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "favorites-nested-depth1",
+      "focus_pattern": ".workspace/favorites.xml",
+      "path": "subproject/.workspace/favorites.xml",
+      "depth": "nested_1",
+      "description": "Anchored rule does NOT match in nested directory depth 1",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "filters-nested-depth1",
+      "focus_pattern": ".workspace/filters.xml",
+      "path": "subproject/.workspace/filters.xml",
+      "depth": "nested_1",
+      "description": "Anchored rule does NOT match in nested directory depth 1",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "etdrive-nested-depth2",
+      "focus_pattern": ".workspace/ETdrive.xml",
+      "path": "tests/integration/.workspace/ETdrive.xml",
+      "depth": "nested_2",
+      "description": "Anchored rule does NOT match in nested directory depth 2",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "favorites-nested-depth2",
+      "focus_pattern": ".workspace/favorites.xml",
+      "path": "tests/integration/.workspace/favorites.xml",
+      "depth": "nested_2",
+      "description": "Anchored rule does NOT match in nested directory depth 2",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "filters-nested-depth2",
+      "focus_pattern": ".workspace/filters.xml",
+      "path": "tests/integration/.workspace/filters.xml",
+      "depth": "nested_2",
+      "description": "Anchored rule does NOT match in nested directory depth 2",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "unanchored-root-match",
+      "focus_pattern": "*.arxml",
+      "path": "package.arxml",
+      "depth": "root",
+      "description": "Unanchored rule matches at root",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.arxml"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.arxml",
+        "rule_line": 32,
+        "raw_output": ".gitignore:32:*.arxml\tpackage.arxml",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "unanchored-nested-depth1-match",
+      "focus_pattern": "*.arxml",
+      "path": "subproject/package.arxml",
+      "depth": "nested_1",
+      "description": "Unanchored rule matches at nested depth 1",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.arxml"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.arxml",
+        "rule_line": 32,
+        "raw_output": ".gitignore:32:*.arxml\tsubproject/package.arxml",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "unanchored-nested-depth2-match",
+      "focus_pattern": "*.arxml",
+      "path": "tests/integration/package.arxml",
+      "depth": "nested_2",
+      "description": "Unanchored rule matches at nested depth 2",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.arxml"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "*.arxml",
+        "rule_line": 32,
+        "raw_output": ".gitignore:32:*.arxml\ttests/integration/package.arxml",
+        "returncode": 0
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0,
+    "all_passed": true
+  }
+}
