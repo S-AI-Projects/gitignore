@@ -1,0 +1,299 @@
+{
+  "task_id": "R46-T011",
+  "item": "Global/SBT.gitignore",
+  "focus_patterns": [
+    "dist/*",
+    "target/",
+    "lib_managed/"
+  ],
+  "tool_versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.7",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "tracked_file_check": {
+    "id": "tracked-file-behavior",
+    "description": "Tracked files inside target/ remain visible to git status despite ignore rule",
+    "path": "target/pre_existing_tracked_file.txt",
+    "porcelain_status": "M target/pre_existing_tracked_file.txt\n?? .gitignore\n?? dist.sbt\n?? distribution/\n?? docs/\n?? lib/\n?? lib_managed_backup.zip\n?? src/\n?? target.sbt",
+    "passed": true
+  },
+  "test_cases": [
+    {
+      "id": "dist-match-jar",
+      "focus_pattern": "dist/*",
+      "path": "dist/bundle.jar",
+      "description": "Standard build distribution artifact inside dist/",
+      "expected": {
+        "ignored": true,
+        "pattern": "dist/*"
+      },
+      "actual": {
+        "returncode": 0,
+        "ignored": true,
+        "pattern": "dist/*",
+        "rule_line": 5,
+        "raw_output": ".gitignore:5:dist/*\tdist/bundle.jar"
+      },
+      "passed": true
+    },
+    {
+      "id": "dist-match-zip",
+      "focus_pattern": "dist/*",
+      "path": "dist/release.zip",
+      "description": "Zip archive in distribution folder",
+      "expected": {
+        "ignored": true,
+        "pattern": "dist/*"
+      },
+      "actual": {
+        "returncode": 0,
+        "ignored": true,
+        "pattern": "dist/*",
+        "rule_line": 5,
+        "raw_output": ".gitignore:5:dist/*\tdist/release.zip"
+      },
+      "passed": true
+    },
+    {
+      "id": "dist-nonmatch-file-prefix",
+      "focus_pattern": "dist/*",
+      "path": "dist.sbt",
+      "description": "Near-miss file sharing 'dist' prefix at root",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "returncode": 1,
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "dist-nonmatch-sibling-dir",
+      "focus_pattern": "dist/*",
+      "path": "distribution/bundle.jar",
+      "description": "Directory named 'distribution' is not matched by 'dist/*'",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "returncode": 1,
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "dist-nonmatch-nested",
+      "focus_pattern": "dist/*",
+      "path": "src/dist/bundle.jar",
+      "description": "Nested 'dist/' directory: 'dist/*' contains a slash so anchors to root",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "returncode": 1,
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "target-match-root",
+      "focus_pattern": "target/",
+      "path": "target/scala-2.13/classes/Main.class",
+      "description": "Standard sbt output directory at root",
+      "expected": {
+        "ignored": true,
+        "pattern": "target/"
+      },
+      "actual": {
+        "returncode": 0,
+        "ignored": true,
+        "pattern": "target/",
+        "rule_line": 8,
+        "raw_output": ".gitignore:8:target/\ttarget/scala-2.13/classes/Main.class"
+      },
+      "passed": true
+    },
+    {
+      "id": "target-match-nested",
+      "focus_pattern": "target/",
+      "path": "project/target/config-classes/Foo.class",
+      "description": "Nested target directory for sbt build definition",
+      "expected": {
+        "ignored": true,
+        "pattern": "target/"
+      },
+      "actual": {
+        "returncode": 0,
+        "ignored": true,
+        "pattern": "target/",
+        "rule_line": 8,
+        "raw_output": ".gitignore:8:target/\tproject/target/config-classes/Foo.class"
+      },
+      "passed": true
+    },
+    {
+      "id": "target-nonmatch-regular-file",
+      "focus_pattern": "target/",
+      "path": "docs/target",
+      "description": "Regular file named 'target' without trailing slash remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "returncode": 1,
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "target-nonmatch-file-extension",
+      "focus_pattern": "target/",
+      "path": "target.sbt",
+      "description": "Near-miss sbt file starting with target",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "returncode": 1,
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "target-nonmatch-source-file",
+      "focus_pattern": "target/",
+      "path": "src/main/scala/Target.scala",
+      "description": "Scala source file containing 'Target' in path",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "returncode": 1,
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "lib-managed-match-root",
+      "focus_pattern": "lib_managed/",
+      "path": "lib_managed/jars/org.scala-lang/scala-library.jar",
+      "description": "Managed library jar downloaded by sbt",
+      "expected": {
+        "ignored": true,
+        "pattern": "lib_managed/"
+      },
+      "actual": {
+        "returncode": 0,
+        "ignored": true,
+        "pattern": "lib_managed/",
+        "rule_line": 11,
+        "raw_output": ".gitignore:11:lib_managed/\tlib_managed/jars/org.scala-lang/scala-library.jar"
+      },
+      "passed": true
+    },
+    {
+      "id": "lib-managed-match-subproject",
+      "focus_pattern": "lib_managed/",
+      "path": "subproject/lib_managed/bundles/plugin.jar",
+      "description": "Subproject managed library folder",
+      "expected": {
+        "ignored": true,
+        "pattern": "lib_managed/"
+      },
+      "actual": {
+        "returncode": 0,
+        "ignored": true,
+        "pattern": "lib_managed/",
+        "rule_line": 11,
+        "raw_output": ".gitignore:11:lib_managed/\tsubproject/lib_managed/bundles/plugin.jar"
+      },
+      "passed": true
+    },
+    {
+      "id": "lib-managed-nonmatch-regular-file",
+      "focus_pattern": "lib_managed/",
+      "path": "docs/lib_managed",
+      "description": "Regular file named 'lib_managed' without trailing slash",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "returncode": 1,
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "lib-managed-nonmatch-unmanaged",
+      "focus_pattern": "lib_managed/",
+      "path": "lib/unmanaged.jar",
+      "description": "Unmanaged library directory 'lib/' is preserved and not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "returncode": 1,
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "lib-managed-nonmatch-near-miss",
+      "focus_pattern": "lib_managed/",
+      "path": "lib_managed_backup.zip",
+      "description": "Archive file starting with lib_managed is not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "returncode": 1,
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": ""
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "all_passed": true
+  }
+}

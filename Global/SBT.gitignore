@@ -1,8 +1,13 @@
 # Simple Build Tool
 # http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
+# Distribution build output directory contents
 dist/*
+
+# Build output directories
 target/
+
+# Managed dependency libraries downloaded by sbt
 lib_managed/
 src_managed/
 project/boot/
