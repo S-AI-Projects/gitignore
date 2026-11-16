@@ -1,0 +1,189 @@
+{
+  "task_id": "R46-T019",
+  "template": "Perl.gitignore",
+  "focus_patterns": [
+    ".last_cover_stats",
+    "/META.yml",
+    "/META.json"
+  ],
+  "tool_versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "assertions": [
+    {
+      "id": "last-cover-root-match",
+      "focus_pattern": ".last_cover_stats",
+      "path": ".last_cover_stats",
+      "description": "Root .last_cover_stats cache file is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": ".last_cover_stats"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": ".last_cover_stats",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:.last_cover_stats\t.last_cover_stats",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "last-cover-nested-match",
+      "focus_pattern": ".last_cover_stats",
+      "path": "t/.last_cover_stats",
+      "description": "Nested .last_cover_stats cache is ignored by unanchored rule",
+      "expected": {
+        "ignored": true,
+        "pattern": ".last_cover_stats"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": ".last_cover_stats",
+        "rule_line": 2,
+        "raw_output": ".gitignore:2:.last_cover_stats\tt/.last_cover_stats",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "meta-yml-root-match",
+      "focus_pattern": "/META.yml",
+      "path": "META.yml",
+      "description": "Root generated CPAN META.yml is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/META.yml"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/META.yml",
+        "rule_line": 4,
+        "raw_output": ".gitignore:4:/META.yml\tMETA.yml",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "meta-json-root-match",
+      "focus_pattern": "/META.json",
+      "path": "META.json",
+      "description": "Root generated CPAN META.json is ignored",
+      "expected": {
+        "ignored": true,
+        "pattern": "/META.json"
+      },
+      "actual": {
+        "ignored": true,
+        "pattern": "/META.json",
+        "rule_line": 5,
+        "raw_output": ".gitignore:5:/META.json\tMETA.json",
+        "returncode": 0
+      },
+      "passed": true
+    },
+    {
+      "id": "meta-yml-fixture-visible",
+      "focus_pattern": "/META.yml",
+      "path": "t/fixtures/META.yml",
+      "description": "Nested test fixture META.yml is NOT ignored due to root anchoring",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "meta-json-fixture-visible",
+      "focus_pattern": "/META.json",
+      "path": "t/fixtures/META.json",
+      "description": "Nested test fixture META.json is NOT ignored due to root anchoring",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "last-cover-txt-nearmiss",
+      "focus_pattern": ".last_cover_stats",
+      "path": "last_cover_stats.txt",
+      "description": "Near-miss file without leading dot is not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    },
+    {
+      "id": "source-pm-visible",
+      "focus_pattern": "/META.yml",
+      "path": "lib/App/MyModule.pm",
+      "description": "Legitimate Perl module source file is not ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null
+      },
+      "actual": {
+        "ignored": false,
+        "pattern": null,
+        "rule_line": null,
+        "raw_output": "",
+        "returncode": 1
+      },
+      "passed": true
+    }
+  ],
+  "rule_narrowness_comparison": {
+    "broader_rule": {
+      "rule": "META.yml",
+      "nested_fixture_ignored": true,
+      "false_positive_demonstrated": true
+    },
+    "narrower_rule": {
+      "rule": "dist/META.yml",
+      "root_meta_ignored": false,
+      "false_negative_demonstrated": true
+    },
+    "existing_rule": {
+      "rule": "/META.yml",
+      "root_meta_ignored": true,
+      "nested_fixture_ignored": false,
+      "optimal_behavior_verified": true
+    },
+    "passed": true
+  },
+  "tracked_file_check": {
+    "passed": true,
+    "status_output": "M META.yml\n?? .gitignore"
+  },
+  "summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "all_passed": true
+  }
+}

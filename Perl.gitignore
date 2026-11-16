@@ -1,4 +1,6 @@
+# Devel::Cover code coverage run stats cache
 .last_cover_stats
+# CPAN distribution metadata generated at release build root (anchored to prevent ignoring nested test fixtures)
 /META.yml
 /META.json
 /MYMETA.*
