@@ -1,0 +1,135 @@
+R46-T002: EIFGENs Pattern Matching — Results
+============================================================
+Date     : 2026-11-17
+Branch   : student/e26b07f0690
+Git      : git version 2.55.0
+Python   : Python 3.14.7
+
+Template file  : Global/EiffelStudio.gitignore
+Pattern tested : EIFGENs  (line 2)
+
+──────────────────────────────────────────────
+1. PATTERN MECHANICS
+──────────────────────────────────────────────
+
+The rule is a bare name without a leading slash or trailing slash:
+
+    EIFGENs
+
+Gitignore bare-name semantics:
+  • A pattern with no slash at all is matched against the filename component
+    at EVERY directory depth (gitignore(5) §PATTERN FORMAT).
+  • It therefore ignores any directory named exactly "EIFGENs" regardless of
+    how deeply it is nested, and also any file named exactly "EIFGENs".
+  • Files *inside* an ignored directory are implicitly ignored too (Git stops
+    descending into ignored directories).
+  • The match is an exact whole-name match; "EIFGENs-backup", "EIFGENs_extra",
+    and "EIGENS" do NOT match.
+
+──────────────────────────────────────────────
+2. IGNORED PATHS  (git check-ignore -v --no-index)
+──────────────────────────────────────────────
+
+Path                             Rule matched
+-------------------------------  ---------------------------
+EIFGENs                          .gitignore:2:EIFGENs
+EIFGENs/W_code                   .gitignore:2:EIFGENs
+project/EIFGENs                  .gitignore:2:EIFGENs
+project/EIFGENs/W_code           .gitignore:2:EIFGENs
+deep/nested/EIFGENs              .gitignore:2:EIFGENs
+deep/nested/EIFGENs/W_code       .gitignore:2:EIFGENs
+
+Responsible rule : EIFGENs  at .gitignore line 2
+
+──────────────────────────────────────────────
+3. NOT-IGNORED PATHS
+──────────────────────────────────────────────
+
+Path                             Reason
+-------------------------------  ----------------------------------
+EIFGENs-backup                   Different name (suffix "-backup")
+EIFGENs-backup/notes.txt         Parent not ignored
+EIFGENs_extra                    Different name (suffix "_extra")
+EIFGENs_extra/notes.txt          Parent not ignored
+EIGENS                           Different name (misspelling)
+EIGENS/notes.txt                 Parent not ignored
+main.e                           Legitimate Eiffel source file
+config.ecf                       Legitimate Eiffel config file
+README.md                        Documentation file
+
+──────────────────────────────────────────────
+4. TRACKED-FILE BEHAVIOUR
+──────────────────────────────────────────────
+
+Setup:
+  project/EIFGENs/tracked.e was force-added (git add -f) and committed
+  before the .gitignore was committed to the index.
+
+Observations:
+  a) git ls-files project/EIFGENs/tracked.e  → file is in the index (tracked).
+  b) git check-ignore -v project/EIFGENs/tracked.e  → exit 1, NOT reported as
+     ignored. Git skips ignore-checking for tracked paths.
+  c) git check-ignore -v --no-index project/EIFGENs/tracked.e  → exit 0,
+     pattern IS reported (.gitignore:2:EIFGENs). The --no-index flag bypasses
+     the index-lookup and applies pure pattern matching.
+  d) git status shows the tracked file as clean (not flagged as ignored),
+     confirming that tracking takes priority over .gitignore rules.
+
+Conclusion: once a file is tracked, .gitignore does not cause Git to drop it.
+Developers who accidentally track files inside EIFGENs must use
+"git rm --cached" to stop tracking them.
+
+──────────────────────────────────────────────
+5. AUTOMATED CHECK
+──────────────────────────────────────────────
+
+Command : python3 work/R46-T002/check.py
+Result  : ALL CHECKS PASSED  (15/15)
+
+──────────────────────────────────────────────
+6. COMMANDS USED
+──────────────────────────────────────────────
+
+# Inspect template
+cat Global/EiffelStudio.gitignore
+
+# Check git/python versions
+git --version
+python3 --version
+
+# Create temporary repo
+TMPDIR=$(mktemp -d /tmp/eiffelstudio-test-XXXXXX)
+cd "$TMPDIR"
+git init
+git config user.email "test@test.com"
+git config user.name "Test"
+cat > .gitignore <<'EOF'
+# The compilation directory
+EIFGENs
+EOF
+
+# Create fixtures
+mkdir -p EIFGENs project/EIFGENs deep/nested/EIFGENs
+mkdir -p EIFGENs-backup EIFGENs_extra EIGENS
+touch EIFGENs/W_code project/EIFGENs/W_code deep/nested/EIFGENs/W_code
+touch EIFGENs-backup/notes.txt EIFGENs_extra/notes.txt EIGENS/notes.txt
+touch main.e config.ecf README.md
+
+# Check ignore status of each path
+git check-ignore -v --no-index <path>
+# exit 0 = ignored, exit 1 = not ignored
+
+# Tracked file test
+git add -f project/EIFGENs/tracked.e
+git commit -m "Track file inside EIFGENs"
+git check-ignore -v project/EIFGENs/tracked.e        # exit 1 (tracked)
+git check-ignore -v --no-index project/EIFGENs/tracked.e  # exit 0 (pattern matches)
+
+──────────────────────────────────────────────
+7. FILES CHANGED IN SHARED CHECKOUT
+──────────────────────────────────────────────
+
+work/R46-T002/check.py              (created)
+work/R46-T002/results.txt           (created)
+work/R46-T002/fixtures.md           (created)
+Global/EiffelStudio.gitignore       (comment added)
