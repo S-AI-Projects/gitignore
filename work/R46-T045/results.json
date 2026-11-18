@@ -1,0 +1,88 @@
+{
+  "tool_versions": {
+    "python": "Python 3.15.2",
+    "git": "git version 2.54.0 (Apple Git-157)"
+  },
+  "results": [
+    {
+      "pattern_name": "default",
+      "case": "untracked_after_template",
+      "path": "jboss/server/default/deploy/project.ext",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "jboss/server/default/deploy/project.ext",
+      "actual_pattern": "jboss/server/default/deploy/project.ext",
+      "expected_rule_line": 3,
+      "actual_rule_line": 3,
+      "git_output": ".gitignore:3:jboss/server/default/deploy/project.ext\tjboss/server/default/deploy/project.ext"
+    },
+    {
+      "pattern_name": "minimal",
+      "case": "untracked_after_template",
+      "path": "jboss/server/minimal/deploy/project.ext",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "jboss/server/minimal/deploy/project.ext",
+      "actual_pattern": "jboss/server/minimal/deploy/project.ext",
+      "expected_rule_line": 4,
+      "actual_rule_line": 4,
+      "git_output": ".gitignore:4:jboss/server/minimal/deploy/project.ext\tjboss/server/minimal/deploy/project.ext"
+    },
+    {
+      "pattern_name": "all",
+      "case": "tracked_before_template",
+      "path": "jboss/server/all/deploy/project.ext",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "jboss/server/all/deploy/project.ext",
+      "actual_pattern": "jboss/server/all/deploy/project.ext",
+      "expected_rule_line": 2,
+      "actual_rule_line": 2,
+      "git_output": ".gitignore:2:jboss/server/all/deploy/project.ext\tjboss/server/all/deploy/project.ext"
+    },
+    {
+      "pattern_name": "all",
+      "case": "untracked_near_miss",
+      "path": "jboss/server/all/deploy/project.ext.bak",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "pattern_name": "default",
+      "case": "untracked_near_miss",
+      "path": "jboss/server/default/deploy/project.ext.txt",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "pattern_name": "minimal",
+      "case": "untracked_near_miss",
+      "path": "jboss/server/minimal/deploy/project.ext-copy",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    }
+  ],
+  "tracked_file_behavior": {
+    "path": "jboss/server/all/deploy/project.ext",
+    "tracked_before_template_commit": true,
+    "status_with_new_ignored_matches": "",
+    "expected_status_with_new_ignored_matches": "",
+    "status_after_tracked_edit": " M jboss/server/all/deploy/project.ext",
+    "expected_status_after_tracked_edit": " M jboss/server/all/deploy/project.ext"
+  }
+}

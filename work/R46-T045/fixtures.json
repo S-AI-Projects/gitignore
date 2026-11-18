@@ -1,0 +1,11 @@
+{
+  "tracked_path": "jboss/server/all/deploy/project.ext",
+  "fixtures": [
+    {"pattern_name": "all", "case": "tracked_before_template", "path": "jboss/server/all/deploy/project.ext", "ignored": true, "pattern": "jboss/server/all/deploy/project.ext", "line": 2},
+    {"pattern_name": "all", "case": "untracked_near_miss", "path": "jboss/server/all/deploy/project.ext.bak", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "default", "case": "untracked_after_template", "path": "jboss/server/default/deploy/project.ext", "ignored": true, "pattern": "jboss/server/default/deploy/project.ext", "line": 3},
+    {"pattern_name": "default", "case": "untracked_near_miss", "path": "jboss/server/default/deploy/project.ext.txt", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "minimal", "case": "untracked_after_template", "path": "jboss/server/minimal/deploy/project.ext", "ignored": true, "pattern": "jboss/server/minimal/deploy/project.ext", "line": 4},
+    {"pattern_name": "minimal", "case": "untracked_near_miss", "path": "jboss/server/minimal/deploy/project.ext-copy", "ignored": false, "pattern": null, "line": null}
+  ]
+}
