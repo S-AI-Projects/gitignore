@@ -1,0 +1,30 @@
+{
+  "tree": [
+    "project/",
+    "├── pom.xml                 [tracked input; pom.xml, .gitignore:2]",
+    "├── pom.xml.asc            [ignored signature; pom.xml.asc, .gitignore:3]",
+    "├── target/",
+    "│   └── app.jar             [ignored package; /target/, .gitignore:8]",
+    "├── docs/",
+    "│   └── pom.xml             [ignored nested descriptor; pom.xml, .gitignore:2]",
+    "├── src/",
+    "│   ├── main.clj             [tracked source; visible, no ignore rule]",
+    "│   └── JarUtil.java         [visible source; no ignore rule]",
+    "├── artifacts/",
+    "│   └── dependency.jar      [ignored by *.jar, .gitignore:4]",
+    "└── checksums/",
+    "    └── app.jar.sha256      [visible checksum; no match]"
+  ],
+  "fixtures": [
+    {"path":"pom.xml","expected":"ignored","pattern":"pom.xml","purpose":"Tracked project input added before ignore rules; matching does not untrack it."},
+    {"path":"docs/pom.xml","expected":"ignored","pattern":"pom.xml","purpose":"Nested descriptor demonstrates bare-name path matching."},
+    {"path":"pom.xml.template","expected":"visible","pattern":null,"purpose":"Near-miss filename remains visible."},
+    {"path":"pom.xml.asc","expected":"ignored","pattern":"pom.xml.asc","purpose":"Detached signature fixture."},
+    {"path":"docs/pom.xml.asc","expected":"ignored","pattern":"pom.xml.asc","purpose":"Nested signature fixture."},
+    {"path":"pom.xml.asc.sha256","expected":"visible","pattern":null,"purpose":"Signature checksum near miss remains visible."},
+    {"path":"target/app.jar","expected":"ignored","pattern":"/target/","purpose":"Packaged output is covered by the template's target directory rule."},
+    {"path":"artifacts/dependency.jar","expected":"ignored","pattern":"*.jar","purpose":"JAR outside target and lib demonstrates extension matching anywhere."},
+    {"path":"src/JarUtil.java","expected":"visible","pattern":null,"purpose":"Source code stays visible."},
+    {"path":"checksums/app.jar.sha256","expected":"visible","pattern":null,"purpose":"Checksum file is not a JAR."}
+  ]
+}
