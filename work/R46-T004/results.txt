@@ -1,0 +1,107 @@
+R46-T004: Lilypond.gitignore Pattern Checks — Results
+============================================================
+Date     : 2026-11-17
+Branch   : R46-T004
+Git      : git version 2.55.0
+Python   : Python 3.14.7
+
+Template file  : Lilypond.gitignore
+Patterns tested: *.pdf (line 6), *.ps (line 7), *.midi (line 8)
+
+──────────────────────────────────────────────
+1. PATTERN MECHANICS
+──────────────────────────────────────────────
+
+All three rules are bare globs with no leading slash and no trailing slash.
+Per gitignore(5) §PATTERN FORMAT:
+
+  - A pattern without a slash is matched against the filename component at
+    every directory depth.
+  - Without a trailing slash, the pattern matches both regular files and
+    directories of the same name.
+  - Files inside a matched directory are implicitly ignored (Git stops
+    descending into ignored directories).
+
+──────────────────────────────────────────────
+2. IGNORED PATHS
+──────────────────────────────────────────────
+
+Path                              Rule matched
+--------------------------------  --------------------------
+score.pdf (file)                  .gitignore:6:*.pdf
+docs.pdf (dir)                    .gitignore:6:*.pdf
+docs.pdf/notes.ly                 .gitignore:6:*.pdf
+build/output.pdf (nested dir)     .gitignore:6:*.pdf
+build/output.pdf/source.ly        .gitignore:6:*.pdf
+render.ps (file)                  .gitignore:7:*.ps
+engraving.ps (dir)                .gitignore:7:*.ps
+engraving.ps/tune.ly              .gitignore:7:*.ps
+song.midi (file)                  .gitignore:8:*.midi
+orchestral.midi (dir)             .gitignore:8:*.midi
+orchestral.midi/part.ly           .gitignore:8:*.midi
+
+──────────────────────────────────────────────
+3. NOT-IGNORED PATHS
+──────────────────────────────────────────────
+
+Path                   Reason
+---------------------  -------------------------------------------
+score.pdf.bak          Suffix ".bak" appended — different name
+score.pdff             Extra "f" — not a .pdf extension
+render.ps.orig         Suffix ".orig" appended — different name
+score.ly               Lilypond source file — intentionally unignored
+README.md              Documentation — unignored
+
+──────────────────────────────────────────────
+4. TRAILING-SLASH COMPARISON: *.pdf vs *.pdf/
+──────────────────────────────────────────────
+
+Rule      Path              Result
+--------  ----------------  -------------------------------------------
+*.pdf     score.pdf (file)  IGNORED   — bare glob matches files
+*.pdf     docs.pdf (dir)    IGNORED   — bare glob matches dirs too
+*.pdf/    score.pdf (file)  NOT IGNORED — trailing slash restricts to dirs
+*.pdf/    docs.pdf (dir)    IGNORED
+*.pdf/    docs.pdf/notes.ly IGNORED   (inside ignored dir)
+
+Conclusion: The existing bare *.pdf rule is correct for Lilypond. Generated
+PDFs are the primary output of a Lilypond compilation; using *.pdf/ would
+stop ignoring the PDF files themselves. No template change is needed or made.
+
+──────────────────────────────────────────────
+5. TRACKED-FILE BEHAVIOUR
+──────────────────────────────────────────────
+
+score.pdf was force-added and committed.
+
+a) git ls-files score.pdf          → file is in index (confirmed tracked)
+b) git check-ignore -v score.pdf   → exit 1 (NOT reported as ignored)
+   Git skips ignore checks for tracked paths.
+c) git check-ignore -v --no-index  → exit 0, rule .gitignore:1:*.pdf reported
+   Pattern matching still works when the index is bypassed.
+d) git status shows score.pdf as a clean tracked file, not flagged as ignored.
+
+──────────────────────────────────────────────
+6. AUTOMATED CHECK RESULT
+──────────────────────────────────────────────
+
+Command : python3 work/R46-T004/check.py
+Result  : ALL CHECKS PASSED  (24/24)
+
+──────────────────────────────────────────────
+7. TEMPLATE CHANGE
+──────────────────────────────────────────────
+
+No functional change was made to Lilypond.gitignore. The existing rules are
+correct. An explanatory comment was added above each of the three focus
+patterns to document the file/directory matching behaviour.
+
+──────────────────────────────────────────────
+8. COMMANDS USED
+──────────────────────────────────────────────
+
+git check-ignore -v --no-index <path>    # pattern matching (no index)
+git check-ignore -v <path>               # index-aware check for tracked files
+git ls-files <path>                      # confirm file is tracked
+git add -f <path>                        # force-add an ignored file
+git status --short                       # working-tree state
