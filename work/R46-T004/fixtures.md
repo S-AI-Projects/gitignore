@@ -1,14 +1,15 @@
+
 # R46-T004 Test Fixtures
 
 ## Template under test: `Lilypond.gitignore`
 
-```
-*.pdf    ← line 1
-*.ps     ← line 2
-*.midi   ← line 3
-*.mid    ← line 4
-*.log    ← line 5
-*~       ← line 6
+```gitignore
+*.pdf    # line 6
+*.ps     # line 7
+*.midi   # line 8
+*.mid     # line 9
+*.log     # line 10
+*~        # line 11
 ```
 
 All rules are bare globs (no slashes). A bare glob without a slash matches the
@@ -20,32 +21,32 @@ directories.
 ## Note on macOS case-insensitive filesystem
 
 macOS (HFS+/APFS default) cannot hold a file and a directory with the same
-name in the same directory. All fixtures therefore use different basenames for
-the file and directory cases (e.g. `score.pdf` for the file, `docs.pdf` for
-the directory).
+name in the same directory. Therefore, the same-basename test uses two
+separate temporary repositories: one containing a `same.pdf` file and
+another containing a `same.pdf` directory.
 
 ---
 
-## Suite 1 — Bare pattern checks (*.pdf, *.ps, *.midi)
+## Suite 1 — Bare pattern checks (`*.pdf`, `*.ps`, `*.midi`)
 
 Temporary repo `.gitignore` = exact copy of `Lilypond.gitignore`.
 
 | # | Path | Type | Expected | Responsible rule |
 |---|---|---|---|---|
-| 1 | `score.pdf` | file | IGNORED | `.gitignore:1:*.pdf` |
-| 2 | `docs.pdf` | dir | IGNORED | `.gitignore:1:*.pdf` |
-| 3 | `docs.pdf/notes.ly` | file inside ignored dir | IGNORED | `.gitignore:1:*.pdf` |
-| 4 | `build/output.pdf` | nested dir | IGNORED | `.gitignore:1:*.pdf` |
-| 5 | `build/output.pdf/source.ly` | file inside nested ignored dir | IGNORED | `.gitignore:1:*.pdf` |
+| 1 | `score.pdf` | file | IGNORED | `.gitignore:6:*.pdf` |
+| 2 | `docs.pdf` | dir | IGNORED | `.gitignore:6:*.pdf` |
+| 3 | `docs.pdf/notes.ly` | file inside ignored dir | IGNORED | `.gitignore:6:*.pdf` |
+| 4 | `build/output.pdf` | nested dir | IGNORED | `.gitignore:6:*.pdf` |
+| 5 | `build/output.pdf/source.ly` | file inside nested ignored dir | IGNORED | `.gitignore:6:*.pdf` |
 | 6 | `score.pdf.bak` | file | NOT IGNORED | — |
 | 7 | `score.pdff` | file | NOT IGNORED | — |
-| 8 | `render.ps` | file | IGNORED | `.gitignore:2:*.ps` |
-| 9 | `engraving.ps` | dir | IGNORED | `.gitignore:2:*.ps` |
-| 10 | `engraving.ps/tune.ly` | file inside ignored dir | IGNORED | `.gitignore:2:*.ps` |
+| 8 | `render.ps` | file | IGNORED | `.gitignore:7:*.ps` |
+| 9 | `engraving.ps` | dir | IGNORED | `.gitignore:7:*.ps` |
+| 10 | `engraving.ps/tune.ly` | file inside ignored dir | IGNORED | `.gitignore:7:*.ps` |
 | 11 | `render.ps.orig` | file | NOT IGNORED | — |
-| 12 | `song.midi` | file | IGNORED | `.gitignore:3:*.midi` |
-| 13 | `orchestral.midi` | dir | IGNORED | `.gitignore:3:*.midi` |
-| 14 | `orchestral.midi/part.ly` | file inside ignored dir | IGNORED | `.gitignore:3:*.midi` |
+| 12 | `song.midi` | file | IGNORED | `.gitignore:8:*.midi` |
+| 13 | `orchestral.midi` | dir | IGNORED | `.gitignore:8:*.midi` |
+| 14 | `orchestral.midi/part.ly` | file inside ignored dir | IGNORED | `.gitignore:8:*.midi` |
 | 15 | `score.ly` | file | NOT IGNORED | — |
 | 16 | `README.md` | file | NOT IGNORED | — |
 
@@ -79,8 +80,26 @@ artefact. **No change to the template is warranted.**
 |---|---|
 | `git ls-files score.pdf` | File appears in index |
 | `git check-ignore -v score.pdf` (index-aware) | Exit 1 — NOT reported as ignored |
-| `git check-ignore -v --no-index score.pdf` | Exit 0 — pattern `.gitignore:1:*.pdf` reported |
+| `git check-ignore -v --no-index score.pdf` | Exit 0 — pattern `.gitignore:6:*.pdf` reported |
 
 Tracked files are shielded from gitignore rules by Git's index. A developer
 who accidentally commits a `.pdf` artefact must run `git rm --cached` to remove
 it from tracking; the `.gitignore` rule alone will not evict it.
+
+---
+
+## Suite 4 — Same basename in separate repositories
+
+Two separate temporary repositories are used. Both have `.gitignore`
+containing the pattern `*.pdf`.
+
+| Repository | Path | Type | Expected | Responsible rule |
+|---|---|---|---|---|
+| 1 | `same.pdf` | file | IGNORED | `.gitignore:1:*.pdf` |
+| 2 | `same.pdf` | directory | IGNORED | `.gitignore:1:*.pdf` |
+| 2 | `same.pdf/source.ly` | file inside ignored directory | IGNORED | `.gitignore:1:*.pdf` |
+
+**Conclusion:** The same basename is tested across separate repositories.
+This avoids the macOS restriction while verifying that `*.pdf` matches both
+a file and a directory. All three checks verify the ignored status and the
+responsible rule.

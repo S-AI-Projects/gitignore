@@ -1,6 +1,7 @@
+
 R46-T004: Lilypond.gitignore Pattern Checks — Results
 ============================================================
-Date     : 2026-11-17
+Date     : 2026-11-18
 Branch   : R46-T004
 Git      : git version 2.55.0
 Python   : Python 3.14.7
@@ -19,8 +20,7 @@ Per gitignore(5) §PATTERN FORMAT:
     every directory depth.
   - Without a trailing slash, the pattern matches both regular files and
     directories of the same name.
-  - Files inside a matched directory are implicitly ignored (Git stops
-    descending into ignored directories).
+  - Files inside a matched directory are implicitly ignored.
 
 ──────────────────────────────────────────────
 2. IGNORED PATHS
@@ -58,15 +58,15 @@ README.md              Documentation — unignored
 
 Rule      Path              Result
 --------  ----------------  -------------------------------------------
-*.pdf     score.pdf (file)  IGNORED   — bare glob matches files
-*.pdf     docs.pdf (dir)    IGNORED   — bare glob matches dirs too
+*.pdf     score.pdf (file)  IGNORED — bare glob matches files
+*.pdf     docs.pdf (dir)    IGNORED — bare glob matches dirs too
 *.pdf/    score.pdf (file)  NOT IGNORED — trailing slash restricts to dirs
 *.pdf/    docs.pdf (dir)    IGNORED
-*.pdf/    docs.pdf/notes.ly IGNORED   (inside ignored dir)
+*.pdf/    docs.pdf/notes.ly IGNORED (inside ignored dir)
 
 Conclusion: The existing bare *.pdf rule is correct for Lilypond. Generated
-PDFs are the primary output of a Lilypond compilation; using *.pdf/ would
-stop ignoring the PDF files themselves. No template change is needed or made.
+PDFs are primary compilation output; using *.pdf/ would stop ignoring the
+PDF files themselves. No functional pattern change is needed.
 
 ──────────────────────────────────────────────
 5. TRACKED-FILE BEHAVIOUR
@@ -77,31 +77,55 @@ score.pdf was force-added and committed.
 a) git ls-files score.pdf          → file is in index (confirmed tracked)
 b) git check-ignore -v score.pdf   → exit 1 (NOT reported as ignored)
    Git skips ignore checks for tracked paths.
-c) git check-ignore -v --no-index  → exit 0, rule .gitignore:1:*.pdf reported
-   Pattern matching still works when the index is bypassed.
-d) git status shows score.pdf as a clean tracked file, not flagged as ignored.
+c) git check-ignore -v --no-index score.pdf
+                                  → exit 0, .gitignore:6:*.pdf reported
+d) git status shows score.pdf as a clean tracked file.
 
 ──────────────────────────────────────────────
-6. AUTOMATED CHECK RESULT
+6. SAME-BASENAME TEST
+──────────────────────────────────────────────
+
+Two separate temporary repositories were used. Both contain a .gitignore
+with the pattern *.pdf.
+
+Repository  Path                  Type                  Result
+----------- --------------------- --------------------- ----------------
+1           same.pdf              file                  IGNORED
+2           same.pdf              directory             IGNORED
+2           same.pdf/source.ly    file inside directory IGNORED
+
+Responsible rule for all three checks:
+Temporary repository .gitignore:1:*.pdf
+
+The same basename is tested across separate repositories to avoid the
+macOS restriction against a file and directory with the same name in
+one directory.
+
+──────────────────────────────────────────────
+7. AUTOMATED CHECK RESULT
 ──────────────────────────────────────────────
 
 Command : python3 work/R46-T004/check.py
-Result  : ALL CHECKS PASSED  (24/24)
+Result  : ALL CHECKS PASSED (27/27)
+
+The automated checks assert both ignored/not-ignored status and the
+responsible ignore rule.
 
 ──────────────────────────────────────────────
-7. TEMPLATE CHANGE
+8. TEMPLATE CHANGE
 ──────────────────────────────────────────────
 
-No functional change was made to Lilypond.gitignore. The existing rules are
-correct. An explanatory comment was added above each of the three focus
-patterns to document the file/directory matching behaviour.
+No functional change was made to Lilypond.gitignore. The original
+patterns are preserved. Explanatory comments document the
+file/directory matching behaviour.
 
 ──────────────────────────────────────────────
-8. COMMANDS USED
+9. COMMANDS USED
 ──────────────────────────────────────────────
 
-git check-ignore -v --no-index <path>    # pattern matching (no index)
-git check-ignore -v <path>               # index-aware check for tracked files
-git ls-files <path>                      # confirm file is tracked
-git add -f <path>                        # force-add an ignored file
-git status --short                       # working-tree state
+git check-ignore -v --no-index <path>
+git check-ignore -v <path>
+git ls-files <path>
+git add -f <path>
+git status --short
+python3 work/R46-T004/check.py
