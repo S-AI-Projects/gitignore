@@ -1,0 +1,14 @@
+{
+  "fixtures": [
+    {"path": "rerun/result.txt", "ignored": true, "pattern": "rerun/"},
+    {"path": "rerun.txt", "ignored": false, "pattern": null},
+    {"path": "reports/index.html", "ignored": true, "pattern": "reports/"},
+    {"path": "reports.yml", "ignored": false, "pattern": null},
+    {"path": "screenshots/home.png", "ignored": true, "pattern": "screenshots/"},
+    {"path": "screenshots-old/home.png", "ignored": false, "pattern": null},
+    {"path": "app/reports/result.json", "ignored": true, "pattern": "reports/"},
+    {"path": "app/screenshots/result.png", "ignored": true, "pattern": "screenshots/"},
+    {"path": "src/screenshots.py", "ignored": false, "pattern": null}
+  ],
+  "tracked_path": "rerun/already-tracked.txt"
+}

@@ -1,4 +1,5 @@
 # Calabash / Cucumber
+# These directory rules match at any depth; similarly named files remain visible.
 rerun/
 reports/
 screenshots/

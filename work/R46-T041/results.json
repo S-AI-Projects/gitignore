@@ -1,0 +1,94 @@
+{
+  "tool_versions": {
+    "python": "Python 3.15.2",
+    "git": "git version 2.54.0 (Apple Git-157)"
+  },
+  "results": [
+    {
+      "path": "rerun/result.txt",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "rerun/",
+      "actual_pattern": "rerun/",
+      "actual_rule_line": 3,
+      "git_output": ".gitignore:3:rerun/\trerun/result.txt"
+    },
+    {
+      "path": "rerun.txt",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "reports/index.html",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "reports/",
+      "actual_pattern": "reports/",
+      "actual_rule_line": 4,
+      "git_output": ".gitignore:4:reports/\treports/index.html"
+    },
+    {
+      "path": "reports.yml",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "screenshots/home.png",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "screenshots/",
+      "actual_pattern": "screenshots/",
+      "actual_rule_line": 5,
+      "git_output": ".gitignore:5:screenshots/\tscreenshots/home.png"
+    },
+    {
+      "path": "screenshots-old/home.png",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "app/reports/result.json",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "reports/",
+      "actual_pattern": "reports/",
+      "actual_rule_line": 4,
+      "git_output": ".gitignore:4:reports/\tapp/reports/result.json"
+    },
+    {
+      "path": "app/screenshots/result.png",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "screenshots/",
+      "actual_pattern": "screenshots/",
+      "actual_rule_line": 5,
+      "git_output": ".gitignore:5:screenshots/\tapp/screenshots/result.png"
+    },
+    {
+      "path": "src/screenshots.py",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    }
+  ],
+  "tracked_file_behavior": {
+    "path": "rerun/already-tracked.txt",
+    "expected_status": " M",
+    "actual_status": " M rerun/already-tracked.txt\n?? reports.yml\n?? rerun.txt\n?? screenshots-old/\n?? src/"
+  }
+}
