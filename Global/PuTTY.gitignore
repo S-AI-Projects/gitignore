@@ -1,2 +1,2 @@
-# Private key
+# PuTTY stores SSH private keys in its PPK format.
 *.ppk

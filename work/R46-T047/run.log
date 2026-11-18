@@ -1,0 +1,104 @@
+{
+  "tool_versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "Python 3.15.2"
+  },
+  "template": "Global/PuTTY.gitignore",
+  "tested_pattern": "*.ppk",
+  "results": [
+    {
+      "name": "generated_key",
+      "path": "build/generated-host.ppk",
+      "purpose": "PuTTY private key output",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "*.ppk",
+      "actual_pattern": "*.ppk",
+      "expected_rule_line": 2,
+      "actual_rule_line": 2,
+      "git_output": ".gitignore:2:*.ppk\tbuild/generated-host.ppk"
+    },
+    {
+      "name": "nested_key",
+      "path": "team credentials/workstation.ppk",
+      "purpose": "PPK private key in a nested path",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "*.ppk",
+      "actual_pattern": "*.ppk",
+      "expected_rule_line": 2,
+      "actual_rule_line": 2,
+      "git_output": ".gitignore:2:*.ppk\tteam credentials/workstation.ppk"
+    },
+    {
+      "name": "key_example",
+      "path": "build/generated-host.ppk.example",
+      "purpose": "documentation example, not a PPK file",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "name": "source_parser",
+      "path": "src/ppk_parser.cpp",
+      "purpose": "legitimate source file",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "name": "session_config",
+      "path": "config/putty-session.ini",
+      "purpose": "PuTTY session configuration",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "name": "public_key",
+      "path": "keys/host.pub",
+      "purpose": "public key file, not a private PPK file",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    }
+  ],
+  "status_with_new_ignored_key": [
+    "?? build/generated-host.ppk.example",
+    "?? config/putty-session.ini",
+    "?? keys/host.pub"
+  ],
+  "expected_status_with_new_ignored_key": [
+    "?? build/generated-host.ppk.example",
+    "?? config/putty-session.ini",
+    "?? keys/host.pub"
+  ],
+  "status_after_tracked_source_edit": [
+    " M src/ppk_parser.cpp",
+    "?? build/generated-host.ppk.example",
+    "?? config/putty-session.ini",
+    "?? keys/host.pub"
+  ],
+  "expected_status_after_tracked_source_edit": [
+    " M src/ppk_parser.cpp",
+    "?? build/generated-host.ppk.example",
+    "?? config/putty-session.ini",
+    "?? keys/host.pub"
+  ]
+}

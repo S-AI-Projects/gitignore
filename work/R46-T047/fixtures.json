@@ -1,0 +1,12 @@
+{
+  "fixtures": [
+    {"name": "generated_key", "path": "build/generated-host.ppk", "ignored": true, "pattern": "*.ppk", "line": 2, "purpose": "PuTTY private key output"},
+    {"name": "nested_key", "path": "team credentials/workstation.ppk", "ignored": true, "pattern": "*.ppk", "line": 2, "purpose": "PPK private key in a nested path"},
+    {"name": "key_example", "path": "build/generated-host.ppk.example", "ignored": false, "pattern": null, "line": null, "purpose": "documentation example, not a PPK file"},
+    {"name": "source_parser", "path": "src/ppk_parser.cpp", "ignored": false, "pattern": null, "line": null, "purpose": "legitimate source file"},
+    {"name": "session_config", "path": "config/putty-session.ini", "ignored": false, "pattern": null, "line": null, "purpose": "PuTTY session configuration"},
+    {"name": "public_key", "path": "keys/host.pub", "ignored": false, "pattern": null, "line": null, "purpose": "public key file, not a private PPK file"}
+  ],
+  "tracked_source": "src/ppk_parser.cpp",
+  "untracked_matching_key": "build/generated-host.ppk"
+}
