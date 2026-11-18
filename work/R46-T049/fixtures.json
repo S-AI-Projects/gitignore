@@ -1,0 +1,27 @@
+{
+  "modes": {
+    "baseline": "Template rules unchanged.",
+    "broader": "Temporary alternatives: bin, obj, *dacpac*.",
+    "narrower": "Temporary alternatives: /bin/, /obj/, /publish/*.dacpac."
+  },
+  "fixtures": [
+    {"path": "bin/Debug/app.dll", "mode": "baseline", "expected": "ignored", "pattern": "bin/", "purpose": "Build output directory."},
+    {"path": "src/bin_helper.cpp", "mode": "baseline", "expected": "visible", "pattern": null, "purpose": "Legitimate source with a similar name."},
+    {"path": "module/obj/Debug/project.dll", "mode": "baseline", "expected": "ignored", "pattern": "obj/", "purpose": "Nested build output directory."},
+    {"path": "src/object_model.cpp", "mode": "baseline", "expected": "visible", "pattern": null, "purpose": "Legitimate source with a similar name."},
+    {"path": "database/Release/store.dacpac", "mode": "baseline", "expected": "ignored", "pattern": "*.dacpac", "purpose": "DACPAC artifact."},
+    {"path": "sql/dacpac_parser.cs", "mode": "baseline", "expected": "visible", "pattern": null, "purpose": "Legitimate source containing the extension text."},
+    {"path": "src/main.cpp", "mode": "baseline", "expected": "visible", "pattern": null, "purpose": "Tracked legitimate source file."},
+    {"path": "tools/bin", "mode": "baseline", "expected": "visible", "pattern": null, "purpose": "File named bin; directory-only rule leaves it visible."},
+    {"path": "tools/obj", "mode": "baseline", "expected": "visible", "pattern": null, "purpose": "File named obj; directory-only rule leaves it visible."},
+    {"path": "tools/bin", "mode": "broader", "expected": "ignored", "pattern": "bin", "purpose": "Broader bin alternative false positive: hides a regular file named bin."},
+    {"path": "tools/obj", "mode": "broader", "expected": "ignored", "pattern": "obj", "purpose": "Broader obj alternative false positive: hides a regular file named obj."},
+    {"path": "sql/dacpac_parser.cs", "mode": "broader", "expected": "ignored", "pattern": "*dacpac*", "purpose": "Broader DACPAC alternative false positive: hides legitimate source."},
+    {"path": "bin/Debug/root.dll", "mode": "narrower", "expected": "ignored", "pattern": "/bin/", "purpose": "Narrower root-only bin alternative still matches root build output."},
+    {"path": "obj/Release/root.dll", "mode": "narrower", "expected": "ignored", "pattern": "/obj/", "purpose": "Narrower root-only obj alternative still matches root build output."},
+    {"path": "publish/Store.dacpac", "mode": "narrower", "expected": "ignored", "pattern": "/publish/*.dacpac", "purpose": "Narrower publish-only alternative still matches its selected directory."},
+    {"path": "src/bin/Debug/app.dll", "mode": "narrower", "expected": "visible", "pattern": null, "purpose": "Narrower root-only bin alternative false negative: misses nested build output."},
+    {"path": "module/obj/Debug/project.dll", "mode": "narrower", "expected": "visible", "pattern": null, "purpose": "Narrower root-only obj alternative false negative: misses nested build output."},
+    {"path": "database/Release/store.dacpac", "mode": "narrower", "expected": "visible", "pattern": null, "purpose": "Narrower publish-only DACPAC alternative false negative: misses artifact in another project path."}
+  ]
+}

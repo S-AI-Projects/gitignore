@@ -1,0 +1,236 @@
+{
+  "check": "PASS",
+  "template": "SSDT-sqlproj.gitignore",
+  "alternatives": {
+    "broader": {
+      "bin/": "bin",
+      "obj/": "obj",
+      "*.dacpac": "*dacpac*"
+    },
+    "narrower": {
+      "bin/": "/bin/",
+      "obj/": "/obj/",
+      "*.dacpac": "/publish/*.dacpac"
+    }
+  },
+  "tool_versions": {
+    "python": "Python 3.15.2",
+    "git": "git version 2.54.0 (Apple Git-157)"
+  },
+  "results": [
+    {
+      "mode": "baseline",
+      "path": "bin/Debug/app.dll",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "bin/",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 6,
+        "pattern": "bin/"
+      },
+      "purpose": "Build output directory."
+    },
+    {
+      "mode": "baseline",
+      "path": "src/bin_helper.cpp",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null,
+      "purpose": "Legitimate source with a similar name."
+    },
+    {
+      "mode": "baseline",
+      "path": "module/obj/Debug/project.dll",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "obj/",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 7,
+        "pattern": "obj/"
+      },
+      "purpose": "Nested build output directory."
+    },
+    {
+      "mode": "baseline",
+      "path": "src/object_model.cpp",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null,
+      "purpose": "Legitimate source with a similar name."
+    },
+    {
+      "mode": "baseline",
+      "path": "database/Release/store.dacpac",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "*.dacpac",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 10,
+        "pattern": "*.dacpac"
+      },
+      "purpose": "DACPAC artifact."
+    },
+    {
+      "mode": "baseline",
+      "path": "sql/dacpac_parser.cs",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null,
+      "purpose": "Legitimate source containing the extension text."
+    },
+    {
+      "mode": "baseline",
+      "path": "src/main.cpp",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null,
+      "purpose": "Tracked legitimate source file."
+    },
+    {
+      "mode": "baseline",
+      "path": "tools/bin",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null,
+      "purpose": "File named bin; directory-only rule leaves it visible."
+    },
+    {
+      "mode": "baseline",
+      "path": "tools/obj",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null,
+      "purpose": "File named obj; directory-only rule leaves it visible."
+    },
+    {
+      "mode": "broader",
+      "path": "tools/bin",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "bin",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 6,
+        "pattern": "bin"
+      },
+      "purpose": "Broader bin alternative false positive: hides a regular file named bin."
+    },
+    {
+      "mode": "broader",
+      "path": "tools/obj",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "obj",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 7,
+        "pattern": "obj"
+      },
+      "purpose": "Broader obj alternative false positive: hides a regular file named obj."
+    },
+    {
+      "mode": "broader",
+      "path": "sql/dacpac_parser.cs",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "*dacpac*",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 10,
+        "pattern": "*dacpac*"
+      },
+      "purpose": "Broader DACPAC alternative false positive: hides legitimate source."
+    },
+    {
+      "mode": "narrower",
+      "path": "bin/Debug/root.dll",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "/bin/",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 6,
+        "pattern": "/bin/"
+      },
+      "purpose": "Narrower root-only bin alternative still matches root build output."
+    },
+    {
+      "mode": "narrower",
+      "path": "obj/Release/root.dll",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "/obj/",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 7,
+        "pattern": "/obj/"
+      },
+      "purpose": "Narrower root-only obj alternative still matches root build output."
+    },
+    {
+      "mode": "narrower",
+      "path": "publish/Store.dacpac",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "/publish/*.dacpac",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 10,
+        "pattern": "/publish/*.dacpac"
+      },
+      "purpose": "Narrower publish-only alternative still matches its selected directory."
+    },
+    {
+      "mode": "narrower",
+      "path": "src/bin/Debug/app.dll",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null,
+      "purpose": "Narrower root-only bin alternative false negative: misses nested build output."
+    },
+    {
+      "mode": "narrower",
+      "path": "module/obj/Debug/project.dll",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null,
+      "purpose": "Narrower root-only obj alternative false negative: misses nested build output."
+    },
+    {
+      "mode": "narrower",
+      "path": "database/Release/store.dacpac",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null,
+      "purpose": "Narrower publish-only DACPAC alternative false negative: misses artifact in another project path."
+    }
+  ],
+  "baseline_status_porcelain": [
+    "?? sql/dacpac_parser.cs",
+    "?? src/bin_helper.cpp",
+    "?? src/object_model.cpp",
+    "?? tools/bin",
+    "?? tools/obj"
+  ],
+  "tracked_source_after_edit": [
+    " M src/main.cpp",
+    "?? sql/dacpac_parser.cs",
+    "?? src/bin_helper.cpp",
+    "?? src/object_model.cpp",
+    "?? tools/bin",
+    "?? tools/obj"
+  ],
+  "conclusion": "Keep the three existing patterns. Broader alternatives produce false positives; narrower alternatives miss nested build directories or DACPACs outside publish/."
+}
