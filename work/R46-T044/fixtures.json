@@ -1,0 +1,20 @@
+{
+  "fixtures": [
+    {"pattern_name": "dist", "case": "root_directory", "path": "dist", "ignored": true, "pattern": "/dist/", "line": 3},
+    {"pattern_name": "dist", "case": "root_file", "path": "dist", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "dist", "case": "nested_directory", "path": "src/dist", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "dist", "case": "nested_file", "path": "src/dist", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "dist", "case": "similar_directory", "path": "dist-old", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "out-tsc", "case": "root_directory", "path": "out-tsc", "ignored": true, "pattern": "/out-tsc/", "line": 4},
+    {"pattern_name": "out-tsc", "case": "root_file", "path": "out-tsc", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "out-tsc", "case": "nested_directory", "path": "src/out-tsc", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "out-tsc", "case": "nested_file", "path": "src/out-tsc", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "out-tsc", "case": "similar_directory", "path": "out-tsc-old", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "tmp", "case": "root_directory", "path": "tmp", "ignored": true, "pattern": "/tmp/", "line": 5},
+    {"pattern_name": "tmp", "case": "root_file", "path": "tmp", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "tmp", "case": "nested_directory", "path": "src/tmp", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "tmp", "case": "nested_file", "path": "src/tmp", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "tmp", "case": "similar_directory", "path": "tmp-old", "ignored": false, "pattern": null, "line": null}
+  ],
+  "tracked_path": "dist/tracked.js"
+}
