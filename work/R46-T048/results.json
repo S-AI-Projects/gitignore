@@ -1,0 +1,99 @@
+{
+  "check": "PASS",
+  "template": "Global/KDevelop4.gitignore",
+  "tool_versions": {
+    "python": "Python 3.15.2",
+    "git": "git version 2.54.0 (Apple Git-157)"
+  },
+  "fixtures": [
+    {
+      "path": "MyProject.kdev4",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "*.kdev4",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 2,
+        "pattern": "*.kdev4"
+      }
+    },
+    {
+      "path": "nested/other.kdev4",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": "*.kdev4",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 2,
+        "pattern": "*.kdev4"
+      }
+    },
+    {
+      "path": "project.kdev4.example",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null
+    },
+    {
+      "path": "src/main.cpp",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null
+    },
+    {
+      "path": ".kdev4/settings",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": ".kdev4/",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 3,
+        "pattern": ".kdev4/"
+      }
+    },
+    {
+      "path": "nested/.kdev4/cache/config",
+      "expected": "ignored",
+      "actual": "ignored",
+      "expected_pattern": ".kdev4/",
+      "actual_rule": {
+        "file": ".gitignore",
+        "line": 3,
+        "pattern": ".kdev4/"
+      }
+    },
+    {
+      "path": "nested/.kdev4-copy/settings",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null
+    },
+    {
+      "path": "notes/.kdev4-file",
+      "expected": "visible",
+      "actual": "visible",
+      "expected_pattern": null,
+      "actual_rule": null
+    }
+  ],
+  "status_with_untracked_fixtures": [
+    "?? nested/.kdev4-copy/settings",
+    "?? notes/.kdev4-file",
+    "?? project.kdev4.example"
+  ],
+  "tracked_source_after_edit": [
+    " M src/main.cpp",
+    "?? nested/.kdev4-copy/settings",
+    "?? notes/.kdev4-file",
+    "?? project.kdev4.example"
+  ],
+  "assertions": [
+    "Every ignored fixture matched its expected .gitignore rule and actual Git rule line.",
+    "Every visible fixture had git check-ignore exit 1 and no rule output.",
+    "git status --porcelain included visible untracked fixtures and excluded ignored artifacts.",
+    "An edited tracked source file remained visible in git status."
+  ]
+}

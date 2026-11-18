@@ -1,2 +1,3 @@
+# KDevelop project files and its per-project .kdev4 metadata directories.
 *.kdev4
 .kdev4/

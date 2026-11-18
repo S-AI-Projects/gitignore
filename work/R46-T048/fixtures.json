@@ -1,0 +1,13 @@
+{
+  "purpose": "Exercise the two existing KDevelop 4 ignore rules without changing their behavior.",
+  "fixtures": [
+    {"path": "MyProject.kdev4", "expected": "ignored", "pattern": "*.kdev4"},
+    {"path": "nested/other.kdev4", "expected": "ignored", "pattern": "*.kdev4"},
+    {"path": "project.kdev4.example", "expected": "visible", "pattern": null},
+    {"path": "src/main.cpp", "expected": "visible", "pattern": null, "source": true},
+    {"path": ".kdev4/settings", "expected": "ignored", "pattern": ".kdev4/"},
+    {"path": "nested/.kdev4/cache/config", "expected": "ignored", "pattern": ".kdev4/"},
+    {"path": "nested/.kdev4-copy/settings", "expected": "visible", "pattern": null},
+    {"path": "notes/.kdev4-file", "expected": "visible", "pattern": null, "explanation": "A near-miss basename does not match the exact .kdev4 directory name."}
+  ]
+}
