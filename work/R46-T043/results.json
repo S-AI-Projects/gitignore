@@ -1,0 +1,142 @@
+{
+  "tool_versions": {
+    "python": "Python 3.15.2",
+    "git": "git version 2.54.0 (Apple Git-157)"
+  },
+  "results": [
+    {
+      "path": "TAGS",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "TAGS",
+      "actual_pattern": "TAGS",
+      "expected_rule_line": 2,
+      "actual_rule_line": 2,
+      "git_output": ".gitignore:2:TAGS\tTAGS"
+    },
+    {
+      "path": "src/TAGS",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "TAGS",
+      "actual_pattern": "TAGS",
+      "expected_rule_line": 2,
+      "actual_rule_line": 2,
+      "git_output": ".gitignore:2:TAGS\tsrc/TAGS"
+    },
+    {
+      "path": "src/deep/TAGS",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "TAGS",
+      "actual_pattern": "TAGS",
+      "expected_rule_line": 2,
+      "actual_rule_line": 2,
+      "git_output": ".gitignore:2:TAGS\tsrc/deep/TAGS"
+    },
+    {
+      "path": "TAGS.txt",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "src/TAGS.txt",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": ".TAGS",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": ".TAGS",
+      "actual_pattern": ".TAGS",
+      "expected_rule_line": 3,
+      "actual_rule_line": 3,
+      "git_output": ".gitignore:3:.TAGS\t.TAGS"
+    },
+    {
+      "path": "src/.TAGS",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": ".TAGS",
+      "actual_pattern": ".TAGS",
+      "expected_rule_line": 3,
+      "actual_rule_line": 3,
+      "git_output": ".gitignore:3:.TAGS\tsrc/.TAGS"
+    },
+    {
+      "path": "src/deep/.TAGS",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": ".TAGS",
+      "actual_pattern": ".TAGS",
+      "expected_rule_line": 3,
+      "actual_rule_line": 3,
+      "git_output": ".gitignore:3:.TAGS\tsrc/deep/.TAGS"
+    },
+    {
+      "path": ".TAGS.backup",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "src/.TAGS.backup",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    }
+  ],
+  "tracked_file_behavior": {
+    "path": ".TAGS",
+    "expected_status": " M",
+    "actual_status": " M .TAGS\n?? .TAGS.backup\n?? TAGS.txt\n?? src/"
+  },
+  "local_negation_regression": [
+    {
+      "path": "TAGS/visible.txt",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "TAGS",
+      "actual_pattern": "TAGS",
+      "expected_rule_line": 1,
+      "actual_rule_line": 1,
+      "git_output": ".gitignore:1:TAGS\tTAGS/visible.txt",
+      "case": "before_negation"
+    },
+    {
+      "path": "TAGS/visible.txt",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": "",
+      "case": "after_negation",
+      "active_negation": {
+        "pattern": "!TAGS/",
+        "line": 2
+      },
+      "visible_status": "?? TAGS/\n?? TAGZ/"
+    }
+  ]
+}

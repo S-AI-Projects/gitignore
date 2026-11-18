@@ -1,0 +1,15 @@
+{
+  "fixtures": [
+    {"path": "TAGS", "ignored": true, "pattern": "TAGS", "line": 2},
+    {"path": "src/TAGS", "ignored": true, "pattern": "TAGS", "line": 2},
+    {"path": "src/deep/TAGS", "ignored": true, "pattern": "TAGS", "line": 2},
+    {"path": "TAGS.txt", "ignored": false, "pattern": null, "line": null},
+    {"path": "src/TAGS.txt", "ignored": false, "pattern": null, "line": null},
+    {"path": ".TAGS", "ignored": true, "pattern": ".TAGS", "line": 3},
+    {"path": "src/.TAGS", "ignored": true, "pattern": ".TAGS", "line": 3},
+    {"path": "src/deep/.TAGS", "ignored": true, "pattern": ".TAGS", "line": 3},
+    {"path": ".TAGS.backup", "ignored": false, "pattern": null, "line": null},
+    {"path": "src/.TAGS.backup", "ignored": false, "pattern": null, "line": null}
+  ],
+  "tracked_path": ".TAGS"
+}

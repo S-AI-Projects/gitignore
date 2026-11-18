@@ -1,6 +1,7 @@
 # Ignore tags created by etags, ctags, gtags (GNU global) and cscope
 TAGS
 .TAGS
+# Re-include TAGS directories after the TAGS ignore rule above.
 !TAGS/
 tags
 .tags
