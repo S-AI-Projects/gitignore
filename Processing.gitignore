@@ -1,3 +1,4 @@
+# Unanchored names below are ignored at the root and at any nested depth.
 .DS_Store
 applet
 application.linux-arm64

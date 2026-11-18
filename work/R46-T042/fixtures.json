@@ -1,0 +1,23 @@
+{
+  "fixtures": [
+    {"path": ".DS_Store", "ignored": true, "pattern": ".DS_Store", "line": 2},
+    {"path": "src/.DS_Store", "ignored": true, "pattern": ".DS_Store", "line": 2},
+    {"path": "src/deep/.DS_Store", "ignored": true, "pattern": ".DS_Store", "line": 2},
+    {"path": ".DS_Store.backup", "ignored": false, "pattern": null, "line": null},
+    {"path": "src/.DS_Store.backup", "ignored": false, "pattern": null, "line": null},
+    {"path": "src/deep/.DS_Store.backup", "ignored": false, "pattern": null, "line": null},
+    {"path": "applet", "ignored": true, "pattern": "applet", "line": 3},
+    {"path": "src/applet", "ignored": true, "pattern": "applet", "line": 3},
+    {"path": "src/deep/applet", "ignored": true, "pattern": "applet", "line": 3},
+    {"path": "applet-old", "ignored": false, "pattern": null, "line": null},
+    {"path": "src/applet-old", "ignored": false, "pattern": null, "line": null},
+    {"path": "src/deep/applet-old", "ignored": false, "pattern": null, "line": null},
+    {"path": "application.linux-arm64", "ignored": true, "pattern": "application.linux-arm64", "line": 4},
+    {"path": "src/application.linux-arm64", "ignored": true, "pattern": "application.linux-arm64", "line": 4},
+    {"path": "src/deep/application.linux-arm64", "ignored": true, "pattern": "application.linux-arm64", "line": 4},
+    {"path": "application.linux-arm64-debug", "ignored": false, "pattern": null, "line": null},
+    {"path": "src/application.linux-arm64-debug", "ignored": false, "pattern": null, "line": null},
+    {"path": "src/deep/application.linux-arm64-debug", "ignored": false, "pattern": null, "line": null}
+  ],
+  "tracked_path": "src/deep/.DS_Store"
+}

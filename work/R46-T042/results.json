@@ -1,0 +1,193 @@
+{
+  "tool_versions": {
+    "python": "Python 3.15.2",
+    "git": "git version 2.54.0 (Apple Git-157)"
+  },
+  "results": [
+    {
+      "path": ".DS_Store",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": ".DS_Store",
+      "actual_pattern": ".DS_Store",
+      "expected_rule_line": 2,
+      "actual_rule_line": 2,
+      "git_output": ".gitignore:2:.DS_Store\t.DS_Store"
+    },
+    {
+      "path": "src/.DS_Store",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": ".DS_Store",
+      "actual_pattern": ".DS_Store",
+      "expected_rule_line": 2,
+      "actual_rule_line": 2,
+      "git_output": ".gitignore:2:.DS_Store\tsrc/.DS_Store"
+    },
+    {
+      "path": "src/deep/.DS_Store",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": ".DS_Store",
+      "actual_pattern": ".DS_Store",
+      "expected_rule_line": 2,
+      "actual_rule_line": 2,
+      "git_output": ".gitignore:2:.DS_Store\tsrc/deep/.DS_Store"
+    },
+    {
+      "path": ".DS_Store.backup",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "src/.DS_Store.backup",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "src/deep/.DS_Store.backup",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "applet",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "applet",
+      "actual_pattern": "applet",
+      "expected_rule_line": 3,
+      "actual_rule_line": 3,
+      "git_output": ".gitignore:3:applet\tapplet"
+    },
+    {
+      "path": "src/applet",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "applet",
+      "actual_pattern": "applet",
+      "expected_rule_line": 3,
+      "actual_rule_line": 3,
+      "git_output": ".gitignore:3:applet\tsrc/applet"
+    },
+    {
+      "path": "src/deep/applet",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "applet",
+      "actual_pattern": "applet",
+      "expected_rule_line": 3,
+      "actual_rule_line": 3,
+      "git_output": ".gitignore:3:applet\tsrc/deep/applet"
+    },
+    {
+      "path": "applet-old",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "src/applet-old",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "src/deep/applet-old",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "application.linux-arm64",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "application.linux-arm64",
+      "actual_pattern": "application.linux-arm64",
+      "expected_rule_line": 4,
+      "actual_rule_line": 4,
+      "git_output": ".gitignore:4:application.linux-arm64\tapplication.linux-arm64"
+    },
+    {
+      "path": "src/application.linux-arm64",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "application.linux-arm64",
+      "actual_pattern": "application.linux-arm64",
+      "expected_rule_line": 4,
+      "actual_rule_line": 4,
+      "git_output": ".gitignore:4:application.linux-arm64\tsrc/application.linux-arm64"
+    },
+    {
+      "path": "src/deep/application.linux-arm64",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_pattern": "application.linux-arm64",
+      "actual_pattern": "application.linux-arm64",
+      "expected_rule_line": 4,
+      "actual_rule_line": 4,
+      "git_output": ".gitignore:4:application.linux-arm64\tsrc/deep/application.linux-arm64"
+    },
+    {
+      "path": "application.linux-arm64-debug",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "src/application.linux-arm64-debug",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    },
+    {
+      "path": "src/deep/application.linux-arm64-debug",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_pattern": null,
+      "actual_pattern": null,
+      "expected_rule_line": null,
+      "actual_rule_line": null,
+      "git_output": ""
+    }
+  ],
+  "tracked_file_behavior": {
+    "path": "src/deep/.DS_Store",
+    "expected_status": " M",
+    "actual_status": " M src/deep/.DS_Store\n?? .DS_Store.backup\n?? applet-old\n?? application.linux-arm64-debug\n?? src/.DS_Store.backup\n?? src/applet-old\n?? src/application.linux-arm64-debug\n?? src/deep/.DS_Store.backup\n?? src/deep/applet-old\n?? src/deep/application.linux-arm64-debug"
+  }
+}
