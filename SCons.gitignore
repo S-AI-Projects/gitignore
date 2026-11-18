@@ -1,4 +1,5 @@
 # for projects that use SCons for building: https://www.scons.org/
+# These unanchored artifact names also match under directories containing spaces.
 .sconsign.dblite
 
 # When configure fails, SCons outputs these

@@ -1,0 +1,18 @@
+{
+  "fixtures": [
+    {"pattern_name": "sconsign", "case": "root_match", "path": ".sconsign.dblite", "kind": "file", "query_path": ".sconsign.dblite", "ignored": true, "pattern": ".sconsign.dblite", "line": 3},
+    {"pattern_name": "sconsign", "case": "space_path_match", "path": "build output/.sconsign.dblite", "kind": "file", "query_path": "build output/.sconsign.dblite", "ignored": true, "pattern": ".sconsign.dblite", "line": 3},
+    {"pattern_name": "sconsign", "case": "suffix_near_miss", "path": ".sconsign.dblite.bak", "kind": "file", "query_path": ".sconsign.dblite.bak", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "sconsign", "case": "case_variant", "path": ".SCONSIGN.DBLITE", "kind": "file", "query_path": ".SCONSIGN.DBLITE", "ignored": true, "pattern": ".sconsign.dblite", "line": 3},
+    {"pattern_name": "config_log", "case": "root_match", "path": "config.log", "kind": "file", "query_path": "config.log", "ignored": true, "pattern": "config.log", "line": 6},
+    {"pattern_name": "config_log", "case": "space_path_match", "path": "workspace with spaces/config.log", "kind": "file", "query_path": "workspace with spaces/config.log", "ignored": true, "pattern": "config.log", "line": 6},
+    {"pattern_name": "config_log", "case": "suffix_near_miss", "path": "config.log.backup", "kind": "file", "query_path": "config.log.backup", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "config_log", "case": "case_variant", "path": "CONFIG.LOG", "kind": "file", "query_path": "CONFIG.LOG", "ignored": true, "pattern": "config.log", "line": 6},
+    {"pattern_name": "sconf_temp", "case": "root_match_directory", "path": ".sconf_temp", "kind": "directory", "query_path": ".sconf_temp/payload.tmp", "ignored": true, "pattern": ".sconf_temp", "line": 7},
+    {"pattern_name": "sconf_temp", "case": "space_path_match_directory", "path": "build output/.sconf_temp", "kind": "directory", "query_path": "build output/.sconf_temp/payload.tmp", "ignored": true, "pattern": ".sconf_temp", "line": 7},
+    {"pattern_name": "sconf_temp", "case": "suffix_near_miss_directory", "path": ".sconf_temp-old", "kind": "directory", "query_path": ".sconf_temp-old/payload.tmp", "ignored": false, "pattern": null, "line": null},
+    {"pattern_name": "sconf_temp", "case": "case_variant_directory", "path": ".SCONF_TEMP", "kind": "directory", "query_path": ".SCONF_TEMP/payload.tmp", "ignored": true, "pattern": ".sconf_temp", "line": 7}
+  ],
+  "tracked_path": ".sconsign.dblite",
+  "ignored_untracked_path": "workspace with spaces/config.log"
+}
