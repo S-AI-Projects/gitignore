@@ -1,0 +1,283 @@
+{
+  "task_id": "R46-T028",
+  "student": "sumit kavishwar",
+  "urn": "E26B07F0687",
+  "template": "GWT.gitignore",
+  "focus_patterns": [
+    "*.class",
+    "*.jar",
+    "*.war"
+  ],
+  "tool_versions": {
+    "git": "git version 2.50.1 (Apple Git-155)",
+    "python": "3.14.6 (v3.14.6:c63aec69bd5, Jun 10 2026, 08:07:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "Darwin 27.2.0 (arm64)"
+  },
+  "pattern_lines": {
+    "*.class": 2,
+    "*.jar": 5,
+    "*.war": 6,
+    "war/gwt_bree/": 9,
+    "gwt-unitCache/": 10,
+    ".apt_generated/": 13,
+    "war/WEB-INF/deploy/": 16,
+    "war/WEB-INF/classes/": 17,
+    ".gwt/": 20,
+    "www-test/": 23,
+    ".gwt-tmp/": 26
+  },
+  "tracked_file_check": {
+    "path": "src/main/webapp/WEB-INF/web.xml",
+    "description": "Pre-tracked web deployment descriptor remains tracked and visible in status --porcelain",
+    "porcelain_status": "M src/main/webapp/WEB-INF/web.xml",
+    "passed": true
+  },
+  "test_cases": [
+    {
+      "id": "class-match-root",
+      "focus_pattern": "*.class",
+      "path": "App.class",
+      "description": "Compiled Java class byte-code at root",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.class",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.class",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:*.class\tApp.class"
+      },
+      "passed": false
+    },
+    {
+      "id": "class-match-nested",
+      "focus_pattern": "*.class",
+      "path": "target/classes/com/example/MyModule.class",
+      "description": "Compiled class in nested directory hierarchy",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.class",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.class",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:*.class\ttarget/classes/com/example/MyModule.class"
+      },
+      "passed": true
+    },
+    {
+      "id": "class-nonmatch-source",
+      "focus_pattern": "*.class",
+      "path": "src/main/java/com/example/MyModule.java",
+      "description": "Legitimate Java source file MyModule.java must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? src/main/java/com/example/MyModule.java",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "class-nonmatch-classifier",
+      "focus_pattern": "*.class",
+      "path": "App.classifier",
+      "description": "Near-miss: file ending with .classifier is not matched",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? App.classifier",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "jar-match-root",
+      "focus_pattern": "*.jar",
+      "path": "library.jar",
+      "description": "Packaged JAR archive file",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.jar",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.jar",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:*.jar\tlibrary.jar"
+      },
+      "passed": true
+    },
+    {
+      "id": "jar-match-nested",
+      "focus_pattern": "*.jar",
+      "path": "lib/gwt-user.jar",
+      "description": "Nested GWT runtime library JAR",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.jar",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.jar",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:*.jar\tlib/gwt-user.jar"
+      },
+      "passed": true
+    },
+    {
+      "id": "jar-nonmatch-pom",
+      "focus_pattern": "*.jar",
+      "path": "pom.xml",
+      "description": "Maven POM build file must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? pom.xml",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "jar-nonmatch-sha1",
+      "focus_pattern": "*.jar",
+      "path": "lib/gwt-user.jar.sha1",
+      "description": "Near-miss: checksum file ending with .sha1 remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? lib/gwt-user.jar.sha1",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "war-match-root",
+      "focus_pattern": "*.war",
+      "path": "app.war",
+      "description": "Packaged web application archive",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.war",
+        "line": 6
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.war",
+        "rule_line": 6,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:6:*.war\tapp.war"
+      },
+      "passed": true
+    },
+    {
+      "id": "war-match-nested",
+      "focus_pattern": "*.war",
+      "path": "target/gwt-demo.war",
+      "description": "WAR package inside target build directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.war",
+        "line": 6
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.war",
+        "rule_line": 6,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:6:*.war\ttarget/gwt-demo.war"
+      },
+      "passed": true
+    },
+    {
+      "id": "war-nonmatch-webxml",
+      "focus_pattern": "*.war",
+      "path": "src/main/webapp/WEB-INF/web.xml",
+      "description": "Web deployment descriptor web.xml must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? src/main/webapp/WEB-INF/web.xml",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "war-nonmatch-sig",
+      "focus_pattern": "*.war",
+      "path": "app.war.asc",
+      "description": "Near-miss: digital signature file app.war.asc remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? app.war.asc",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total_checks": 13,
+    "passed": 12,
+    "failed": 1,
+    "all_passed": false
+  }
+}
