@@ -1,0 +1,478 @@
+{
+  "task_id": "R46-T024",
+  "student": "sumit kavishwar",
+  "urn": "E26B07F0687",
+  "template": "C.gitignore",
+  "focus_patterns": [
+    "*.d",
+    "*.o",
+    "*.ko"
+  ],
+  "tool_versions": {
+    "git": "git version 2.50.1 (Apple Git-155)",
+    "python": "3.14.6 (v3.14.6:c63aec69bd5, Jun 10 2026, 08:07:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "Darwin 27.2.0 (arm64)"
+  },
+  "pattern_lines": {
+    "*.d": 2,
+    "*.o": 5,
+    "*.ko": 6,
+    "*.obj": 7,
+    "*.elf": 8,
+    "*.ilk": 11,
+    "*.map": 12,
+    "*.exp": 13,
+    "*.gch": 16,
+    "*.pch": 17,
+    "*.lib": 20,
+    "*.a": 21,
+    "*.la": 22,
+    "*.lo": 23,
+    "*.dll": 26,
+    "*.so": 27,
+    "*.so.*": 28,
+    "*.dylib": 29,
+    "*.exe": 32,
+    "*.out": 33,
+    "*.app": 34,
+    "*.i*86": 35,
+    "*.x86_64": 36,
+    "*.hex": 37,
+    "*.dSYM/": 40,
+    "*.su": 41,
+    "*.idb": 42,
+    "*.pdb": 43,
+    "*.mod*": 46,
+    "*.cmd": 47,
+    ".tmp_versions/": 48,
+    "modules.order": 49,
+    "Module.symvers": 50,
+    "Mkfile.old": 51,
+    "dkms.conf": 52,
+    "*.dwo": 55
+  },
+  "trailing_slash_semantics": {
+    "patterns_without_trailing_slash": {
+      "patterns": [
+        "*.d",
+        "*.o",
+        "*.ko"
+      ],
+      "behavior": "In Gitignore syntax, patterns without a trailing slash match both regular files and directories sharing the same extension. Hence, both file main.o and directory main.o/ are matched and ignored."
+    },
+    "patterns_with_trailing_slash": {
+      "demonstration": {
+        "tested_rule": "*.d/",
+        "directory_check": {
+          "path": "config.d/",
+          "ignored": true,
+          "pattern": "*.d/",
+          "passed": true
+        },
+        "file_check": {
+          "path": "main.d",
+          "ignored": false,
+          "passed": true
+        },
+        "porcelain_status": "?? main.d",
+        "explanation": "When a pattern has a trailing slash (e.g. *.d/), Git restricts matching exclusively to directories. Therefore, directory 'config.d/' is ignored, but regular file 'main.d' remains unignored and visible in status as '?? main.d'. In contrast, C.gitignore uses bare patterns (*.d, *.o, *.ko) without trailing slashes, which match both regular files and directories sharing the same basename.",
+        "passed": true
+      },
+      "behavior": "Appending a trailing slash (e.g. *.d/ or *.dSYM/) restricts the pattern exclusively to directory matching. Regular files sharing the name remain unignored and visible."
+    }
+  },
+  "tracked_file_check": {
+    "path": "main.o",
+    "description": "Pre-tracked main.o modification remains tracked and visible in status --porcelain",
+    "porcelain_status": "M main.o",
+    "passed": true
+  },
+  "repository_1_file_fixtures": [
+    {
+      "id": "d-file-match-root",
+      "focus_pattern": "*.d",
+      "path": "main.d",
+      "type": "file",
+      "description": "Compiler-generated dependency file at root",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.d",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.d",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:*.d\tmain.d"
+      },
+      "passed": true
+    },
+    {
+      "id": "d-file-match-nested",
+      "focus_pattern": "*.d",
+      "path": "src/utils.d",
+      "type": "file",
+      "description": "Nested dependency file in source subdirectory",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.d",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.d",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:*.d\tsrc/utils.d"
+      },
+      "passed": true
+    },
+    {
+      "id": "d-file-nonmatch-c-source",
+      "focus_pattern": "*.d",
+      "path": "main.c",
+      "type": "file",
+      "description": "Legitimate C source code file must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? main.c",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "d-file-nonmatch-bak",
+      "focus_pattern": "*.d",
+      "path": "main.d.bak",
+      "type": "file",
+      "description": "Near-miss: backup file ending in .bak is not matched",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? main.d.bak",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "o-file-match-root",
+      "focus_pattern": "*.o",
+      "path": "main.o",
+      "type": "file",
+      "description": "Compiled object file at root",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.o",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.o",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:*.o\tmain.o"
+      },
+      "passed": true
+    },
+    {
+      "id": "o-file-match-nested",
+      "focus_pattern": "*.o",
+      "path": "build/objects/engine.o",
+      "type": "file",
+      "description": "Object file in nested build directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.o",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.o",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:*.o\tbuild/objects/engine.o"
+      },
+      "passed": true
+    },
+    {
+      "id": "o-file-nonmatch-header",
+      "focus_pattern": "*.o",
+      "path": "main.h",
+      "type": "file",
+      "description": "Legitimate C header file must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? main.h",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "o-file-nonmatch-txt",
+      "focus_pattern": "*.o",
+      "path": "main.o.txt",
+      "type": "file",
+      "description": "Near-miss: text file ending in .txt is not matched by *.o",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? main.o.txt",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "ko-file-match-root",
+      "focus_pattern": "*.ko",
+      "path": "driver.ko",
+      "type": "file",
+      "description": "Compiled Linux kernel module file",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.ko",
+        "line": 6
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.ko",
+        "rule_line": 6,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:6:*.ko\tdriver.ko"
+      },
+      "passed": true
+    },
+    {
+      "id": "ko-file-match-nested",
+      "focus_pattern": "*.ko",
+      "path": "drivers/net/nic.ko",
+      "type": "file",
+      "description": "Kernel module in nested drivers subdirectory",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.ko",
+        "line": 6
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.ko",
+        "rule_line": 6,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:6:*.ko\tdrivers/net/nic.ko"
+      },
+      "passed": true
+    },
+    {
+      "id": "ko-file-nonmatch-symvers",
+      "focus_pattern": "*.ko",
+      "path": "driver.ko.symvers",
+      "type": "file",
+      "description": "Near-miss: module symbols file is not matched by *.ko",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? driver.ko.symvers",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "ko-file-nonmatch-c-source",
+      "focus_pattern": "*.ko",
+      "path": "driver.c",
+      "type": "file",
+      "description": "Kernel module source file driver.c must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? driver.c",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    }
+  ],
+  "repository_2_directory_fixtures": [
+    {
+      "id": "d-dir-match-root",
+      "focus_pattern": "*.d",
+      "path": "main.d/",
+      "type": "directory",
+      "description": "Directory named 'main.d': *.d has no trailing slash, so it matches directories too",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.d",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.d",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:*.d\tmain.d/"
+      },
+      "passed": true
+    },
+    {
+      "id": "d-dir-match-nested",
+      "focus_pattern": "*.d",
+      "path": "src/utils.d/",
+      "type": "directory",
+      "description": "Nested directory named 'utils.d': matches unanchored *.d pattern",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.d",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.d",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:*.d\tsrc/utils.d/"
+      },
+      "passed": true
+    },
+    {
+      "id": "o-dir-match-root",
+      "focus_pattern": "*.o",
+      "path": "main.o/",
+      "type": "directory",
+      "description": "Directory named 'main.o': *.o matches directories because it has no trailing slash",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.o",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.o",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:*.o\tmain.o/"
+      },
+      "passed": true
+    },
+    {
+      "id": "o-dir-match-nested",
+      "focus_pattern": "*.o",
+      "path": "build/objects/engine.o/",
+      "type": "directory",
+      "description": "Nested directory named 'engine.o' is matched by *.o",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.o",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.o",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:*.o\tbuild/objects/engine.o/"
+      },
+      "passed": true
+    },
+    {
+      "id": "ko-dir-match-root",
+      "focus_pattern": "*.ko",
+      "path": "driver.ko/",
+      "type": "directory",
+      "description": "Directory named 'driver.ko' is matched by *.ko",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.ko",
+        "line": 6
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.ko",
+        "rule_line": 6,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:6:*.ko\tdriver.ko/"
+      },
+      "passed": true
+    },
+    {
+      "id": "ko-dir-match-nested",
+      "focus_pattern": "*.ko",
+      "path": "drivers/net/nic.ko/",
+      "type": "directory",
+      "description": "Nested directory named 'nic.ko' is matched by *.ko",
+      "expected": {
+        "ignored": true,
+        "pattern": "*.ko",
+        "line": 6
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "*.ko",
+        "rule_line": 6,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:6:*.ko\tdrivers/net/nic.ko/"
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total_checks": 20,
+    "passed": 20,
+    "failed": 0,
+    "all_passed": true
+  }
+}
