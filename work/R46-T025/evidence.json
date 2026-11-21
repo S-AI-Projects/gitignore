@@ -1,0 +1,312 @@
+{
+  "task_id": "R46-T025",
+  "student": "sumit kavishwar",
+  "urn": "E26B07F0687",
+  "template": "Rust.gitignore",
+  "focus_patterns": [
+    "debug",
+    "target",
+    "**/*.rs.bk"
+  ],
+  "tool_versions": {
+    "git": "git version 2.50.1 (Apple Git-155)",
+    "python": "3.14.6 (v3.14.6:c63aec69bd5, Jun 10 2026, 08:07:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "Darwin 27.2.0 (arm64)"
+  },
+  "pattern_lines": {
+    "debug": 4,
+    "target": 5,
+    "**/*.rs.bk": 8,
+    "*.pdb": 11,
+    "**/mutants.out*/": 15,
+    "rustc-ice-*.txt": 18
+  },
+  "tracked_vs_untracked_demonstration": {
+    "pre_committed_file": "target/pre_committed_artifact.txt",
+    "untracked_file": "target/untracked_artifact.txt",
+    "check_ignore_pre_committed": {
+      "exit_code": 0,
+      "matches_rule": true,
+      "output": ".gitignore:5:target\ttarget/pre_committed_artifact.txt"
+    },
+    "check_ignore_untracked": {
+      "exit_code": 0,
+      "matches_rule": true,
+      "output": ".gitignore:5:target\ttarget/untracked_artifact.txt"
+    },
+    "status_before_edit": "",
+    "status_after_edit": "M target/pre_committed_artifact.txt",
+    "tracked_remains_tracked": true,
+    "untracked_remains_hidden": true,
+    "passed": true,
+    "explanation": "Git ignore rules (.gitignore) only prevent UNTRACKED files from being added to the Git index. Files that were already committed/tracked in the index before the ignore rule was installed remain fully tracked by Git. While `git check-ignore` matches both files, `git status --porcelain` continues monitoring changes to the tracked file ('M target/pre_committed_artifact.txt') while completely hiding the untracked file."
+  },
+  "test_cases": [
+    {
+      "id": "debug-match-root",
+      "focus_pattern": "debug",
+      "path": "debug/app_binary",
+      "description": "Legacy Cargo debug build output directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "debug",
+        "line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "debug",
+        "rule_line": 4,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:4:debug\tdebug/app_binary"
+      },
+      "passed": true
+    },
+    {
+      "id": "debug-match-nested",
+      "focus_pattern": "debug",
+      "path": "output/debug/bin",
+      "description": "Nested debug folder",
+      "expected": {
+        "ignored": true,
+        "pattern": "debug",
+        "line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "debug",
+        "rule_line": 4,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:4:debug\toutput/debug/bin"
+      },
+      "passed": true
+    },
+    {
+      "id": "debug-nonmatch-source",
+      "focus_pattern": "debug",
+      "path": "src/debug.rs",
+      "description": "Legitimate Rust source module debug.rs must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? src/debug.rs",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "debug-nonmatch-prefix",
+      "focus_pattern": "debug",
+      "path": "debugger.rs",
+      "description": "Near-miss: file sharing 'debug' prefix remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? debugger.rs",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "target-match-root",
+      "focus_pattern": "target",
+      "path": "target/release/my_bin",
+      "description": "Standard Cargo target directory at project root",
+      "expected": {
+        "ignored": true,
+        "pattern": "target",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "target",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:target\ttarget/release/my_bin"
+      },
+      "passed": true
+    },
+    {
+      "id": "target-match-nested",
+      "focus_pattern": "target",
+      "path": "crates/core/target/libcore.rlib",
+      "description": "Workspace crate target directory in subfolder",
+      "expected": {
+        "ignored": true,
+        "pattern": "target",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "target",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:target\tcrates/core/target/libcore.rlib"
+      },
+      "passed": true
+    },
+    {
+      "id": "target-nonmatch-source",
+      "focus_pattern": "target",
+      "path": "src/target.rs",
+      "description": "Legitimate Rust source module target.rs must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? src/target.rs",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "target-nonmatch-subpath",
+      "focus_pattern": "target",
+      "path": "src/targeting/utils.rs",
+      "description": "Near-miss: directory starting with 'targeting' remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? src/targeting/utils.rs",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "rsbk-match-root",
+      "focus_pattern": "**/*.rs.bk",
+      "path": "main.rs.bk",
+      "description": "rustfmt backup file at repository root",
+      "expected": {
+        "ignored": true,
+        "pattern": "**/*.rs.bk",
+        "line": 8
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "**/*.rs.bk",
+        "rule_line": 8,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:8:**/*.rs.bk\tmain.rs.bk"
+      },
+      "passed": true
+    },
+    {
+      "id": "rsbk-match-nested",
+      "focus_pattern": "**/*.rs.bk",
+      "path": "src/lib.rs.bk",
+      "description": "rustfmt backup file in nested source directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "**/*.rs.bk",
+        "line": 8
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "**/*.rs.bk",
+        "rule_line": 8,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:8:**/*.rs.bk\tsrc/lib.rs.bk"
+      },
+      "passed": true
+    },
+    {
+      "id": "rsbk-match-deep",
+      "focus_pattern": "**/*.rs.bk",
+      "path": "crates/ui/src/components/button.rs.bk",
+      "description": "Deeply nested rustfmt backup file matched by leading **/",
+      "expected": {
+        "ignored": true,
+        "pattern": "**/*.rs.bk",
+        "line": 8
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "**/*.rs.bk",
+        "rule_line": 8,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:8:**/*.rs.bk\tcrates/ui/src/components/button.rs.bk"
+      },
+      "passed": true
+    },
+    {
+      "id": "rsbk-nonmatch-real-source",
+      "focus_pattern": "**/*.rs.bk",
+      "path": "src/main.rs",
+      "description": "Legitimate Rust source file main.rs must never be ignored",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? src/main.rs",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "rsbk-nonmatch-bak",
+      "focus_pattern": "**/*.rs.bk",
+      "path": "src/main.rs.bak",
+      "description": "Near-miss: general editor backup .rs.bak is distinct from rustfmt .rs.bk",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? src/main.rs.bak",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total_checks": 14,
+    "passed": 14,
+    "failed": 0,
+    "all_passed": true
+  }
+}
