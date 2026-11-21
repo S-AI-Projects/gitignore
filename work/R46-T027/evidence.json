@@ -1,0 +1,216 @@
+{
+  "task_id": "R46-T027",
+  "student": "sumit kavishwar",
+  "urn": "E26B07F0687",
+  "template": "Global/LibreOffice.gitignore",
+  "focus_patterns": [
+    ".~lock.*#"
+  ],
+  "tool_versions": {
+    "git": "git version 2.50.1 (Apple Git-155)",
+    "python": "3.14.6 (v3.14.6:c63aec69bd5, Jun 10 2026, 08:07:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "Darwin 27.2.0 (arm64)"
+  },
+  "pattern_lines": {
+    ".~lock.*#": 3
+  },
+  "pattern_origin_analysis": {
+    "origin": "LibreOffice Document Locking Protocol",
+    "file_naming": ".~lock.<filename>#",
+    "purpose": "When a document (e.g. document.odt) is opened in LibreOffice, a lock file named .~lock.document.odt# is automatically created in the same directory. It stores the username, computer name, and lock timestamp to prevent concurrent write collisions. The rule .~lock.*# ensures these temporary locking artifacts are never committed, while safely preserving all real documents (*.odt, *.ods, *.odp)."
+  },
+  "tracked_file_check": {
+    "path": "annual_report.odt",
+    "description": "Pre-tracked LibreOffice document remains tracked and visible in status --porcelain",
+    "porcelain_status": "M annual_report.odt",
+    "passed": true
+  },
+  "test_cases": [
+    {
+      "id": "lock-match-odt-root",
+      "focus_pattern": ".~lock.*#",
+      "path": ".~lock.annual_report.odt#",
+      "description": "LibreOffice Writer lock file created during editing of annual_report.odt",
+      "expected": {
+        "ignored": true,
+        "pattern": ".~lock.*#",
+        "line": 3
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": ".~lock.*#",
+        "rule_line": 3,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:3:.~lock.*#\t.~lock.annual_report.odt#"
+      },
+      "passed": true
+    },
+    {
+      "id": "lock-match-ods-nested",
+      "focus_pattern": ".~lock.*#",
+      "path": "financials/.~lock.budget_2026.ods#",
+      "description": "LibreOffice Calc lock file in nested financials directory",
+      "expected": {
+        "ignored": true,
+        "pattern": ".~lock.*#",
+        "line": 3
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": ".~lock.*#",
+        "rule_line": 3,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:3:.~lock.*#\tfinancials/.~lock.budget_2026.ods#"
+      },
+      "passed": true
+    },
+    {
+      "id": "lock-match-odp-deep",
+      "focus_pattern": ".~lock.*#",
+      "path": "presentations/q4/.~lock.strategy.odp#",
+      "description": "LibreOffice Impress presentation lock file in subfolder",
+      "expected": {
+        "ignored": true,
+        "pattern": ".~lock.*#",
+        "line": 3
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": ".~lock.*#",
+        "rule_line": 3,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:3:.~lock.*#\tpresentations/q4/.~lock.strategy.odp#"
+      },
+      "passed": true
+    },
+    {
+      "id": "source-odt-visible",
+      "focus_pattern": ".~lock.*#",
+      "path": "annual_report.odt",
+      "description": "Legitimate LibreOffice Writer document must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? annual_report.odt",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "source-ods-visible",
+      "focus_pattern": ".~lock.*#",
+      "path": "financials/budget_2026.ods",
+      "description": "Legitimate LibreOffice Calc spreadsheet must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? financials/budget_2026.ods",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "source-odp-visible",
+      "focus_pattern": ".~lock.*#",
+      "path": "presentations/q4/strategy.odp",
+      "description": "Legitimate LibreOffice Impress presentation must remain visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? presentations/q4/strategy.odp",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "nearmiss-no-hash",
+      "focus_pattern": ".~lock.*#",
+      "path": ".~lock.document.odt",
+      "description": "Near-miss: missing trailing hash '#' symbol remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? .~lock.document.odt",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "nearmiss-hash-only",
+      "focus_pattern": ".~lock.*#",
+      "path": "document.odt#",
+      "description": "Near-miss: missing leading '.~lock.' prefix remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? document.odt#",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "nearmiss-regular-file-named-lock",
+      "focus_pattern": ".~lock.*#",
+      "path": "lock.odt",
+      "description": "Near-miss: regular file named lock.odt is not matched by .~lock.*#",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? lock.odt",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total_checks": 10,
+    "passed": 10,
+    "failed": 0,
+    "all_passed": true
+  }
+}
