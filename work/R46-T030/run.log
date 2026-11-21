@@ -1,0 +1,16 @@
+R46-T030 | FAIL | plugin-nested-file | plugins/DBMigrate/index.cfm
+R46-T030 | PASS | plugin-deep-asset | plugins/Wheels/assets/images/logo.png
+R46-T030 | PASS | controller-not-ignored | controllers/Account.cfc
+R46-T030 | PASS | plugins-root-itself | plugins/
+R46-T030 | PASS | files-upload-dir | files/
+R46-T030 | PASS | files-nested-upload | files/images/avatar.jpg
+R46-T030 | PASS | config-settings | config/settings.cfm
+R46-T030 | PASS | fileslist-not-matched | fileslist.txt
+R46-T030 | PASS | db-sql-migration | db/sql/001_create_users.sql
+R46-T030 | PASS | db-sql-nested-script | db/sql/rollbacks/002_drop_users.sql
+R46-T030 | PASS | db-seed-not-sql | db/seeds.cfm
+R46-T030 | PASS | sql-outside-db | deploy/schema.sql
+R46-T030 | PASS | js-bundle | javascripts/bundles/app.min.js
+R46-T030 | PASS | css-bundle | stylesheets/bundles/main.min.css
+R46-T030 | PASS | js-source | javascripts/app.js
+R46-T030 | PASS | tracked-controller-modified | controllers/Account.cfc

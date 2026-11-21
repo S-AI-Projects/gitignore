@@ -1,12 +1,22 @@
-# unpacked plugin folders
+# CFWheels (ColdFusion on Wheels) framework — Git ignored paths
+#
+# plugins/**/* — ignores all files inside plugins/ at any depth, but
+#   the plugins/ directory itself and direct child directories remain visible,
+#   allowing the folder structure to be tracked without committing large binaries.
+#   Alt `plugins/` would hide the entire directory; `plugins/*` misses nested files.
 plugins/**/*
 
-# files directory where uploads go
+# files — ignores the 'files' entry (file OR directory) at repo root.
+#   This is where user-uploaded files land at runtime; never commit them.
+#   Alt `files/` would only match if it is a directory (misses a plain 'files' file).
 files
 
-# DBMigrate plugin: generated SQL
+# DBMigrate plugin: auto-generated SQL migration files should not be committed.
+#   Alt `db/` would also hide hand-written seeds/schemas; too broad.
+#   Alt `db/sql/*.sql` would miss files without .sql extension.
 db/sql
 
-# AssetBundler plugin: generated bundles
+# AssetBundler plugin: minified/concatenated output files
+#   These are generated at deploy time; source JS/CSS lives in unbundled directories.
 javascripts/bundles
 stylesheets/bundles

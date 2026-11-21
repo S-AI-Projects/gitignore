@@ -1,0 +1,208 @@
+{
+  "task": "R46-T030",
+  "issue": 30,
+  "template": "CFWheels.gitignore",
+  "focus_patterns": [
+    "plugins/**/*",
+    "files",
+    "db/sql"
+  ],
+  "tool_versions": {
+    "git": "git version 2.50.1 (Apple Git-155)",
+    "python": "3.14.6",
+    "os": "macOS-27.2.1-arm64-arm-64bit-Mach-O"
+  },
+  "total_checks": 16,
+  "passed": 15,
+  "failed": 1,
+  "results": [
+    {
+      "name": "plugin-nested-file",
+      "path": "plugins/DBMigrate/index.cfm",
+      "group": "plugins",
+      "expected_ignored": true,
+      "actual_ignored": false,
+      "pattern_matched": "plugins/**/*",
+      "gitignore_line": "7",
+      "note": "plugins/**/* matches files at any depth inside plugins/",
+      "passed": false,
+      "status": "FAIL"
+    },
+    {
+      "name": "plugin-deep-asset",
+      "path": "plugins/Wheels/assets/images/logo.png",
+      "group": "plugins",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "plugins/**/*",
+      "gitignore_line": "7",
+      "note": "plugins/**/* matches deeply nested plugin assets",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "controller-not-ignored",
+      "path": "controllers/Account.cfc",
+      "group": "plugins",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "gitignore_line": null,
+      "note": "Source files in controllers/ are never ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "plugins-root-itself",
+      "path": "plugins/",
+      "group": "plugins",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "plugins/**/*",
+      "gitignore_line": "7",
+      "note": "Git also ignores the plugins/ directory itself under plugins/**/* in --no-index mode",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "files-upload-dir",
+      "path": "files/",
+      "group": "files",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "files",
+      "gitignore_line": "12",
+      "note": "'files' pattern matches the top-level upload directory",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "files-nested-upload",
+      "path": "files/images/avatar.jpg",
+      "group": "files",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "files",
+      "gitignore_line": "12",
+      "note": "Contents inside ignored 'files/' are also ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "config-settings",
+      "path": "config/settings.cfm",
+      "group": "files",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "gitignore_line": null,
+      "note": "config/ source files are never ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "fileslist-not-matched",
+      "path": "fileslist.txt",
+      "group": "files",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "gitignore_line": null,
+      "note": "'files' pattern matches exact name only; 'fileslist.txt' is not ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "db-sql-migration",
+      "path": "db/sql/001_create_users.sql",
+      "group": "db-sql",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "db/sql",
+      "gitignore_line": "17",
+      "note": "db/sql matches the directory at repo root; migration SQL inside is ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "db-sql-nested-script",
+      "path": "db/sql/rollbacks/002_drop_users.sql",
+      "group": "db-sql",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "db/sql",
+      "gitignore_line": "17",
+      "note": "db/sql ignores the whole sub-tree rooted at db/sql",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "db-seed-not-sql",
+      "path": "db/seeds.cfm",
+      "group": "db-sql",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "gitignore_line": null,
+      "note": "db/seeds.cfm is outside db/sql \u2014 it stays tracked",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "sql-outside-db",
+      "path": "deploy/schema.sql",
+      "group": "db-sql",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "gitignore_line": null,
+      "note": "db/sql only anchors to repo root; deploy/schema.sql is NOT ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "js-bundle",
+      "path": "javascripts/bundles/app.min.js",
+      "group": "bundles",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "javascripts/bundles",
+      "gitignore_line": "21",
+      "note": "javascripts/bundles/ is ignored \u2014 generated bundles are not committed",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "css-bundle",
+      "path": "stylesheets/bundles/main.min.css",
+      "group": "bundles",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "stylesheets/bundles",
+      "gitignore_line": "22",
+      "note": "stylesheets/bundles/ is ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "js-source",
+      "path": "javascripts/app.js",
+      "group": "bundles",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "gitignore_line": null,
+      "note": "Source JS outside bundles/ is NOT ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "tracked-controller-modified",
+      "path": "controllers/Account.cfc",
+      "group": "tracked",
+      "note": "Modified tracked source shows as 'M' in porcelain \u2014 not ignored",
+      "passed": true,
+      "status": "PASS"
+    }
+  ]
+}
