@@ -1,0 +1,16 @@
+R46-T029 check | PASS | private-root | nbproject/private/
+R46-T029 check | PASS | private-nested | myapp/nbproject/private/
+R46-T029 check | PASS | private-file-inside | nbproject/private/cache.dat
+R46-T029 check | PASS | shared-project-xml | nbproject/project.xml
+R46-T029 check | PASS | makefile-debug | nbproject/Makefile-Debug.mk
+R46-T029 check | PASS | makefile-release-nested | sub/nbproject/Makefile-Release.mk
+R46-T029 check | PASS | makefile-plain | nbproject/Makefile.mk
+R46-T029 check | PASS | makefile-outside-nbproject | build/Makefile-Debug.mk
+R46-T029 check | PASS | package-debug | nbproject/Package-Debug.bash
+R46-T029 check | PASS | package-release-nested | sub/nbproject/Package-Release.bash
+R46-T029 check | PASS | package-plain-bash | nbproject/deploy.bash
+R46-T029 check | PASS | package-sh-extension | nbproject/Package-Debug.sh
+R46-T029 check | PASS | build-dir | build/
+R46-T029 check | PASS | dist-dir | dist/
+R46-T029 check | PASS | source-java | src/com/example/Main.java
+R46-T029 check | PASS | tracked-source-modified | src/com/example/Main.java
