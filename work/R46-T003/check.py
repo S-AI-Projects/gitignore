@@ -24,12 +24,12 @@ with tempfile.TemporaryDirectory() as temp:
     result = run_git(repo, "init")
     check(result.returncode == 0, "Temporary Git repository created")
 
-    (repo / ".gitignore").write_text(
-        ".ninja_deps\n"
-        ".ninja_log\n"
-        "\n"
-        "!keep.ninja_log\n"
-    )
+    # Copy the actual Ninja template
+    project = Path(__file__).resolve().parents[2]
+    template = project / "Global" / "Ninja.gitignore"
+
+    gitignore = template.read_text() + "\n!build/.ninja_log\n"
+    (repo / ".gitignore").write_text(gitignore)
 
     files = [
         ".ninja_deps",
@@ -38,7 +38,6 @@ with tempfile.TemporaryDirectory() as temp:
         "build/.ninja_log",
         ".ninja_deps-backup",
         ".ninja_log-backup",
-        "keep.ninja_log",
     ]
 
     for name in files:
@@ -50,17 +49,23 @@ with tempfile.TemporaryDirectory() as temp:
         ".ninja_deps": (True, ".ninja_deps"),
         "build/.ninja_deps": (True, ".ninja_deps"),
         ".ninja_log": (True, ".ninja_log"),
-        "build/.ninja_log": (True, ".ninja_log"),
+        "build/.ninja_log": (False, "!build/.ninja_log"),
         ".ninja_deps-backup": (False, None),
         ".ninja_log-backup": (False, None),
-        "keep.ninja_log": (False, "!keep.ninja_log"),
     }
 
     for name, (should_ignore, rule) in expected.items():
         result = run_git(
-            repo, "check-ignore", "-v", "--no-index", name
+            repo, "check-ignore", "-v", "-n", "--no-index", name
         )
         output = result.stdout.strip()
+
+        if rule:
+            check(
+                rule in output,
+                f"{name}: matching rule is {rule}"
+            )
+            print("  Git rule output:", output)
 
         status = run_git(
             repo, "status", "--porcelain",
@@ -71,20 +76,17 @@ with tempfile.TemporaryDirectory() as temp:
 
         check(
             is_ignored == should_ignore,
-            f"{name}: ignored status"
+            f"{name}: Git status confirms ignored state"
         )
 
-        if rule:
-            check(
-                rule in output,
-                f"{name}: matching rule is {rule}"
-            )
-
-    run_git(repo, "add", "-f", ".ninja_deps")
+    # Test tracked-file behavior
+    result = run_git(repo, "add", "-f", ".ninja_deps")
+    check(result.returncode == 0, "Ignored file can be force-added")
 
     tracked = run_git(
         repo, "check-ignore", "-v", ".ninja_deps"
     )
+
     check(
         tracked.returncode == 1,
         "Tracked file is not reported as ignored"
@@ -93,6 +95,7 @@ with tempfile.TemporaryDirectory() as temp:
     no_index = run_git(
         repo, "check-ignore", "-v", "--no-index", ".ninja_deps"
     )
+
     check(
         no_index.returncode == 0
         and ".ninja_deps" in no_index.stdout,
@@ -100,6 +103,7 @@ with tempfile.TemporaryDirectory() as temp:
     )
 
     status = run_git(repo, "status", "--porcelain")
+
     check(
         "A  .ninja_deps" in status.stdout,
         "Tracked file appears in Git status"

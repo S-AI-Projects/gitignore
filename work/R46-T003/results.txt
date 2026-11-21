@@ -1,16 +1,19 @@
 PASS: Temporary Git repository created
-PASS: .ninja_deps: ignored status
 PASS: .ninja_deps: matching rule is .ninja_deps
-PASS: build/.ninja_deps: ignored status
+  Git rule output: .gitignore:2:.ninja_deps	.ninja_deps
+PASS: .ninja_deps: Git status confirms ignored state
 PASS: build/.ninja_deps: matching rule is .ninja_deps
-PASS: .ninja_log: ignored status
+  Git rule output: .gitignore:2:.ninja_deps	build/.ninja_deps
+PASS: build/.ninja_deps: Git status confirms ignored state
 PASS: .ninja_log: matching rule is .ninja_log
-PASS: build/.ninja_log: ignored status
-PASS: build/.ninja_log: matching rule is .ninja_log
-PASS: .ninja_deps-backup: ignored status
-PASS: .ninja_log-backup: ignored status
-PASS: keep.ninja_log: ignored status
-PASS: keep.ninja_log: matching rule is !keep.ninja_log
+  Git rule output: .gitignore:3:.ninja_log	.ninja_log
+PASS: .ninja_log: Git status confirms ignored state
+PASS: build/.ninja_log: matching rule is !build/.ninja_log
+  Git rule output: .gitignore:5:!build/.ninja_log	build/.ninja_log
+PASS: build/.ninja_log: Git status confirms ignored state
+PASS: .ninja_deps-backup: Git status confirms ignored state
+PASS: .ninja_log-backup: Git status confirms ignored state
+PASS: Ignored file can be force-added
 PASS: Tracked file is not reported as ignored
 PASS: No-index check identifies the matching rule
 PASS: Tracked file appears in Git status
