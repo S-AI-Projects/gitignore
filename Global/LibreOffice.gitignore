@@ -1,2 +1,3 @@
-# LibreOffice locks
+# LibreOffice document locks created during active editing sessions
+# Matches lock files in the format .~lock.<filename>#
 .~lock.*#
