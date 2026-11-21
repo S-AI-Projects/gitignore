@@ -1,7 +1,7 @@
-# Prerequisites
+# Prerequisites (compiler-generated dependency tracking files)
 *.d
 
-# Object files
+# Object files (compiled binary units and kernel objects)
 *.o
 *.ko
 *.obj
