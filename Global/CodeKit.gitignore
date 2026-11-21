@@ -1,4 +1,8 @@
 # General CodeKit files to ignore
+
+# Project configuration (unanchored, matches in root and nested directories)
 config.codekit
 config.codekit3
+
+# Minified output directory (anchored to repository root)
 /min
