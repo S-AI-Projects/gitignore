@@ -1,0 +1,449 @@
+{
+  "task_id": "R46-T022",
+  "student": "sumit kavishwar",
+  "urn": "E26B07F0687",
+  "template": "Global/CodeKit.gitignore",
+  "focus_patterns": [
+    "config.codekit",
+    "config.codekit3",
+    "/min"
+  ],
+  "tool_versions": {
+    "git": "git version 2.50.1 (Apple Git-155)",
+    "python": "3.14.6 (v3.14.6:c63aec69bd5, Jun 10 2026, 08:07:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "Darwin 27.2.0 (arm64)"
+  },
+  "pattern_lines": {
+    "config.codekit": 4,
+    "config.codekit3": 5,
+    "/min": 8
+  },
+  "nested_matching_analysis": {
+    "unanchored_rules": {
+      "patterns": [
+        "config.codekit",
+        "config.codekit3"
+      ],
+      "behavior": "No leading slash. Matches at project root, Level 1 nested, and Level 2 nested directories."
+    },
+    "root_anchored_rules": {
+      "patterns": [
+        "/min"
+      ],
+      "behavior": "Leading slash anchors pattern strictly to repository root. Subdirectory matches (assets/min/, app/static/min/) are NOT ignored and remain visible."
+    }
+  },
+  "tracked_file_check": {
+    "path": "config.codekit",
+    "description": "Pre-tracked config.codekit modification remains tracked and visible in status --porcelain",
+    "porcelain_status": "M config.codekit",
+    "passed": true
+  },
+  "test_cases": [
+    {
+      "id": "codekit-root-match",
+      "focus_pattern": "config.codekit",
+      "path": "config.codekit",
+      "depth": "root",
+      "description": "Unanchored pattern matches config.codekit at repository root",
+      "expected": {
+        "ignored": true,
+        "pattern": "config.codekit",
+        "line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "config.codekit",
+        "rule_line": 4,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:4:config.codekit\tconfig.codekit"
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit-level1-match",
+      "focus_pattern": "config.codekit",
+      "path": "theme/config.codekit",
+      "depth": "nested_level_1",
+      "description": "Unanchored pattern matches config.codekit in level 1 nested directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "config.codekit",
+        "line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "config.codekit",
+        "rule_line": 4,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:4:config.codekit\ttheme/config.codekit"
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit-level2-match",
+      "focus_pattern": "config.codekit",
+      "path": "theme/assets/config.codekit",
+      "depth": "nested_level_2",
+      "description": "Unanchored pattern matches config.codekit in level 2 deeply nested directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "config.codekit",
+        "line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "config.codekit",
+        "rule_line": 4,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:4:config.codekit\ttheme/assets/config.codekit"
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit-nonmatch-bak",
+      "focus_pattern": "config.codekit",
+      "path": "config.codekit.bak",
+      "depth": "root",
+      "description": "Near-miss: backup file (.bak). Remains visible because pattern requires exact name",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? config.codekit.bak",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit-nonmatch-dist",
+      "focus_pattern": "config.codekit",
+      "path": "theme/config.codekit.dist",
+      "depth": "nested_level_1",
+      "description": "Near-miss: distribution template (.dist). Must remain tracked in version control",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? theme/config.codekit.dist",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit-nonmatch-prefix",
+      "focus_pattern": "config.codekit",
+      "path": "my_config.codekit",
+      "depth": "root",
+      "description": "Near-miss: custom prefixed filename. Remains visible because pattern has no wildcard",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? my_config.codekit",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit3-root-match",
+      "focus_pattern": "config.codekit3",
+      "path": "config.codekit3",
+      "depth": "root",
+      "description": "Unanchored pattern matches config.codekit3 at repository root",
+      "expected": {
+        "ignored": true,
+        "pattern": "config.codekit3",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "config.codekit3",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:config.codekit3\tconfig.codekit3"
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit3-level1-match",
+      "focus_pattern": "config.codekit3",
+      "path": "app/config.codekit3",
+      "depth": "nested_level_1",
+      "description": "Unanchored pattern matches config.codekit3 in level 1 nested directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "config.codekit3",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "config.codekit3",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:config.codekit3\tapp/config.codekit3"
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit3-level2-match",
+      "focus_pattern": "config.codekit3",
+      "path": "app/frontend/config.codekit3",
+      "depth": "nested_level_2",
+      "description": "Unanchored pattern matches config.codekit3 in level 2 deeply nested directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "config.codekit3",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "config.codekit3",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:config.codekit3\tapp/frontend/config.codekit3"
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit3-nonmatch-sample",
+      "focus_pattern": "config.codekit3",
+      "path": "config.codekit3.sample",
+      "depth": "root",
+      "description": "Near-miss: sample configuration file. Must remain tracked for collaborators",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? config.codekit3.sample",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit3-nonmatch-version",
+      "focus_pattern": "config.codekit3",
+      "path": "app/config.codekit2",
+      "depth": "nested_level_1",
+      "description": "Near-miss: legacy version filename config.codekit2 is not matched",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? app/config.codekit2",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "codekit3-nonmatch-prefix",
+      "focus_pattern": "config.codekit3",
+      "path": "theme/custom-config.codekit3",
+      "depth": "nested_level_1",
+      "description": "Near-miss: prefixed custom config file remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? theme/custom-config.codekit3",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "min-root-dir-match",
+      "focus_pattern": "/min",
+      "path": "min/app.js",
+      "depth": "root",
+      "description": "Anchored pattern /min matches minified assets inside root /min directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "/min",
+        "line": 8
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "/min",
+        "rule_line": 8,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:8:/min\tmin/app.js"
+      },
+      "passed": true
+    },
+    {
+      "id": "min-root-css-match",
+      "focus_pattern": "/min",
+      "path": "min/styles.css",
+      "depth": "root",
+      "description": "Anchored pattern /min matches stylesheet inside root /min directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "/min",
+        "line": 8
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "/min",
+        "rule_line": 8,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:8:/min\tmin/styles.css"
+      },
+      "passed": true
+    },
+    {
+      "id": "min-level1-nested-visible",
+      "focus_pattern": "/min",
+      "path": "assets/min/app.js",
+      "depth": "nested_level_1",
+      "description": "CRUCIAL: Level 1 nested assets/min/ is NOT ignored because /min is anchored to root",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? assets/min/app.js",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "min-level2-nested-visible",
+      "focus_pattern": "/min",
+      "path": "app/static/min/bundle.css",
+      "depth": "nested_level_2",
+      "description": "CRUCIAL: Level 2 nested app/static/min/ is NOT ignored because /min is anchored to root",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? app/static/min/bundle.css",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "min-nonmatch-minute",
+      "focus_pattern": "/min",
+      "path": "minute.txt",
+      "depth": "root",
+      "description": "Near-miss: prefix match 'minute.txt' is not matched by exact name '/min'",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? minute.txt",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "min-nonmatch-minimal",
+      "focus_pattern": "/min",
+      "path": "minimal/bundle.js",
+      "depth": "root",
+      "description": "Near-miss: directory 'minimal/' is not matched by exact name '/min'",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? minimal/bundle.js",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "min-nonmatch-minjs",
+      "focus_pattern": "/min",
+      "path": "min.js",
+      "depth": "root",
+      "description": "Near-miss: regular file 'min.js' is distinct from directory '/min'",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? min.js",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total_fixtures": 20,
+    "passed": 20,
+    "failed": 0,
+    "all_passed": true
+  }
+}
