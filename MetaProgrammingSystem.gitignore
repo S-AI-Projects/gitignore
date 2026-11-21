@@ -1,5 +1,7 @@
+# User-specific workspace configuration
 workspace.xml
-junitvmwatcher*.properties
+
+# Project build properties
 build.properties
 
 # generated java classes and java source files
@@ -14,3 +16,4 @@ test_gen
 test_gen.caches
 TEST-*.xml
 junit*.properties
+junitvmwatcher*.properties

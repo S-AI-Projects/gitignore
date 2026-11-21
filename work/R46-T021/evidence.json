@@ -1,0 +1,622 @@
+{
+  "task_id": "R46-T021",
+  "student": "sumit kavishwar",
+  "urn": "E26B07F0687",
+  "template": "MetaProgrammingSystem.gitignore",
+  "focus_patterns": [
+    "workspace.xml",
+    "junitvmwatcher*.properties",
+    "build.properties"
+  ],
+  "tool_versions": {
+    "git": "git version 2.50.1 (Apple Git-155)",
+    "python": "3.14.6 (v3.14.6:c63aec69bd5, Jun 10 2026, 08:07:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "Darwin 27.2.0 (arm64)"
+  },
+  "pattern_lines": {
+    "workspace.xml": 2,
+    "build.properties": 5,
+    "classes_gen": 10,
+    "source_gen": 11,
+    "source_gen.caches": 12,
+    "test_gen": 15,
+    "test_gen.caches": 16,
+    "TEST-*.xml": 17,
+    "junit*.properties": 18,
+    "junitvmwatcher*.properties": 19
+  },
+  "regression_summary": {
+    "root_cause": "In the original template, junitvmwatcher*.properties was located on line 2, while junit*.properties was located on line 16. In Git rule evaluation, later rules take precedence; consequently, junitvmwatcher*.properties was completely shadowed by junit*.properties. Relocating junitvmwatcher*.properties under '# generated test code and test results' after junit*.properties resolves the shadow conflict while preserving all legitimate test and configuration files.",
+    "before_rule_for_junitvmwatcher": "junit*.properties",
+    "after_rule_for_junitvmwatcher": 19
+  },
+  "tracked_file_check": {
+    "path": "workspace.xml",
+    "description": "Pre-tracked workspace.xml modification remains tracked and visible in status --porcelain",
+    "porcelain_status": "M workspace.xml",
+    "passed": true
+  },
+  "test_cases": [
+    {
+      "id": "workspace-match-root",
+      "focus_pattern": "workspace.xml",
+      "path": "workspace.xml",
+      "description": "MPS / IntelliJ workspace user state file in project root",
+      "expected": {
+        "ignored": true,
+        "pattern": "workspace.xml",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "workspace.xml",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:workspace.xml\tworkspace.xml"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 1,
+        "pattern": "workspace.xml"
+      },
+      "passed": true
+    },
+    {
+      "id": "workspace-match-dotmps",
+      "focus_pattern": "workspace.xml",
+      "path": ".mps/workspace.xml",
+      "description": "Workspace file in .mps directory (nested directory matching)",
+      "expected": {
+        "ignored": true,
+        "pattern": "workspace.xml",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "workspace.xml",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:workspace.xml\t.mps/workspace.xml"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 1,
+        "pattern": "workspace.xml"
+      },
+      "passed": true
+    },
+    {
+      "id": "workspace-match-nested",
+      "focus_pattern": "workspace.xml",
+      "path": "project/subproject/workspace.xml",
+      "description": "Deeply nested workspace.xml (unanchored pattern matches anywhere)",
+      "expected": {
+        "ignored": true,
+        "pattern": "workspace.xml",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "workspace.xml",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:workspace.xml\tproject/subproject/workspace.xml"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 1,
+        "pattern": "workspace.xml"
+      },
+      "passed": true
+    },
+    {
+      "id": "workspace-nonmatch-bak",
+      "focus_pattern": "workspace.xml",
+      "path": "workspace.xml.bak",
+      "description": "Near-miss: backup file (.bak). Remains visible because pattern requires exact name",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? workspace.xml.bak",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "workspace-nonmatch-dist",
+      "focus_pattern": "workspace.xml",
+      "path": "workspace.xml.dist",
+      "description": "Near-miss: distribution template (.dist). Must remain tracked in version control",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? workspace.xml.dist",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "workspace-nonmatch-prefix",
+      "focus_pattern": "workspace.xml",
+      "path": "my-workspace.xml",
+      "description": "Near-miss: prefixed filename. Remains visible because pattern has no wildcard",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? my-workspace.xml",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "workspace-nonmatch-tilde",
+      "focus_pattern": "workspace.xml",
+      "path": "workspace.xml~",
+      "description": "Near-miss: editor backup file ending with tilde. Remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? workspace.xml~",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "junitvmwatcher-match-base",
+      "focus_pattern": "junitvmwatcher*.properties",
+      "path": "junitvmwatcher.properties",
+      "description": "Base VM watcher properties file with empty wildcard",
+      "expected": {
+        "ignored": true,
+        "pattern": "junitvmwatcher*.properties",
+        "line": 19
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "junitvmwatcher*.properties",
+        "rule_line": 19,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:19:junitvmwatcher*.properties\tjunitvmwatcher.properties"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 16,
+        "pattern": "junit*.properties"
+      },
+      "passed": true
+    },
+    {
+      "id": "junitvmwatcher-match-pid",
+      "focus_pattern": "junitvmwatcher*.properties",
+      "path": "junitvmwatcher1234.properties",
+      "description": "VM watcher properties file with numeric process ID",
+      "expected": {
+        "ignored": true,
+        "pattern": "junitvmwatcher*.properties",
+        "line": 19
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "junitvmwatcher*.properties",
+        "rule_line": 19,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:19:junitvmwatcher*.properties\tjunitvmwatcher1234.properties"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 16,
+        "pattern": "junit*.properties"
+      },
+      "passed": true
+    },
+    {
+      "id": "junitvmwatcher-match-label",
+      "focus_pattern": "junitvmwatcher*.properties",
+      "path": "junitvmwatcher_runner_0.properties",
+      "description": "VM watcher properties file with runner label suffix",
+      "expected": {
+        "ignored": true,
+        "pattern": "junitvmwatcher*.properties",
+        "line": 19
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "junitvmwatcher*.properties",
+        "rule_line": 19,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:19:junitvmwatcher*.properties\tjunitvmwatcher_runner_0.properties"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 16,
+        "pattern": "junit*.properties"
+      },
+      "passed": true
+    },
+    {
+      "id": "junitvmwatcher-match-nested",
+      "focus_pattern": "junitvmwatcher*.properties",
+      "path": "build/test-reports/junitvmwatcher_test.properties",
+      "description": "VM watcher properties file in nested build/test directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "junitvmwatcher*.properties",
+        "line": 19
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "junitvmwatcher*.properties",
+        "rule_line": 19,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:19:junitvmwatcher*.properties\tbuild/test-reports/junitvmwatcher_test.properties"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 16,
+        "pattern": "junit*.properties"
+      },
+      "passed": true
+    },
+    {
+      "id": "junitvmwatcher-nonmatch-no-ext",
+      "focus_pattern": "junitvmwatcher*.properties",
+      "path": "junitvmwatcher",
+      "description": "Near-miss: missing .properties extension. Remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? junitvmwatcher",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "junitvmwatcher-nonmatch-props",
+      "focus_pattern": "junitvmwatcher*.properties",
+      "path": "junitvmwatcher.props",
+      "description": "Near-miss: truncated extension .props instead of .properties. Remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? junitvmwatcher.props",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "junitvmwatcher-nonmatch-prefix",
+      "focus_pattern": "junitvmwatcher*.properties",
+      "path": "my_junitvmwatcher.properties",
+      "description": "Near-miss: prefixed filename. Remains visible because pattern requires junitvmwatcher prefix",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? my_junitvmwatcher.properties",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "junitvmwatcher-nonmatch-sample",
+      "focus_pattern": "junitvmwatcher*.properties",
+      "path": "junitvmwatcher.properties.sample",
+      "description": "Near-miss: sample configuration file with extra trailing extension. Remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? junitvmwatcher.properties.sample",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "build-match-root",
+      "focus_pattern": "build.properties",
+      "path": "build.properties",
+      "description": "Root build.properties (Ant / MPS local build property overrides)",
+      "expected": {
+        "ignored": true,
+        "pattern": "build.properties",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "build.properties",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:build.properties\tbuild.properties"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 3,
+        "pattern": "build.properties"
+      },
+      "passed": true
+    },
+    {
+      "id": "build-match-subproject",
+      "focus_pattern": "build.properties",
+      "path": "subproject/build.properties",
+      "description": "Subproject build.properties in nested directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "build.properties",
+        "line": 5
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "build.properties",
+        "rule_line": 5,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:5:build.properties\tsubproject/build.properties"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 3,
+        "pattern": "build.properties"
+      },
+      "passed": true
+    },
+    {
+      "id": "build-nonmatch-sample",
+      "focus_pattern": "build.properties",
+      "path": "build.properties.sample",
+      "description": "Near-miss: sample configuration file. Must remain tracked for project contributors",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? build.properties.sample",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "build-nonmatch-template",
+      "focus_pattern": "build.properties",
+      "path": "build.properties.template",
+      "description": "Near-miss: build template file. Must remain tracked",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? build.properties.template",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "build-nonmatch-underscore",
+      "focus_pattern": "build.properties",
+      "path": "build_properties",
+      "description": "Near-miss: underscore separator instead of dot. Remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? build_properties",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "build-nonmatch-prefix",
+      "focus_pattern": "build.properties",
+      "path": "custom-build.properties",
+      "description": "Near-miss: prefixed custom build file. Remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? custom-build.properties",
+        "raw_check_ignore": ""
+      },
+      "before_regression": {
+        "ignored": false,
+        "line": null,
+        "pattern": null
+      },
+      "passed": true
+    },
+    {
+      "id": "general-junit-properties",
+      "focus_pattern": "junit*.properties",
+      "path": "junit.properties",
+      "description": "General test properties file ignored by junit*.properties rule",
+      "expected": {
+        "ignored": true,
+        "pattern": "junit*.properties",
+        "line": 18
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "junit*.properties",
+        "rule_line": 18,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:18:junit*.properties\tjunit.properties"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 16,
+        "pattern": "junit*.properties"
+      },
+      "passed": true
+    },
+    {
+      "id": "general-test-xml",
+      "focus_pattern": "TEST-*.xml",
+      "path": "TEST-report.xml",
+      "description": "JUnit test results XML report",
+      "expected": {
+        "ignored": true,
+        "pattern": "TEST-*.xml",
+        "line": 17
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "TEST-*.xml",
+        "rule_line": 17,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:17:TEST-*.xml\tTEST-report.xml"
+      },
+      "before_regression": {
+        "ignored": true,
+        "line": 15,
+        "pattern": "TEST-*.xml"
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total_fixtures": 24,
+    "passed": 24,
+    "failed": 0,
+    "all_passed": true
+  }
+}
