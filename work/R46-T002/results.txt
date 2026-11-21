@@ -1,0 +1,29 @@
+
+R46-T002: EIFGENs pattern matching checks
+=========================================
+
+Date: 2026-11-21
+Branch: R46-T002
+Git version: 2.55.0
+Python version: 3.14.7
+
+Template tested:
+Global/EiffelStudio.gitignore
+
+Rule verified:
+Line 7: EIFGENs
+
+Test method:
+- Copied the actual EiffelStudio.gitignore template into a temporary Git repository.
+- Checked 6 paths that should be ignored.
+- Checked 9 paths that should not be ignored.
+- Checked tracked-file behaviour using git ls-files.
+- Checked index-aware git check-ignore behaviour.
+- Checked git check-ignore --no-index behaviour.
+- Checked git status --porcelain for the tracked file.
+
+Result:
+ALL 19 CHECKS PASSED
+
+Temporary repository:
+Created automatically by check.py.
