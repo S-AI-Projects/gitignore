@@ -1,0 +1,277 @@
+{
+  "task_id": "R46-T026",
+  "student": "sumit kavishwar",
+  "urn": "E26B07F0687",
+  "template": "Actionscript.gitignore",
+  "focus_patterns": [
+    "bin-debug/",
+    "bin-release/",
+    "[Oo]bj/"
+  ],
+  "tool_versions": {
+    "git": "git version 2.50.1 (Apple Git-155)",
+    "python": "3.14.6 (v3.14.6:c63aec69bd5, Jun 10 2026, 08:07:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "Darwin 27.2.0 (arm64)"
+  },
+  "pattern_lines": {
+    "bin-debug/": 2,
+    "bin-release/": 3,
+    "[Oo]bj/": 4,
+    "[Bb]in/": 5,
+    ".settings/": 8,
+    "*.swf": 11,
+    "*.air": 12,
+    "*.ipa": 13,
+    "*.apk": 14
+  },
+  "case_and_filesystem_behavior": {
+    "filesystem_case_insensitive": true,
+    "git_core_ignorecase": "true",
+    "bracket_case_pattern_note": "The pattern [Oo]bj/ explicitly handles case variants (obj/ and Obj/) at the pattern level using POSIX bracket expression [Oo], ensuring robust cross-platform matching regardless of whether the underlying filesystem or Git core.ignorecase is case-sensitive or case-insensitive."
+  },
+  "tracked_file_check": {
+    "path": "bin-debug/tracked_compiler_config.xml",
+    "description": "Pre-tracked compiler config inside ignored directory remains tracked and visible in status --porcelain",
+    "porcelain_status": "M bin-debug/tracked_compiler_config.xml",
+    "passed": true
+  },
+  "test_cases": [
+    {
+      "id": "bindebug-match-root",
+      "focus_pattern": "bin-debug/",
+      "path": "bin-debug/app.swf",
+      "is_space_path": false,
+      "description": "Standard debug output directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "bin-debug/",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "bin-debug/",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:bin-debug/\tbin-debug/app.swf"
+      },
+      "passed": true
+    },
+    {
+      "id": "bindebug-match-space-path",
+      "focus_pattern": "bin-debug/",
+      "path": "Flash Games/Action Game/bin-debug/game.swf",
+      "is_space_path": true,
+      "description": "Nested path containing spaces in directory names",
+      "expected": {
+        "ignored": true,
+        "pattern": "bin-debug/",
+        "line": 2
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "bin-debug/",
+        "rule_line": 2,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:2:bin-debug/\tFlash Games/Action Game/bin-debug/game.swf"
+      },
+      "passed": true
+    },
+    {
+      "id": "bindebug-nonmatch-source",
+      "focus_pattern": "bin-debug/",
+      "path": "bin-debug.as",
+      "is_space_path": false,
+      "description": "Near-miss: ActionScript source file bin-debug.as remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? bin-debug.as",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "binrelease-match-root",
+      "focus_pattern": "bin-release/",
+      "path": "bin-release/app.air",
+      "is_space_path": false,
+      "description": "Standard release packaging directory",
+      "expected": {
+        "ignored": true,
+        "pattern": "bin-release/",
+        "line": 3
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "bin-release/",
+        "rule_line": 3,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:3:bin-release/\tbin-release/app.air"
+      },
+      "passed": true
+    },
+    {
+      "id": "binrelease-match-space-path",
+      "focus_pattern": "bin-release/",
+      "path": "Client Builds/Release Candidate/bin-release/app.air",
+      "is_space_path": true,
+      "description": "Deeply nested release directory with multiple spaces in path",
+      "expected": {
+        "ignored": true,
+        "pattern": "bin-release/",
+        "line": 3
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "bin-release/",
+        "rule_line": 3,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:3:bin-release/\tClient Builds/Release Candidate/bin-release/app.air"
+      },
+      "passed": true
+    },
+    {
+      "id": "binrelease-nonmatch-notes",
+      "focus_pattern": "bin-release/",
+      "path": "bin-release_notes.txt",
+      "is_space_path": false,
+      "description": "Near-miss: documentation file bin-release_notes.txt remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? bin-release_notes.txt",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "obj-match-lowercase",
+      "focus_pattern": "[Oo]bj/",
+      "path": "obj/intermediate.tmp",
+      "is_space_path": false,
+      "description": "Lowercase 'obj/' directory matched by bracket pattern [Oo]bj/",
+      "expected": {
+        "ignored": true,
+        "pattern": "[Oo]bj/",
+        "line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "[Oo]bj/",
+        "rule_line": 4,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:4:[Oo]bj/\tobj/intermediate.tmp"
+      },
+      "passed": true
+    },
+    {
+      "id": "obj-match-uppercase",
+      "focus_pattern": "[Oo]bj/",
+      "path": "Obj/intermediate.tmp",
+      "is_space_path": false,
+      "description": "Uppercase 'Obj/' directory matched by bracket pattern [Oo]bj/",
+      "expected": {
+        "ignored": true,
+        "pattern": "[Oo]bj/",
+        "line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "[Oo]bj/",
+        "rule_line": 4,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:4:[Oo]bj/\tObj/intermediate.tmp"
+      },
+      "passed": true
+    },
+    {
+      "id": "obj-match-space-path",
+      "focus_pattern": "[Oo]bj/",
+      "path": "Custom Components/UI Library/obj/cache.dat",
+      "is_space_path": true,
+      "description": "Nested obj directory inside space-containing directory hierarchy",
+      "expected": {
+        "ignored": true,
+        "pattern": "[Oo]bj/",
+        "line": 4
+      },
+      "actual": {
+        "ignored": true,
+        "returncode": 0,
+        "pattern": "[Oo]bj/",
+        "rule_line": 4,
+        "porcelain_status": "",
+        "raw_check_ignore": ".gitignore:4:[Oo]bj/\tCustom Components/UI Library/obj/cache.dat"
+      },
+      "passed": true
+    },
+    {
+      "id": "obj-nonmatch-actionscript-class",
+      "focus_pattern": "[Oo]bj/",
+      "path": "src/ObjectRenderer.as",
+      "is_space_path": false,
+      "description": "Near-miss: legitimate ActionScript class file starting with Object remains visible",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? src/ObjectRenderer.as",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    },
+    {
+      "id": "obj-nonmatch-file",
+      "focus_pattern": "[Oo]bj/",
+      "path": "obj.as",
+      "is_space_path": false,
+      "description": "Near-miss: regular file 'obj.as' is not matched by directory rule [Oo]bj/",
+      "expected": {
+        "ignored": false,
+        "pattern": null,
+        "line": null
+      },
+      "actual": {
+        "ignored": false,
+        "returncode": 1,
+        "pattern": null,
+        "rule_line": null,
+        "porcelain_status": "?? obj.as",
+        "raw_check_ignore": ""
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total_checks": 12,
+    "passed": 12,
+    "failed": 0,
+    "all_passed": true
+  }
+}
