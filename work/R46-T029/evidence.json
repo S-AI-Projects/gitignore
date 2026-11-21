@@ -1,0 +1,193 @@
+{
+  "task": "R46-T029",
+  "issue": 29,
+  "template": "Global/NetBeans.gitignore",
+  "focus_patterns": [
+    "**/nbproject/private/",
+    "**/nbproject/Makefile-*.mk",
+    "**/nbproject/Package-*.bash"
+  ],
+  "tool_versions": {
+    "git": "git version 2.50.1 (Apple Git-155)",
+    "python": "3.14.6",
+    "os": "macOS-27.2.1-arm64-arm-64bit-Mach-O"
+  },
+  "total_checks": 16,
+  "passed": 16,
+  "failed": 0,
+  "results": [
+    {
+      "name": "private-root",
+      "path": "nbproject/private/",
+      "group": "private-dir",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "**/nbproject/private/",
+      "note": "**/nbproject/private/ matches at any depth including root",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "private-nested",
+      "path": "myapp/nbproject/private/",
+      "group": "private-dir",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "**/nbproject/private/",
+      "note": "** ensures match at arbitrary depth",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "private-file-inside",
+      "path": "nbproject/private/cache.dat",
+      "group": "private-dir",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "**/nbproject/private/",
+      "note": "Files inside nbproject/private/ are also ignored (directory is ignored)",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "shared-project-xml",
+      "path": "nbproject/project.xml",
+      "group": "private-dir",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "note": "Only 'private/' is ignored; shared metadata like project.xml stays tracked",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "makefile-debug",
+      "path": "nbproject/Makefile-Debug.mk",
+      "group": "makefile",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "**/nbproject/Makefile-*.mk",
+      "note": "Makefile-*.mk matches auto-generated debug variant",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "makefile-release-nested",
+      "path": "sub/nbproject/Makefile-Release.mk",
+      "group": "makefile",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "**/nbproject/Makefile-*.mk",
+      "note": "** allows match in nested sub-project",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "makefile-plain",
+      "path": "nbproject/Makefile.mk",
+      "group": "makefile",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "note": "Plain Makefile.mk (no dash) is NOT matched \u2014 intentionally kept",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "makefile-outside-nbproject",
+      "path": "build/Makefile-Debug.mk",
+      "group": "makefile",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "build/",
+      "note": "build/ dir itself is ignored, so all contents inside it are also ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "package-debug",
+      "path": "nbproject/Package-Debug.bash",
+      "group": "package",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "**/nbproject/Package-*.bash",
+      "note": "Package-*.bash matches auto-generated packaging script",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "package-release-nested",
+      "path": "sub/nbproject/Package-Release.bash",
+      "group": "package",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "**/nbproject/Package-*.bash",
+      "note": "** allows match at any nesting level",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "package-plain-bash",
+      "path": "nbproject/deploy.bash",
+      "group": "package",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "note": "deploy.bash does NOT match Package-*.bash \u2014 user scripts stay visible",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "package-sh-extension",
+      "path": "nbproject/Package-Debug.sh",
+      "group": "package",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "note": ".sh extension is NOT covered by the .bash pattern",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "build-dir",
+      "path": "build/",
+      "group": "build-output",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "build/",
+      "note": "build/ at root is ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "dist-dir",
+      "path": "dist/",
+      "group": "build-output",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "pattern_matched": "dist/",
+      "note": "dist/ at root is ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "source-java",
+      "path": "src/com/example/Main.java",
+      "group": "build-output",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "pattern_matched": null,
+      "note": "Source files are never ignored",
+      "passed": true,
+      "status": "PASS"
+    },
+    {
+      "name": "tracked-source-modified",
+      "path": "src/com/example/Main.java",
+      "group": "tracked",
+      "note": "Modified tracked source shows as 'M' in porcelain",
+      "passed": true,
+      "status": "PASS"
+    }
+  ]
+}

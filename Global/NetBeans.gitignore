@@ -1,8 +1,26 @@
+# NetBeans IDE — project metadata ignored by version control
+#
+# Private user settings (passwords, local paths):
+# Uses **/ double-star so the rule applies at ANY depth, not just repo root.
+# Broader alt `**/nbproject/` would also hide shared project metadata (wrong).
+# Narrower alt `nbproject/private/` would only match at repo root (too shallow).
 **/nbproject/private/
+
+# Generated makefiles — pattern uses -*.mk to target only auto-generated variants:
+# Narrower alt `**/nbproject/Makefile.mk` would miss `Makefile-Debug.mk` etc.
+# Broader alt `**/nbproject/*.mk` would catch hand-edited Makefile extensions too.
 **/nbproject/Makefile-*.mk
+
+# Generated packaging scripts — same rationale as the Makefile pattern:
+# Narrower alt `**/nbproject/Package.bash` would miss `Package-Debug.bash` etc.
+# Broader alt `**/nbproject/*.bash` would also capture custom scripts.
 **/nbproject/Package-*.bash
+
+# Standard build output directories
 build/
 nbbuild/
 dist/
 nbdist/
+
+# Gradle plugin generated directory
 .nb-gradle/
