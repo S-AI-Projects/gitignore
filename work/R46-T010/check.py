@@ -241,6 +241,144 @@ def test_near_miss():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def test_tracked_file_behaviour():
+    """
+    Tracked-file behaviour test.
+    Demonstrate that files matching _notes, _compareTemp, and configs/ committed
+    BEFORE adding the Dreamweaver .gitignore remain tracked and visible in Git,
+    and modifications appear in git status --porcelain.
+    """
+    print("── Tracked-file behaviour ──")
+    tmp = tempfile.mkdtemp(prefix="dw-t010-tracked-")
+    git_init(tmp)
+
+    try:
+        # 1. Create files matching _notes, _compareTemp, and configs/
+        p_notes = Path(tmp) / "_notes" / "site-notes.txt"
+        p_notes.parent.mkdir(parents=True, exist_ok=True)
+        p_notes.write_text("initial notes v1\n")
+
+        p_compare = Path(tmp) / "_compareTemp" / "compare.tmp"
+        p_compare.parent.mkdir(parents=True, exist_ok=True)
+        p_compare.write_text("initial diff v1\n")
+
+        p_configs = Path(tmp) / "configs" / "site.xml"
+        p_configs.parent.mkdir(parents=True, exist_ok=True)
+        p_configs.write_text("<config>v1</config>\n")
+
+        # 2. Stage and commit those matching files BEFORE adding .gitignore
+        res_add = run(["git", "add", "."], cwd=tmp)
+        report(
+            "Pre-gitignore matching files staged",
+            res_add.returncode == 0,
+            res_add.stderr if res_add.returncode != 0 else ""
+        )
+
+        res_commit = run(
+            ["git", "commit", "-m", "commit matching files before gitignore"],
+            cwd=tmp
+        )
+        report(
+            "Pre-gitignore matching files committed",
+            res_commit.returncode == 0,
+            res_commit.stderr if res_commit.returncode != 0 else ""
+        )
+
+        # 3. Add the actual Dreamweaver .gitignore template
+        (Path(tmp) / ".gitignore").write_text(DW_GITIGNORE)
+
+        # 4. Verify already-tracked files remain tracked using git ls-files
+        res_ls = run(["git", "ls-files"], cwd=tmp)
+        ls_out = res_ls.stdout
+        notes_tracked = "_notes/site-notes.txt" in ls_out
+        compare_tracked = "_compareTemp/compare.tmp" in ls_out
+        configs_tracked = "configs/site.xml" in ls_out
+
+        report(
+            "Pre-committed _notes/site-notes.txt remains tracked in index",
+            notes_tracked,
+            f"ls-files: {ls_out.strip()!r}"
+        )
+        report(
+            "Pre-committed _compareTemp/compare.tmp remains tracked in index",
+            compare_tracked,
+            f"ls-files: {ls_out.strip()!r}"
+        )
+        report(
+            "Pre-committed configs/site.xml remains tracked in index",
+            configs_tracked,
+            f"ls-files: {ls_out.strip()!r}"
+        )
+
+        # 5. Verify clean tracked files are not flagged as untracked/ignored
+        res_status_clean = run(["git", "status", "--porcelain"], cwd=tmp)
+        clean_lines = res_status_clean.stdout.splitlines()
+        tracked_hidden = any(
+            any(f in line for f in ["_notes/", "_compareTemp/", "configs/"])
+            for line in clean_lines
+        )
+        report(
+            "Tracked matching files are clean in git status --porcelain (not untracked or ignored)",
+            not tracked_hidden,
+            f"status: {res_status_clean.stdout.strip()!r}"
+        )
+
+        # 6. Modify the tracked files and assert their modifications appear in git status --porcelain
+        p_notes.write_text("modified notes v2\n")
+        p_compare.write_text("modified diff v2\n")
+        p_configs.write_text("<config>v2</config>\n")
+
+        res_status_mod = run(["git", "status", "--porcelain"], cwd=tmp)
+        status_mod_out = res_status_mod.stdout
+
+        notes_mod_visible = "M _notes/site-notes.txt" in status_mod_out
+        compare_mod_visible = "M _compareTemp/compare.tmp" in status_mod_out
+        configs_mod_visible = "M configs/site.xml" in status_mod_out
+
+        report(
+            "git status --porcelain detects modification to tracked _notes/site-notes.txt",
+            notes_mod_visible,
+            f"status: {status_mod_out.strip()!r}"
+        )
+        report(
+            "git status --porcelain detects modification to tracked _compareTemp/compare.tmp",
+            compare_mod_visible,
+            f"status: {status_mod_out.strip()!r}"
+        )
+        report(
+            "git status --porcelain detects modification to tracked configs/site.xml",
+            configs_mod_visible,
+            f"status: {status_mod_out.strip()!r}"
+        )
+
+        # 7. Index mode vs --no-index mode for check-ignore
+        ignored_idx, raw_idx = check_ignore("_notes/site-notes.txt", tmp, use_index=True)
+        report(
+            "git check-ignore (index mode) reports tracked file is NOT ignored",
+            not ignored_idx,
+            "Correctly not reported as ignored." if not ignored_idx else f"Unexpected: {raw_idx}"
+        )
+
+        ignored_noidx, raw_noidx = check_ignore("_notes/site-notes.txt", tmp, use_index=False)
+        report(
+            "git check-ignore --no-index identifies _notes pattern for tracked path",
+            ignored_noidx and "_notes" in raw_noidx,
+            f"Rule: {raw_noidx}" if ignored_noidx else "Unexpected: not matched"
+        )
+
+        # 8. Contrast with new untracked files which ARE ignored
+        touch(f"{tmp}/_notes/untracked-note.txt")
+        res_untracked = run(["git", "status", "--porcelain", "_notes/untracked-note.txt"], cwd=tmp)
+        report(
+            "New untracked file in _notes/ IS ignored by git status --porcelain",
+            res_untracked.stdout.strip() == "",
+            f"status: {res_untracked.stdout.strip()!r}"
+        )
+
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def main():
     print("=" * 60)
     print("R46-T010: Global/Dreamweaver.gitignore pattern checks")
@@ -257,6 +395,9 @@ def main():
     print()
 
     test_near_miss()
+    print()
+
+    test_tracked_file_behaviour()
     print()
 
     print("=" * 60)
