@@ -1,7 +1,12 @@
 # ignore ModelSim generated files and directories (temp files and so on)
+# The [_@]* pattern matches any filename that starts with _ or @, which
+# ModelSim uses for internal working files. Files already tracked by Git
+# remain visible despite matching this rule.
 [_@]*
 
 # ignore compilation output of ModelSim
+# *.mti (ModelSim Transcript Index) and *.dat (simulation data) are generated
+# during compilation and can be regenerated; they should not be committed.
 *.mti
 *.dat
 *.dbs
