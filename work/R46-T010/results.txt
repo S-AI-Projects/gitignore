@@ -1,0 +1,97 @@
+
+R46-T010: Global/Dreamweaver.gitignore Pattern Checks — Results
+============================================================
+Date     : 2026-11-22
+Branch   : R46-T010
+Git      : git version 2.55.0
+Python   : Python 3.14.7
+
+Template file  : Global/Dreamweaver.gitignore
+Patterns tested: _notes (line 2), _compareTemp (line 3), configs/ (line 4)
+
+──────────────────────────────────────────────
+1. PATTERN MECHANICS
+──────────────────────────────────────────────
+
+_notes:
+  A bare name with no slash. Matches both files and directories named
+  _notes at any depth. Dreamweaver creates this directory for local site
+  annotations that should not be committed.
+
+_compareTemp:
+  A bare name with no slash. Matches both files and directories named
+  _compareTemp at any depth. Dreamweaver creates this for temporary file
+  comparison data.
+
+configs/:
+  A name with a trailing slash. Restricts matching to directories only.
+  A regular file named "configs" would NOT be ignored.
+
+──────────────────────────────────────────────
+2. IGNORED PATHS (outputs)
+──────────────────────────────────────────────
+
+Path                           Rule matched             Line
+-----------------------------  -----------------------  ----
+_notes (dir)                   _notes                   2
+_notes/site-plan.txt           _notes                   2
+_compareTemp (dir)             _compareTemp             3
+_compareTemp/index.html.tmp    _compareTemp             3
+configs (dir)                  configs/                 4
+configs/site.xml               configs/                 4
+
+──────────────────────────────────────────────
+3. TRACKED PATHS (inputs — remain visible)
+──────────────────────────────────────────────
+
+Path               Reason
+-----------------  ------------------------------------------
+index.html         HTML source file — primary web page
+styles/main.css    Stylesheet
+scripts/app.js     JavaScript source
+images/logo.png    Image asset
+README.md          Documentation
+
+──────────────────────────────────────────────
+4. TRAILING-SLASH DISTINCTION
+──────────────────────────────────────────────
+
+Rule       Path (file)   Result
+---------  ----------    ------------------------------------------
+configs/   configs       NOT IGNORED — trailing slash = dirs only
+_notes     _notes        IGNORED — bare name matches files too
+
+──────────────────────────────────────────────
+5. NEAR-MISS NAMES (not matched)
+──────────────────────────────────────────────
+
+Path             Reason not matched
+---------------  ------------------------------------------
+notes/           No leading underscore
+_notes_backup/   Extra suffix beyond _notes
+compareTemp/     No leading underscore
+
+──────────────────────────────────────────────
+6. AUTOMATED CHECK RESULT
+──────────────────────────────────────────────
+
+Command : python3 work/R46-T010/check.py
+Result  : ALL CHECKS PASSED (15/15)
+
+──────────────────────────────────────────────
+7. TEMPLATE CHANGE
+──────────────────────────────────────────────
+
+Added concise explanatory comments to Global/Dreamweaver.gitignore:
+  - _notes: identifies the Dreamweaver local site notes directory.
+  - _compareTemp: identifies the file comparison temporary data.
+  - configs/: explains the trailing-slash directory-only restriction.
+
+No functional pattern changes were made.
+
+──────────────────────────────────────────────
+8. COMMANDS USED
+──────────────────────────────────────────────
+
+git check-ignore -v --no-index <path>
+python3 work/R46-T010/check.py
