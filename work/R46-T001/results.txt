@@ -1,3 +1,13 @@
+R46-T001: Dart.gitignore Pattern Checks — Results
+============================================================
+Date     : 2026-11-22
+Branch   : student/e26b07f0690/R46-T001
+Git      : git version 2.55.0
+Python   : Python 3.14.7
+
+Template file  : Dart.gitignore
+Patterns tested: .dart_tool/ (line 5), .packages (line 6), build/ (line 7)
+
 ============================================================
 R46-T001: Dart.gitignore pattern checks
 ============================================================
@@ -22,10 +32,17 @@ Pattern lines: .dart_tool/=5, .packages=6, build/=7
 
 ── Tracked-file behaviour ──
 [PASS] Ignored .packages can be force-added
-[PASS] Tracked .packages is not reported as ignored
+[PASS] Tracked .packages is committed
+[PASS] git status --porcelain shows clean working tree for committed tracked file
+       status: ''
+[PASS] git status --porcelain detects modifications to tracked .packages (not ignored)
+       status: 'M .packages'
+[PASS] Tracked .packages is not reported as ignored by check-ignore
        Correctly not hidden from index (tracked file).
 [PASS] Tracked .packages still matches .packages with --no-index
        --no-index rule: .gitignore:6:.packages	.packages
+[PASS] Untracked file in build/ is ignored by git status --porcelain
+       status: ''
 
 ============================================================
 RESULT: ALL CHECKS PASSED

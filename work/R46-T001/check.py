@@ -227,22 +227,59 @@ def test_tracked_file():
     git_init(tmp)
     gitignore_path = Path(tmp) / ".gitignore"
     gitignore_path.write_text(DART_GITIGNORE)
+    run(["git", "add", ".gitignore"], cwd=tmp)
+    run(["git", "commit", "-m", "add .gitignore"], cwd=tmp)
 
-    touch(f"{tmp}/.packages")
+    p = Path(tmp) / ".packages"
+    p.write_text("initial content\n")
 
     try:
+        # 1. Force-add and commit an ignored path
         result = run(["git", "add", "-f", ".packages"], cwd=tmp)
         report("Ignored .packages can be force-added", result.returncode == 0,
                result.stderr if result.returncode != 0 else "")
 
+        result = run(["git", "commit", "-m", "track .packages"], cwd=tmp)
+        report("Tracked .packages is committed", result.returncode == 0)
+
+        # 2. Verify git status --porcelain shows clean status when unmodified
+        status_clean = run(["git", "status", "--porcelain"], cwd=tmp)
+        report(
+            "git status --porcelain shows clean working tree for committed tracked file",
+            status_clean.stdout.strip() == "",
+            f"status: {status_clean.stdout.strip()!r}"
+        )
+
+        # 3. Modify tracked file and verify git status --porcelain reports modification
+        p.write_text("modified content\n")
+        status_mod = run(["git", "status", "--porcelain"], cwd=tmp)
+        is_modified = "M .packages" in status_mod.stdout
+        report(
+            "git status --porcelain detects modifications to tracked .packages (not ignored)",
+            is_modified,
+            f"status: {status_mod.stdout.strip()!r}"
+        )
+
+        # 4. Tracked file is not reported as ignored by check-ignore (index mode)
         assert_tracked_not_ignored(
-            "Tracked .packages is not reported as ignored",
+            "Tracked .packages is not reported as ignored by check-ignore",
             ".packages", tmp
         )
 
+        # 5. git check-ignore --no-index still matches the rule
         assert_no_index_matches(
             "Tracked .packages still matches .packages with --no-index",
             ".packages", tmp, ".packages"
+        )
+
+        # 6. Verify an untracked matching file is ignored by git status --porcelain
+        mkdir(f"{tmp}/build")
+        touch(f"{tmp}/build/output.txt")
+        status_untracked = run(["git", "status", "--porcelain", "build/output.txt"], cwd=tmp)
+        report(
+            "Untracked file in build/ is ignored by git status --porcelain",
+            status_untracked.stdout.strip() == "",
+            f"status: {status_untracked.stdout.strip()!r}"
         )
 
     finally:
