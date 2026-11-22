@@ -1,1 +1,7 @@
+# .otto/ — Otto infrastructure tool working directory.
+# The trailing slash restricts matching to directories only; a plain file
+# named .otto is NOT ignored. Without the trailing slash (.otto), a file
+# named .otto would also be ignored (false positive). With a leading slash
+# (/.otto/), only the root .otto/ is matched, missing nested occurrences
+# (false negative). The bare .otto/ pattern is the narrowest correct choice.
 .otto/
