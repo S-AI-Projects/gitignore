@@ -1,0 +1,38 @@
+============================================================
+R46-T005: ModelSim.gitignore pattern checks
+============================================================
+
+── Positive pattern checks ──
+[PASS] _transcript ignored by [_@]*
+       Rule: .gitignore:5:[_@]*	_transcript
+[PASS] @log ignored by [_@]*
+       Rule: .gitignore:5:[_@]*	@log
+[PASS] sim.mti ignored by *.mti
+       Rule: .gitignore:10:*.mti	sim.mti
+[PASS] results.dat ignored by *.dat
+       Rule: .gitignore:11:*.dat	results.dat
+[PASS] subdir/wave.dat ignored by *.dat
+       Rule: .gitignore:11:*.dat	subdir/wave.dat
+
+── Negative (near-miss) pattern checks ──
+[PASS] design.vhd is NOT ignored (Verilog/VHDL source file)
+[PASS] testbench.sv is NOT ignored (SystemVerilog source)
+[PASS] README.txt is NOT ignored (documentation)
+[PASS] simulationmti is NOT ignored (no .mti extension)
+[PASS] results.datx is NOT ignored (not *.dat)
+
+── Tracked-file behaviour ──
+[PASS] Pre-gitignore _tracked_work_file staged
+[PASS] Pre-gitignore _tracked_work_file committed
+[PASS] ModelSim .gitignore committed
+[PASS] Previously-tracked _tracked_work_file remains in index
+       File is still tracked (in index).
+[PASS] git check-ignore (index mode) returns non-ignored for tracked file
+       Correctly shows tracked file not ignored.
+[PASS] --no-index identifies [_@]* pattern for tracked file
+       Rule: .gitignore:5:[_@]*	_tracked_work_file
+[PASS] New untracked _new_untracked IS ignored by [_@]*
+
+============================================================
+RESULT: ALL CHECKS PASSED
+============================================================
