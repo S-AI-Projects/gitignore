@@ -1,13 +1,12 @@
-
 R46-T009: Global/Otto.gitignore Pattern Checks — Results
 ============================================================
 Date     : 2026-11-22
-Branch   : R46-T009
+Branch   : student/e26b07f0690/R46-T009
 Git      : git version 2.55.0
 Python   : Python 3.14.7
 
 Template file  : Global/Otto.gitignore
-Pattern tested : .otto/ (line 1)
+Pattern tested : .otto/ (line 7)
 
 ──────────────────────────────────────────────
 1. PATTERN MECHANICS
@@ -26,8 +25,8 @@ Pattern tested : .otto/ (line 1)
 
 Path                    Type        Result     Rule
 ----------------------  ----------  ---------  ---------------------------
-.otto (dir)             directory   IGNORED    .gitignore:1:.otto/
-.otto/compiled.json     file        IGNORED    .gitignore:1:.otto/
+.otto (dir)             directory   IGNORED    .gitignore:7:.otto/
+.otto/compiled.json     file        IGNORED    .gitignore:7:.otto/
 .otto (file)            file        NOT IGNORED — trailing slash = dirs only
 
 ──────────────────────────────────────────────
@@ -53,35 +52,68 @@ subproject/.otto    directory   NOT IGNORED ← FALSE NEGATIVE
                                 subdirectories or monorepos are missed.
 
 ──────────────────────────────────────────────
-5. RECOMMENDATION
+5. TRACKED-FILE BEHAVIOUR (.otto/tracked.txt)
 ──────────────────────────────────────────────
 
-The existing .otto/ rule is the narrowest correct choice:
-  - Trailing slash: excludes files named .otto (no false positive).
-  - No leading slash: matches at any depth (no false negative for nested).
-
-No real edit to the pattern is recommended.
-
-──────────────────────────────────────────────
-6. AUTOMATED CHECK RESULT
-──────────────────────────────────────────────
-
-Command : python3 work/R46-T009/check.py
-Result  : ALL CHECKS PASSED (10/10)
+Check                                                       Result
+----------------------------------------------------------  -------------------------------------------
+Stage pre-gitignore file                                    PASSED
+Commit pre-gitignore file                                   PASSED
+Clean status in git status --porcelain                      PASSED (file not untracked or ignored)
+File remains in index (git ls-files)                        PASSED
+git status --porcelain on modification                      PASSED (' M .otto/tracked.txt' detected)
+git check-ignore in index mode                              PASSED (exit 1 — tracked file not ignored)
+git check-ignore with --no-index                            PASSED (.gitignore:7:.otto/ matched)
+Untracked file in .otto/ ignored in porcelain status        PASSED (output empty — ignored)
 
 ──────────────────────────────────────────────
-7. TEMPLATE CHANGE
+6. AUTOMATED CHECK EXECUTION OUTPUT
 ──────────────────────────────────────────────
+============================================================
+R46-T009: Global/Otto.gitignore pattern checks
+============================================================
 
-Added an explanatory comment to Global/Otto.gitignore explaining:
-  - The trailing slash limits matching to directories only.
-  - The broader .otto (without slash) is a false positive for files.
-  - The narrower /.otto/ misses nested occurrences (false negative).
-  - The existing .otto/ rule is correct and no functional change is needed.
+── Original rule: .otto/ ──
+[PASS] .otto/ directory is IGNORED by .otto/
+       Rule: .gitignore:7:.otto/	.otto
+[PASS] .otto/compiled.json is IGNORED (inside ignored directory)
+       Rule: .gitignore:7:.otto/	.otto/compiled.json
 
-──────────────────────────────────────────────
-8. COMMANDS USED
-──────────────────────────────────────────────
+── File named .otto: NOT matched by .otto/ ──
+[PASS] file named .otto is NOT ignored by .otto/ (trailing slash = dirs only)
 
-git check-ignore -v --no-index <path>
-python3 work/R46-T009/check.py
+── Broader alternative: .otto (no trailing slash) — false positive ──
+[PASS] .otto directory is IGNORED by broader .otto rule
+       Rule: .gitignore:1:.otto	.otto
+[PASS] FALSE POSITIVE: file .otto is IGNORED by broader .otto rule (should not be ignored)
+       Rule: .gitignore:1:.otto	.otto
+
+── Narrower alternative: /.otto/ (anchored) — false negative ──
+[PASS] .otto/ at root IS ignored by narrower /.otto/ rule
+       Rule: .gitignore:1:/.otto/	.otto
+[PASS] FALSE NEGATIVE: subproject/.otto is NOT ignored by /.otto/ (anchored rule misses nested dirs)
+
+── Near-miss pattern checks ──
+[PASS] .otto_backup/ directory is NOT ignored
+[PASS] otto/ directory is NOT ignored (no leading dot)
+[PASS] README.md is NOT ignored
+
+── Tracked-file behaviour ──
+[PASS] .otto/tracked.txt staged before gitignore
+[PASS] .otto/tracked.txt committed before gitignore
+[PASS] .otto/tracked.txt clean state verified (not untracked or ignored in git status)
+       status: '?? .gitignore'
+[PASS] .otto/tracked.txt remains tracked in index
+       ls-files: '.otto/tracked.txt'
+[PASS] git status --porcelain detects modification to tracked .otto/tracked.txt (not hidden by .otto/)
+       status: 'M .otto/tracked.txt'
+[PASS] git check-ignore in index mode reports tracked file is NOT ignored
+       Correctly not reported as ignored.
+[PASS] git check-ignore with --no-index identifies .otto/ pattern for tracked path
+       Rule: .gitignore:7:.otto/	.otto/tracked.txt
+[PASS] New untracked file .otto/untracked.txt IS ignored in git status --porcelain
+       status: ''
+
+============================================================
+RESULT: ALL CHECKS PASSED
+============================================================

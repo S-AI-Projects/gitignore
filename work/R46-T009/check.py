@@ -248,6 +248,98 @@ def test_near_miss():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def test_tracked_file_behaviour():
+    """
+    Tracked-file behaviour check.
+    Verify that an already-tracked file (.otto/tracked.txt) committed before
+    adding .gitignore is not hidden or removed from Git status merely because
+    it matches .otto/.
+    """
+    print("── Tracked-file behaviour ──")
+    tmp = tempfile.mkdtemp(prefix="otto-t009-tracked-")
+    git_init(tmp)
+
+    try:
+        # 1. Create a test file named .otto/tracked.txt
+        p = Path(tmp) / ".otto" / "tracked.txt"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("tracked content\n")
+
+        # 2. Stage and commit that file before adding the .gitignore rule
+        res_add = run(["git", "add", ".otto/tracked.txt"], cwd=tmp)
+        report(
+            ".otto/tracked.txt staged before gitignore",
+            res_add.returncode == 0,
+            res_add.stderr if res_add.returncode != 0 else ""
+        )
+
+        res_commit = run(["git", "commit", "-m", "track .otto/tracked.txt before gitignore"], cwd=tmp)
+        report(
+            ".otto/tracked.txt committed before gitignore",
+            res_commit.returncode == 0,
+            res_commit.stderr if res_commit.returncode != 0 else ""
+        )
+
+        # 3. Add the actual Global/Otto.gitignore contents to .gitignore
+        (Path(tmp) / ".gitignore").write_text(OTTO_GITIGNORE)
+
+        # 4. Run git status --porcelain
+        # Verify that clean tracked file does not show as untracked/ignored
+        res_status_clean = run(["git", "status", "--porcelain"], cwd=tmp)
+        clean_lines = res_status_clean.stdout.splitlines()
+        tracked_in_clean = any(".otto/tracked.txt" in line for line in clean_lines)
+        report(
+            ".otto/tracked.txt clean state verified (not untracked or ignored in git status)",
+            not tracked_in_clean,
+            f"status: {res_status_clean.stdout.strip()!r}"
+        )
+
+        # Verify tracked file is listed by git ls-files (in the index)
+        res_ls = run(["git", "ls-files", ".otto/tracked.txt"], cwd=tmp)
+        report(
+            ".otto/tracked.txt remains tracked in index",
+            ".otto/tracked.txt" in res_ls.stdout,
+            f"ls-files: {res_ls.stdout.strip()!r}"
+        )
+
+        # 5. Modify the already-tracked file and verify git status --porcelain shows modification
+        p.write_text("modified tracked content\n")
+        res_status_mod = run(["git", "status", "--porcelain", ".otto/tracked.txt"], cwd=tmp)
+        is_modified = "M .otto/tracked.txt" in res_status_mod.stdout
+        report(
+            "git status --porcelain detects modification to tracked .otto/tracked.txt (not hidden by .otto/)",
+            is_modified,
+            f"status: {res_status_mod.stdout.strip()!r}"
+        )
+
+        # 6. Check index mode vs --no-index mode for check-ignore
+        ignored_idx, raw_idx = check_ignore(".otto/tracked.txt", tmp, use_index=True)
+        report(
+            "git check-ignore in index mode reports tracked file is NOT ignored",
+            not ignored_idx,
+            "Correctly not reported as ignored." if not ignored_idx else f"Unexpected: {raw_idx}"
+        )
+
+        ignored_noidx, raw_noidx = check_ignore(".otto/tracked.txt", tmp, use_index=False)
+        report(
+            "git check-ignore with --no-index identifies .otto/ pattern for tracked path",
+            ignored_noidx and ".otto/" in raw_noidx,
+            f"Rule: {raw_noidx}" if ignored_noidx else "Unexpected: not matched"
+        )
+
+        # 7. Compare with an untracked file in .otto/ which IS ignored
+        touch(f"{tmp}/.otto/untracked.txt")
+        res_status_untracked = run(["git", "status", "--porcelain", ".otto/untracked.txt"], cwd=tmp)
+        report(
+            "New untracked file .otto/untracked.txt IS ignored in git status --porcelain",
+            res_status_untracked.stdout.strip() == "",
+            f"status: {res_status_untracked.stdout.strip()!r}"
+        )
+
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def main():
     print("=" * 60)
     print("R46-T009: Global/Otto.gitignore pattern checks")
@@ -267,6 +359,9 @@ def main():
     print()
 
     test_near_miss()
+    print()
+
+    test_tracked_file_behaviour()
     print()
 
     print("=" * 60)
