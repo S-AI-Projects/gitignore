@@ -2,10 +2,17 @@
 ################################################################
 
 # Log files
+# *.log matches any file ending in .log (e.g. virtuoso.log, simulation.log).
+# panic*.log.* matches Virtuoso panic log files with an additional suffix
+# (e.g. panic.log.1, panic.log.backup). The * before .log.* allows any
+# text between "panic" and ".log."; the trailing .* requires at least one
+# more extension segment, so plain panic.log is NOT matched by this rule.
 *.log
 panic*.log.*
 
 # OpenAccess database lock files
+# *.cdslck* matches Cadence Design System lock files; the trailing * allows
+# additional characters after .cdslck (e.g. .cdslck1, .cdslck.tmp).
 *.cdslck*
 
 # Run directories for layout vs. schematic and design rule check
