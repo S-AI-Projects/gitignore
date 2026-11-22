@@ -1,0 +1,33 @@
+============================================================
+R46-T006: Modelica.gitignore pattern checks
+============================================================
+
+── Positive pattern checks ──
+[PASS] model.mo~ ignored by *~
+       Rule: .gitignore:12:*~	model.mo~
+[PASS] 'my model.mo~' (space in name) ignored by *~
+       Rule: .gitignore:12:*~	my model.mo~
+[PASS] model.bak ignored by *.bak
+       Rule: .gitignore:13:*.bak	model.bak
+[PASS] 'sub dir/component.bak' ignored by *.bak
+       Rule: .gitignore:13:*.bak	sub dir/component.bak
+[PASS] model.bak-mo ignored by *.bak-mo
+       Rule: .gitignore:14:*.bak-mo	model.bak-mo
+[PASS] subpackage/component.bak-mo ignored by *.bak-mo
+       Rule: .gitignore:14:*.bak-mo	subpackage/component.bak-mo
+
+── Negative (near-miss) pattern checks ──
+[PASS] model.mo is NOT ignored (Modelica source file)
+[PASS] package.order is NOT ignored
+[PASS] modelbak is NOT ignored (no .bak extension)
+[PASS] modelbak-mo is NOT ignored (no .bak-mo extension)
+
+── Case behaviour ──
+       core.ignorecase = 'true'
+[PASS] model.bak (canonical case) is ignored
+       Rule: .gitignore:13:*.bak	model.bak
+[INFO] MODEL.BAK ignored=True (core.ignorecase=true; filesystem-dependent)
+
+============================================================
+RESULT: ALL CHECKS PASSED
+============================================================

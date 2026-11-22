@@ -3,6 +3,12 @@
 # Ignore temporary files, build results, simulation files
 
 ## Modelica-specific files
+# *~ matches any file ending in ~ (editor backup/swap files, e.g. model.mo~).
+# *.bak matches general backup files (e.g. model.bak).
+# *.bak-mo is a Modelica-specific backup extension (e.g. model.bak-mo).
+# These patterns are case-sensitive on Linux/macOS (core.ignorecase=false);
+# on Windows (core.ignorecase=true) MODEL.BAK would also be matched.
+# Paths containing spaces are supported: "my model.bak" is correctly ignored.
 *~
 *.bak
 *.bak-mo
