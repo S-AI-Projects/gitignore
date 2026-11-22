@@ -1,0 +1,87 @@
+
+R46-T009: Global/Otto.gitignore Pattern Checks — Results
+============================================================
+Date     : 2026-11-22
+Branch   : R46-T009
+Git      : git version 2.55.0
+Python   : Python 3.14.7
+
+Template file  : Global/Otto.gitignore
+Pattern tested : .otto/ (line 1)
+
+──────────────────────────────────────────────
+1. PATTERN MECHANICS
+──────────────────────────────────────────────
+
+.otto/:
+  A pattern with a trailing slash. Per gitignore(5) §PATTERN FORMAT,
+  a trailing slash restricts matching to directories only. A regular file
+  named .otto is NOT matched. Without the trailing slash (.otto), files
+  would also be matched (false positive). Without the leading slash, the
+  pattern matches .otto/ directories at any depth (not just the root).
+
+──────────────────────────────────────────────
+2. ORIGINAL RULE RESULTS (.otto/)
+──────────────────────────────────────────────
+
+Path                    Type        Result     Rule
+----------------------  ----------  ---------  ---------------------------
+.otto (dir)             directory   IGNORED    .gitignore:1:.otto/
+.otto/compiled.json     file        IGNORED    .gitignore:1:.otto/
+.otto (file)            file        NOT IGNORED — trailing slash = dirs only
+
+──────────────────────────────────────────────
+3. BROADER ALTERNATIVE: .otto (without trailing slash)
+──────────────────────────────────────────────
+
+Path       Type        Result
+---------  ----------  -----------------------------------------
+.otto      directory   IGNORED (correct — same as original)
+.otto      file        IGNORED ← FALSE POSITIVE
+                       A file named .otto that is NOT Otto's
+                       generated directory would be incorrectly ignored.
+
+──────────────────────────────────────────────
+4. NARROWER ALTERNATIVE: /.otto/ (anchored to root)
+──────────────────────────────────────────────
+
+Path                Type        Result
+------------------  ----------  -----------------------------------------
+.otto (root)        directory   IGNORED (correct — same as original)
+subproject/.otto    directory   NOT IGNORED ← FALSE NEGATIVE
+                                Nested .otto/ directories used in
+                                subdirectories or monorepos are missed.
+
+──────────────────────────────────────────────
+5. RECOMMENDATION
+──────────────────────────────────────────────
+
+The existing .otto/ rule is the narrowest correct choice:
+  - Trailing slash: excludes files named .otto (no false positive).
+  - No leading slash: matches at any depth (no false negative for nested).
+
+No real edit to the pattern is recommended.
+
+──────────────────────────────────────────────
+6. AUTOMATED CHECK RESULT
+──────────────────────────────────────────────
+
+Command : python3 work/R46-T009/check.py
+Result  : ALL CHECKS PASSED (10/10)
+
+──────────────────────────────────────────────
+7. TEMPLATE CHANGE
+──────────────────────────────────────────────
+
+Added an explanatory comment to Global/Otto.gitignore explaining:
+  - The trailing slash limits matching to directories only.
+  - The broader .otto (without slash) is a false positive for files.
+  - The narrower /.otto/ misses nested occurrences (false negative).
+  - The existing .otto/ rule is correct and no functional change is needed.
+
+──────────────────────────────────────────────
+8. COMMANDS USED
+──────────────────────────────────────────────
+
+git check-ignore -v --no-index <path>
+python3 work/R46-T009/check.py
