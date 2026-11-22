@@ -1,0 +1,32 @@
+============================================================
+R46-T001: Dart.gitignore pattern checks
+============================================================
+Pattern lines: .dart_tool/=5, .packages=6, build/=7
+
+── Positive pattern checks ──
+[PASS] .dart_tool/ directory is ignored
+       Rule: .gitignore:5:.dart_tool/	.dart_tool/config.json
+[PASS] .packages file is ignored
+       Rule: .gitignore:6:.packages	.packages
+[PASS] build/ directory is ignored
+       Rule: .gitignore:7:build/	build/output.txt
+[PASS] Nested build/ directory is ignored
+       Rule: .gitignore:7:build/	sub/build/output.txt
+
+── Negative (near-miss) pattern checks ──
+[PASS] .dart_tool-file is NOT ignored (near miss)
+[PASS] .packages-backup is NOT ignored (near miss)
+[PASS] build.txt is NOT ignored (near miss)
+[PASS] pubspec.lock is ignored (also covered by template)
+       Rule: .gitignore:10:pubspec.lock	pubspec.lock
+
+── Tracked-file behaviour ──
+[PASS] Ignored .packages can be force-added
+[PASS] Tracked .packages is not reported as ignored
+       Correctly not hidden from index (tracked file).
+[PASS] Tracked .packages still matches .packages with --no-index
+       --no-index rule: .gitignore:6:.packages	.packages
+
+============================================================
+RESULT: ALL CHECKS PASSED
+============================================================
