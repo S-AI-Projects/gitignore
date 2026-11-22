@@ -1,0 +1,101 @@
+
+R46-T008: CodeIgniter.gitignore Pattern Checks — Results
+============================================================
+Date     : 2026-11-22
+Branch   : R46-T008
+Git      : git version 2.55.0
+Python   : Python 3.14.7
+
+Template file  : CodeIgniter.gitignore
+Patterns tested: */config/development (line 1), */logs/log-*.php (line 2),
+                 !*/logs/index.html (line 3)
+
+──────────────────────────────────────────────
+1. PATTERN MECHANICS
+──────────────────────────────────────────────
+
+*/config/development:
+  A glob with a leading directory wildcard. Matches a path whose second
+  component is "config" and final component is "development" (e.g.
+  application/config/development). The leading * means "any single
+  directory component", so it only matches one level deep.
+
+*/logs/log-*.php:
+  A glob with a leading directory wildcard. Matches date-stamped CodeIgniter
+  log files (e.g. log-2024-01-15.php) in any directory named "logs" one
+  level deep. The * wildcard matches any string of non-separator characters.
+
+!*/logs/index.html:
+  A negation rule. Overrides any earlier ignore rule for paths that match
+  "*/logs/index.html". The last matching rule wins in gitignore, so index.html
+  inside any "logs" directory remains unignored and therefore tracked.
+
+──────────────────────────────────────────────
+2. IGNORED PATHS
+──────────────────────────────────────────────
+
+Path                                     Rule matched
+---------------------------------------  --------------------------
+application/config/development (dir)     .gitignore:1:*/config/development
+myapp/logs/log-2024-01-15.php            .gitignore:2:*/logs/log-*.php
+myapp/logs/log-2024-12-01.php            .gitignore:2:*/logs/log-*.php
+application/logs/error.log               .gitignore:15:application/logs/*
+application/logs/log-2024-01-15.php      .gitignore:15:application/logs/*
+
+──────────────────────────────────────────────
+3. NOT-IGNORED PATHS (via git status --porcelain)
+──────────────────────────────────────────────
+
+Path                                       Reason
+-----------------------------------------  -------------------------------------------
+myapp/logs/index.html                      !*/logs/index.html negation re-includes it
+application/logs/index.html                !application/logs/index.html negation
+application/config/production/database.php Only development dir is ignored
+application/controllers/Welcome.php        Source file — not in logs/cache/config
+README.md                                  Documentation
+
+──────────────────────────────────────────────
+4. NEGATION BEHAVIOR NOTES
+──────────────────────────────────────────────
+
+git check-ignore -v --no-index reports exit 0 when the last matching rule
+is a negation (e.g. !*/logs/index.html). This can be misleading. The file
+is NOT effectively ignored. The authoritative check is git status --porcelain:
+  - Output "?? <path>" means the file is untracked (not ignored).
+  - No output (empty) means the file IS ignored.
+
+This distinction was validated by manual testing before writing the check.
+
+──────────────────────────────────────────────
+5. LAST-MATCH ORDERING
+──────────────────────────────────────────────
+
+For application/logs/log-*.php, the CI3 rule application/logs/* (line 15)
+is later than */logs/log-*.php (line 2). Git reports line 15 as responsible.
+Both rules produce IGNORED; the later rule is the effective one.
+
+──────────────────────────────────────────────
+6. AUTOMATED CHECK RESULT
+──────────────────────────────────────────────
+
+Command : python3 work/R46-T008/check.py
+Result  : ALL CHECKS PASSED (13/13)
+
+──────────────────────────────────────────────
+7. TEMPLATE CHANGE
+──────────────────────────────────────────────
+
+Added concise explanatory comments to CodeIgniter.gitignore explaining:
+  - */config/development: development config directory purpose.
+  - */logs/log-*.php: date-stamped log file pattern.
+  - !*/logs/index.html: negation last-match behavior.
+
+No functional pattern changes were made.
+
+──────────────────────────────────────────────
+8. COMMANDS USED
+──────────────────────────────────────────────
+
+git check-ignore -v --no-index <path>
+git status --porcelain <path>
+python3 work/R46-T008/check.py

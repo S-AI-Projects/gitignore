@@ -1,3 +1,9 @@
+# */config/development ignores the development-only configuration directory
+# that holds database credentials and environment settings.
+# */logs/log-*.php matches date-stamped CodeIgniter log files at any depth.
+# !*/logs/index.html re-includes index.html so the logs directory itself
+# (a plain directory listing gate) remains committed and tracked. A later
+# !*/logs/index.html negation overrides an earlier ignore rule by last-match.
 */config/development
 */logs/log-*.php
 !*/logs/index.html
