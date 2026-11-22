@@ -1,2 +1,7 @@
-# The compilation directory
+# The compilation directory created by EiffelStudio (e.g. project/EIFGENs).
+# A bare name pattern (no leading or trailing slash) matches the directory at
+# any depth in the repository tree, so EIFGENs/, src/EIFGENs/, and
+# a/b/EIFGENs/ are all ignored. Files contained within any matched directory
+# are implicitly ignored too. Names that merely start with or contain the
+# string "EIFGENs" (e.g. EIFGENs-backup, EIFGENs_extra) are NOT matched.
 EIFGENs
