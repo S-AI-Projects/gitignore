@@ -1,3 +1,8 @@
+# Compiled output files (PDF, PostScript, MIDI).
+# These bare glob patterns match both files and directories of the same
+# extension at any depth in the repository tree. Files inside a matched
+# directory are ignored transitively. Names that only start with or contain
+# the extension string (e.g. score.pdf.bak) are not matched.
 *.pdf
 *.ps
 *.midi
