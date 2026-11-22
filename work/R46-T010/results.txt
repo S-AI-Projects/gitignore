@@ -1,0 +1,145 @@
+R46-T010: Global/Dreamweaver.gitignore Pattern Checks — Results
+============================================================
+Date     : 2026-11-22
+Branch   : student/e26b07f0690/R46-T010
+Git      : git version 2.55.0
+Python   : Python 3.14.7
+
+Template file  : Global/Dreamweaver.gitignore
+Patterns tested: _notes (line 6), _compareTemp (line 7), configs/ (line 8)
+
+──────────────────────────────────────────────
+1. PATTERN MECHANICS
+──────────────────────────────────────────────
+
+_notes:
+  A bare name with no slash. Matches both files and directories named
+  _notes at any depth. Dreamweaver creates this directory for local site
+  annotations that should not be committed.
+
+_compareTemp:
+  A bare name with no slash. Matches both files and directories named
+  _compareTemp at any depth. Dreamweaver creates this for temporary file
+  comparison data.
+
+configs/:
+  A name with a trailing slash. Restricts matching to directories only.
+  A regular file named "configs" would NOT be ignored.
+
+──────────────────────────────────────────────
+2. IGNORED PATHS (outputs)
+──────────────────────────────────────────────
+
+Path                           Rule matched             Line
+-----------------------------  -----------------------  ----
+_notes (dir)                   _notes                   6
+_notes/site-plan.txt           _notes                   6
+_compareTemp (dir)             _compareTemp             7
+_compareTemp/index.html.tmp    _compareTemp             7
+configs (dir)                  configs/                 8
+configs/site.xml               configs/                 8
+
+──────────────────────────────────────────────
+3. TRACKED PATHS (inputs — remain visible)
+──────────────────────────────────────────────
+
+Path               Reason
+-----------------  ------------------------------------------
+index.html         HTML source file — primary web page
+styles/main.css    Stylesheet
+scripts/app.js     JavaScript source
+images/logo.png    Image asset
+README.md          Documentation
+
+──────────────────────────────────────────────
+4. TRAILING-SLASH DISTINCTION
+──────────────────────────────────────────────
+
+Rule       Path (file)   Result
+---------  ----------    ------------------------------------------
+configs/   configs       NOT IGNORED — trailing slash = dirs only
+_notes     _notes        IGNORED — bare name matches files too
+
+──────────────────────────────────────────────
+5. NEAR-MISS NAMES (not matched)
+──────────────────────────────────────────────
+
+Path             Reason not matched
+---------------  ------------------------------------------
+notes/           No leading underscore
+_notes_backup/   Extra suffix beyond _notes
+compareTemp/     No leading underscore
+
+──────────────────────────────────────────────
+6. TRACKED-FILE BEHAVIOUR (_notes, _compareTemp, configs/)
+──────────────────────────────────────────────
+
+Pre-committed files matching each pattern remain tracked and visible:
+  - _notes/site-notes.txt
+  - _compareTemp/compare.tmp
+  - configs/site.xml
+Verified via git ls-files and modifications detected via git status --porcelain.
+
+──────────────────────────────────────────────
+7. AUTOMATED CHECK EXECUTION OUTPUT
+──────────────────────────────────────────────
+============================================================
+R46-T010: Global/Dreamweaver.gitignore pattern checks
+============================================================
+
+── Positive pattern checks ──
+[PASS] _notes directory is IGNORED by _notes
+       Rule: .gitignore:6:_notes	_notes
+[PASS] _notes/site-plan.txt is IGNORED (inside ignored _notes)
+       Rule: .gitignore:6:_notes	_notes/site-plan.txt
+[PASS] _compareTemp directory is IGNORED by _compareTemp
+       Rule: .gitignore:7:_compareTemp	_compareTemp
+[PASS] _compareTemp/index.html.tmp is IGNORED (inside ignored _compareTemp)
+       Rule: .gitignore:7:_compareTemp	_compareTemp/index.html.tmp
+[PASS] configs/ directory is IGNORED by configs/
+       Rule: .gitignore:8:configs/	configs
+[PASS] configs/site.xml is IGNORED (inside ignored configs/)
+       Rule: .gitignore:8:configs/	configs/site.xml
+
+── configs/ trailing slash: directories only ──
+[PASS] file named 'configs' is NOT ignored by configs/ (trailing slash = dirs only)
+
+── Tracked inputs: should NOT be ignored ──
+[PASS] index.html is NOT ignored (source file)
+[PASS] styles/main.css is NOT ignored (stylesheet)
+[PASS] scripts/app.js is NOT ignored (script)
+[PASS] images/logo.png is NOT ignored (image)
+[PASS] README.md is NOT ignored (documentation)
+
+── Near-miss pattern checks ──
+[PASS] notes/ directory is NOT ignored (no leading underscore)
+[PASS] _notes_backup/ is NOT ignored (extra suffix)
+[PASS] compareTemp/ is NOT ignored (no leading underscore)
+
+── Tracked-file behaviour ──
+[PASS] Pre-gitignore matching files staged
+[PASS] Pre-gitignore matching files committed
+[PASS] Pre-committed _notes/site-notes.txt remains tracked in index
+       ls-files: '_compareTemp/compare.tmp\n_notes/site-notes.txt\nconfigs/site.xml'
+[PASS] Pre-committed _compareTemp/compare.tmp remains tracked in index
+       ls-files: '_compareTemp/compare.tmp\n_notes/site-notes.txt\nconfigs/site.xml'
+[PASS] Pre-committed configs/site.xml remains tracked in index
+       ls-files: '_compareTemp/compare.tmp\n_notes/site-notes.txt\nconfigs/site.xml'
+[PASS] Tracked matching files are clean in git status --porcelain (not untracked or ignored)
+       status: '?? .gitignore'
+[PASS] git status --porcelain detects modification to tracked _notes/site-notes.txt
+       status: 'M _compareTemp/compare.tmp\n M _notes/site-notes.txt\n M configs/site.xml\n?? .gitignore'
+[PASS] git status --porcelain detects modification to tracked _compareTemp/compare.tmp
+       status: 'M _compareTemp/compare.tmp\n M _notes/site-notes.txt\n M configs/site.xml\n?? .gitignore'
+[PASS] git status --porcelain detects modification to tracked configs/site.xml
+       status: 'M _compareTemp/compare.tmp\n M _notes/site-notes.txt\n M configs/site.xml\n?? .gitignore'
+[PASS] git check-ignore (index mode) reports tracked file is NOT ignored
+       Correctly not reported as ignored.
+[PASS] git check-ignore --no-index identifies _notes pattern for tracked path
+       Rule: .gitignore:6:_notes	_notes/site-notes.txt
+[PASS] New untracked file in _notes/ IS ignored by git status --porcelain
+       status: ''
+
+============================================================
+RESULT: ALL CHECKS PASSED
+============================================================

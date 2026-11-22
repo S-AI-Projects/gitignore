@@ -1,4 +1,8 @@
 # DW Dreamweaver added files
+# _notes — Dreamweaver local site notes directory (not part of the web root).
+# _compareTemp — temporary comparison data created by Dreamweaver's file diff.
+# configs/ — Dreamweaver site configuration directory; trailing slash means
+#   only directories named "configs" are ignored, not files with that name.
 _notes
 _compareTemp
 configs/
