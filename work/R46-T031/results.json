@@ -1,0 +1,94 @@
+{
+  "task": "R46-T031",
+  "template": "Gradle.gitignore",
+  "timestamp": "2026-11-23T15:48:30.719862",
+  "git_version": "git version 2.54.0 (Apple Git-157)",
+  "python_version": "3.14.6 (v3.14.6:c63aec69bd5, Jun 10 2026, 08:07:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "rules_tested": [
+    ".gradle",
+    "**/build/",
+    "!**/src/**/build/"
+  ],
+  "fixtures": [
+    {
+      "path": ".gradle/cache.bin",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_rule": ".gradle",
+      "actual_rule_output": ".gitignore:2:.gradle\t.gradle/cache.bin",
+      "passed": true
+    },
+    {
+      "path": "module/.gradle/cache.bin",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_rule": ".gradle",
+      "actual_rule_output": ".gitignore:2:.gradle\tmodule/.gradle/cache.bin",
+      "passed": true
+    },
+    {
+      "path": "gradle-cache/cache.bin",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_rule": null,
+      "actual_rule_output": null,
+      "passed": true
+    },
+    {
+      "path": "build/output.txt",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_rule": "**/build/",
+      "actual_rule_output": ".gitignore:3:**/build/\tbuild/output.txt",
+      "passed": true
+    },
+    {
+      "path": "module/build/output.txt",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "expected_rule": "**/build/",
+      "actual_rule_output": ".gitignore:3:**/build/\tmodule/build/output.txt",
+      "passed": true
+    },
+    {
+      "path": "build.gradle",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_rule": null,
+      "actual_rule_output": null,
+      "passed": true
+    },
+    {
+      "path": "build.gradle.kts",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_rule": null,
+      "actual_rule_output": null,
+      "passed": true
+    },
+    {
+      "path": "src/main/java/build/legitimate-source.txt",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_rule": null,
+      "actual_rule_output": null,
+      "passed": true
+    },
+    {
+      "path": "module/src/test/build/legitimate-test-output.txt",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "expected_rule": null,
+      "actual_rule_output": null,
+      "passed": true
+    }
+  ],
+  "tracked_file_behavior": {
+    "path": "build/tracked-output.txt",
+    "modified_after_ignore_added": true,
+    "visible_in_git_status": true,
+    "status_output": "M build/tracked-output.txt\n?? .gitignore\n?? build.gradle\n?? build.gradle.kts\n?? gradle-cache/\n?? module/\n?? src/",
+    "passed": true
+  },
+  "overall_pass": true
+}

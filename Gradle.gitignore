@@ -1,3 +1,4 @@
+# Ignore Gradle caches and build outputs, but keep build directories inside source trees.
 .gradle
 **/build/
 !**/src/**/build/
